@@ -10,7 +10,7 @@ router.get('/', isLoggedIn, function (req, res, next) {
   } else {
    res.render('user', {  user: sess.usuarioDatos });
  }
- 
+
 });
 
 
@@ -37,7 +37,7 @@ router.post('/update', function (req,res,next) {
      res.send(true);
    } else {
     res.sendStatus(500);
-  }   
+  }
 }
 })
 })
@@ -54,7 +54,7 @@ router.post('/delete', function (req,res,next) {
      res.send(true);
    } else {
     res.sendStatus(500);
-  }   
+  }
 }
 })
 })
@@ -73,7 +73,7 @@ router.post('/create', function (req,res,next) {
      res.send(true);
    } else {
     res.sendStatus(500);
-  }   
+  }
 }
 })
 })
@@ -83,14 +83,12 @@ router.post('/login', function (req,res,next) {
   var sess = req.session;
   user.login(req.body, function (err, dates) {
     if (err) {
-      console.log(err);
-      res.render('login',{message: 'Credenciales incorrectas'});
-    } else if (dates==='') {
-      res.render('login',{message: 'El usuario no existe'});
+      res.render('login',{message:err})
     } else {
       sess.usuarioDatos = dates;
       res.redirect('/');
     }
+
   });
 });
 

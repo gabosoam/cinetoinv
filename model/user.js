@@ -116,19 +116,19 @@ module.exports = {
                                 email: results[0].email,
                                 rol: results[0].rol
                             };
-                            msg = usuarioDatos;
-                            
+                            callback(null, usuarioDatos);
+
                         } else {
-                            msg = "";
-                            console.log("Contraseña incorrecta"+error);
+                            callback('La contraseña es incorrecta',null)
+
                         }
                             //console.log("La contraseña es: ",generateHash(results[0].password));
                         } else {
-                            msg = "";
-                            console.log("El usuario no existe");
+                            callback('El usuario no existe',null);
+
                         }
                     }
-                    callback(null, msg);
+
                     connection.release();
                 });
             }
