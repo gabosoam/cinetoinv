@@ -48,7 +48,7 @@ $(document).ready(function () {
         height: 475,
         filterable: true,
         pageable: { refresh: true, pageSizes: true, },
-        toolbar: ['create'],
+        toolbar: ['create','excel'],
         columns: [
             { field: "name", title: "Nombre", filterable: { multi: true, search: true, search: true } },
             { field: "lastname", title: "Apellido", filterable: { multi: true, search: true, search: true } },

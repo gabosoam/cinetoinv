@@ -47,7 +47,7 @@ $(document).ready(function () {
         height: 475,
         filterable: true,
         pageable: { refresh: true, pageSizes: true, },
-        toolbar: ['create'],
+        toolbar: ['create','excel'],
         columns: [
             { field: "dni", title: "Cedula/RUC", filterable: { multi: true, search: true, search: true } },
             { field: "name", title: "Nombre o razon social", filterable: { multi: true, search: true, search: true } },

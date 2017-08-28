@@ -1,11 +1,3 @@
-var roles = [{
-    "value": 1,
-    "text": "Usuario"
-}, {
-    "value": 2,
-    "text": "Administrador"
-}];
-
 
 
 kendo.culture("es-ES");
@@ -32,8 +24,7 @@ $(document).ready(function () {
                 id: "id",
                 fields: {
                     description: { validation: { required: true, }, type: 'string' },
-                    smallDescription: { validation: { required: true, }, type: 'string' },
-                    size: { validation: { required: true, }, type: 'number' }
+                    smallDescription: { validation: { required: true, }, type: 'string' }
                 }
             }
         }
@@ -45,11 +36,10 @@ $(document).ready(function () {
         height: 475,
         filterable: true,
         pageable: { refresh: true, pageSizes: true, },
-        toolbar: ['create'],
+        toolbar: ['create','excel'],
         columns: [
         { field: "description", title: "Descripción", filterable: { multi: true, search: true, search: true } },
         { field: "smallDescription", title: "Descripción corta", filterable: { multi: true, search: true, search: true } },
-        { field: "size", title: "Cantidad divisible", filterable: { multi: true, search: true, search: true } },
         { command: ["edit", "destroy"], title: "Acciones", width: '200px' }],
         editable: "inline"
     });

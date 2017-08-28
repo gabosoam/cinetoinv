@@ -44,7 +44,7 @@ $(document).ready(function () {
         height: 475,
         filterable: true,
         pageable: { refresh: true, pageSizes: true, },
-        toolbar: ['create'],
+        toolbar: ['create','excel'],
         columns: [
             { field: "name", title: "Almacén", filterable: { multi: true, search: true, search: true } },
             { field: "description", title: "Descripción", filterable: { multi: true, search: true, search: true } },

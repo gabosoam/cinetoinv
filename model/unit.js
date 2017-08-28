@@ -22,7 +22,7 @@ module.exports = {
                     if (error) {
                       console.log(error);
                         callback('error en la consulta: ' + error, null);
-                    } else {                 
+                    } else {
                         callback(null, results);
                         connection.release();
                     }
@@ -39,7 +39,7 @@ module.exports = {
                     if (error) {
                       console.log(error);
                         callback('error en la consulta: ' + error, null);
-                    } else {                 
+                    } else {
                         callback(null, results);
                         connection.release();
                     }
@@ -52,7 +52,7 @@ module.exports = {
             if (err) {
                 callback(err, null);
             } else {
-                connection.query('UPDATE unit SET description=?, smallDescription=?, size=? WHERE (id=?) LIMIT 1', [datos.description, datos.smallDescription,datos.size,datos.id], function (error, results, fields) {//
+                connection.query('UPDATE unit SET description=?, smallDescription=? WHERE (id=?) LIMIT 1', [datos.description, datos.smallDescription,datos.id], function (error, results, fields) {//
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {
@@ -86,8 +86,8 @@ module.exports = {
         connection.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null);
-            } else {                
-                connection.query('INSERT INTO unit(description,smallDescription,size) VALUES(?,?,?)', [datos.description, datos.smallDescription, datos.size], function (error, results, fields) {//
+            } else {
+                connection.query('INSERT INTO unit(description,smallDescription) VALUES(?,?)', [datos.description, datos.smallDescription], function (error, results, fields) {//
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {

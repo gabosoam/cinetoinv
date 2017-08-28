@@ -66,7 +66,7 @@ module.exports = {
             if (err) {
                 callback(err, null);
             } else {
-                connection.query('UPDATE variant SET code=?, description=?, price=?, stockmin=?, unit=? WHERE (id=?) LIMIT 1', [datos.code, datos.description, datos.price, datos.stockmin, datos.unit, datos.id], function (error, results, fields) {//
+                connection.query('UPDATE variant SET code=?, description=?, stockmin=?, unit=? WHERE (id=?) LIMIT 1', [datos.code, datos.description, datos.stockmin, datos.unit, datos.id], function (error, results, fields) {//
                     if (error) {
 
                         callback('error en la consulta: ' + error, null);
@@ -111,7 +111,7 @@ module.exports = {
                 callback(err, null);
             } else {
 
-                connection.query('INSERT INTO variant(code, description, model, price,stockmin,unit) VALUES(?,?,?,?,?,?)', [datos.code, datos.description, datos.model, datos.price, datos.stockmin, datos.unit], function (error, results, fields) {
+                connection.query('INSERT INTO variant(code, description, model,stockmin,unit) VALUES(?,?,?,?,?)', [datos.code, datos.description, datos.model, datos.price, datos.stockmin, datos.unit], function (error, results, fields) {
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {

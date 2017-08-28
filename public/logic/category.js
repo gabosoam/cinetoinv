@@ -43,7 +43,7 @@ $(document).ready(function () {
         height: 475,
         filterable: true,
         pageable: { refresh: true, pageSizes: true, },
-        toolbar: ['create'],
+        toolbar: ['create','excel'],
         columns: [
             { field: "name", title: "Categoría", filterable: { multi: true, search: true, search: true } },
             { command: ["edit", "destroy"], title: "Acciones", width: '200px' }],

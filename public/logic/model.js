@@ -36,18 +36,8 @@ $(document).ready(function () {
             dataSource: dataSource,
             height: 500,
             filterable: true,
-            toolbar: ['create', 'pdf', 'excel'],
-            pdf: {
-                title: 'reporte',
-                allPages: true,
-                avoidLinks: false,
-                paperSize: "A4",
-                margin: { top: "2cm", left: "1cm", right: "1cm", bottom: "1cm" },
-                landscape: true,
-                repeatHeaders: true,
-                template: $("#page-template").html(),
-                scale: 0.8
-            },
+            toolbar: ['create', 'excel'],
+
             pdfExport: function (e) {
                 var grid = $("#grid").data("kendoGrid");
                 grid.hideColumn(3);
@@ -100,7 +90,6 @@ function detailInit(e) {
                         model: { editable: false, type: 'string', defaultValue: e.data.id },
                         code: { validation: { required: true, }, type: 'string' },
                         description: { validation: { required: true, }, type: 'string' },
-                        price: { validation: { required: true }, type: 'number' },
                         unit: { validation: { required: true } },
                         stockmin: { validation: { required: true, }, type: 'number'},
 
@@ -118,7 +107,6 @@ function detailInit(e) {
             { field: "model", title: "Módelo", width: '1px', filterable: { multi: true, search: true, search: true } },
             { field: "code", title: "Código", filterable: { multi: true, search: true, search: true } },
             { field: "description", title: "Variante", filterable: { multi: true, search: true, search: true } },
-            { field: "price", title: "Precio", filterable: { search: true, search: true } },
             { field: "stockmin", title: "Stock mínimo", filterable: { search: true, search: true } },
             { field: "unit", values: unid, title: "Unidad de medida" },
             { command: ["edit", "destroy"], title: "Acciones" }
