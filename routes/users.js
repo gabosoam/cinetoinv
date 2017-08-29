@@ -38,6 +38,19 @@ router.io.on('connection', function (socket) {
     });
   });
 
+  socket.on('getUnit', function (callback) {
+    unit.read2(function (error, unit) {
+      if (error) {
+
+      } else {
+        callback(unit);
+
+      }
+
+    })
+
+  })
+
 
 
   socket.on('disconnect', function () {

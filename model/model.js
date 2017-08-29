@@ -22,11 +22,34 @@ module.exports = {
             } else {
                 connection.query('SELECT  * FROM model;', function (error, results, fields) {
                     if (error) {
-                  
+
                         callback('error en la consulta: ' + error, null);
                     } else {
 
-                  
+
+                        callback(null, results);
+
+                        connection.release();
+
+
+                    }
+                });
+            }
+        });
+    },
+
+    read2: function (callback) {
+        connection.getConnection(function (err, connection) {
+            if (err) {
+                callback(err, null);
+            } else {
+                connection.query('SELECT  * FROM v_model;', function (error, results, fields) {
+                    if (error) {
+
+                        callback('error en la consulta: ' + error, null);
+                    } else {
+
+
                         callback(null, results);
 
                         connection.release();
@@ -43,7 +66,7 @@ module.exports = {
             if (err) {
                 callback(err, null);
             } else {
-                connection.query('UPDATE `model` SET `name`=?,`category`=?,`brand`=? WHERE (`id`=?) LIMIT 1', [datos.name,datos.category,datos.brand, datos.id], function (error, results, fields) {//
+                connection.query('UPDATE model SET `description`=?, `stockmin`=?, `unit`=?, `brand`=?, `category`=? WHERE (`code`=?) LIMIT 1', [datos.description,datos.stockmin,datos.unit, datos.brand,datos.category,datos.code], function (error, results, fields) {//
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {
@@ -63,7 +86,7 @@ module.exports = {
             if (err) {
                 callback(err, null);
             } else {
-                connection.query('DELETE FROM model WHERE id=?', [datos.id], function (error, results, fields) {//
+                connection.query('DELETE FROM model WHERE code=?', [datos.code], function (error, results, fields) {//
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {
@@ -81,13 +104,13 @@ module.exports = {
 
     create: function (datos, callback) {
 
-          
+
         connection.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null);
             } else {
-                
-                connection.query('INSERT INTO model(name, category, brand, unit) VALUES(?,?,?,?)', [datos.name,datos.category,datos.brand,datos.unit], function (error, results, fields) {//
+
+                connection.query('INSERT INTO model SET ?;', datos, function (error, results, fields) {//
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {

@@ -24,11 +24,20 @@ router.get('/read', function (req, res, next) {
   })
 });
 
+router.get('/read2', function (req, res, next) {
+  model.read2(function (error, datos) {
+    if (error) {
+    } else {
+      res.send(datos);
+    }
+  })
+});
+
 router.post('/update', function (req,res,next) {
    var datos= req.body;
    model.update(datos,function(error, datos){
     if (error) {
-  
+
       res.sendStatus(500);
     } else {
 
@@ -36,7 +45,7 @@ router.post('/update', function (req,res,next) {
            res.send(true);
       } else {
             res.sendStatus(500);
-      }   
+      }
     }
   })
 })
@@ -53,7 +62,7 @@ router.post('/delete', function (req,res,next) {
            res.send(true);
       } else {
             res.sendStatus(500);
-      }   
+      }
     }
   })
 })
@@ -71,7 +80,7 @@ router.post('/create', function (req,res,next) {
            res.send(true);
       } else {
             res.sendStatus(500);
-      }   
+      }
     }
   })
 })

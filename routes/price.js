@@ -19,7 +19,7 @@ router.get('/read',isLoggedIn, function (req, res, next) {
   price.read(function (error, datos) {
     if (error) {
     } else {
-      console.log(datos);
+
       res.send(datos);
     }
   })
@@ -27,6 +27,8 @@ router.get('/read',isLoggedIn, function (req, res, next) {
 
 router.post('/update', function (req,res,next) {
    var datos= req.body;
+
+
    price.update(datos,function(error, datos){
     if (error) {
 

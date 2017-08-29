@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var product = require('../model/product');
 
 /* GET home page. */
 router.get('/',isLoggedIn, function(req, res, next) {
@@ -8,6 +9,19 @@ router.get('/',isLoggedIn, function(req, res, next) {
 
 router.get('/login', function(req, res, next) {
 	res.render('login',{message: null});
+});
+
+router.get('/report', isLoggedIn, function(req, res, next) {
+	res.render('report',{  user: sess.usuarioDatos });
+});
+
+router.get('/report/read', function (req, res, next) {
+  product.read(function (error, datos) {
+    if (error) {
+    } else {
+      res.send(datos);
+    }
+  })
 });
 
 function isLoggedIn(req, res, next) {
