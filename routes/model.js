@@ -69,6 +69,7 @@ router.post('/delete', function (req,res,next) {
 
 
 router.post('/create', function (req,res,next) {
+console.log('ya llegue');
    var datos= req.body;
    model.create(datos,function(error, datos){
     if (error) {

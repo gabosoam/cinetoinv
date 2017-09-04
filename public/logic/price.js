@@ -46,11 +46,11 @@ var element = $("#grid").kendoGrid({
     // this.expandRow(this.tbody.find("tr.k-master-row").first());
   },
   columns: [
-    { field: "id", title: "Código", filterable: { multi: true, search: true, search: true } },
-    { field: "description", title: "Producto", filterable: { multi: true, search: true, search: true } },
-    { field: "unit", title: "Unidad de medida", filterable: { multi: true, search: true, search: true } },
-    { field: "category", title: "Categoría", filterable: { multi: true, search: true, search: true } },
-    { field: "brand", title: "Marca", filterable: { multi: true, search: true, search: true } }],
+    { field: "id", title: "Código", filterable: { search: true } },
+    { field: "description", title: "Producto", filterable: {  search: true } },
+    { field: "unit", title: "Unidad de medida", filterable: { search: true } },
+    { field: "category", title: "Categoría", filterable: {  search: true } },
+    { field: "brand", title: "Marca", filterable: { search: true } }],
     editable: "inline"
   });
 
@@ -96,7 +96,7 @@ function detailInit(e) {
       sortable: true,
       filterable: true,
       pageable: false,
-      toolbar: ['create', 'excel'],
+      toolbar: ['create', 'excel','pdf'],
       columns: [
         { field: "description",values: unid, title: "Unidad de salida", filterable: { multi: true, search: true, search: true } },
         { field: "size", title: "Divisible", filterable: { multi: true, search: true, search: true } },

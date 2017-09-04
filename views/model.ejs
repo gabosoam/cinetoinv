@@ -104,6 +104,7 @@
       </section>
       <footer class="main-footer">
         <div class="container-fluid">
+         
           <div class="row">
             <div class="col-sm-6">
               <p>Cineto Telecomunicaciones &copy; 2017</p>
@@ -153,6 +154,96 @@
       e.src='//www.google-analytics.com/analytics.js';
       r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
       ga('create','UA-XXXXX-X');ga('send','pageview');
+
+      
     </script>
+      <script type="x/kendo-template" id="page-template">
+        
+        <div class="page-template">
+
+           
+          
+          <div class="header">
+            <img src="../image/logo.svg" alt="" width="200px">
+            <h2 style="text-align:center">Reporte de productos</h2>
+          </div>
+          <div class="watermark">CINETO</div>
+          <div class="footer">
+            La Pinta 236 y Rábida. Quito Ecuador, Edficio Alcatel Teléfono: (593-2) 5100 528 - Email: info@cineto.net
+            <div style="float: right">Página #: pageNum # de #: totalPages #</div>
+          </div>
+        </div>
+      </script>
   </body>
 </html>
+<style>
+  /* Page Template for the exported PDF */
+  .page-template {
+    font-family: "DejaVu Sans", "Arial", sans-serif;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  .cosa{
+    background: url("../image/logo.png");
+  }
+
+  .page-template .header {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    right: 30px;
+    border-bottom: 1px solid #888;
+    color: black;
+  }
+
+  .page-template .imgagen{
+    max-width: 100px;
+
+  }
+
+  .page-template .footer {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    right: 30px;
+    border-top: 1px solid #888;
+    text-align: center;
+    color: #888;
+  }
+  .page-template .watermark {
+    font-weight: bold;
+    font-size: 400%;
+    text-align: center;
+    margin-top: 30%;
+    color: #aaaaaa;
+    opacity: 0.1;
+    transform: rotate(-35deg) scale(1.7, 1.5);
+  }
+
+  /* Content styling */
+  .customer-photo {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-size: 32px 35px;
+    background-position: center center;
+    vertical-align: middle;
+    line-height: 32px;
+    box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0,0,0,.2);
+    margin-left: 5px;
+  }
+  kendo-pdf-document .customer-photo {
+    border: 1px solid #dedede;
+  }
+  .customer-name {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 32px;
+    padding-left: 3px;
+  }
+</style>

@@ -66,7 +66,7 @@ module.exports = {
             if (err) {
                 callback(err, null);
             } else {
-                connection.query('UPDATE model SET `description`=?, `stockmin`=?, `unit`=?, `brand`=?, `category`=? WHERE (`code`=?) LIMIT 1', [datos.description,datos.stockmin,datos.unit, datos.brand,datos.category,datos.code], function (error, results, fields) {//
+                connection.query('UPDATE model SET `description`=?, `stockmin`=?, `unit`=?, `brand`=?, `category`=? WHERE (`id`=?) LIMIT 1', [datos.description,datos.stockmin,datos.unit, datos.brand,datos.category,datos.id], function (error, results, fields) {//
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {
@@ -110,8 +110,9 @@ module.exports = {
                 callback(err, null);
             } else {
 
-                connection.query('INSERT INTO model SET ?;', datos, function (error, results, fields) {//
+                connection.query('INSERT INTO model SET ?;', datos, function (error, results, fields) {
                     if (error) {
+                        console.log(error);
                         callback('error en la consulta: ' + error, null);
                     } else {
 

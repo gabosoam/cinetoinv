@@ -43,8 +43,11 @@ $(document).ready(function () {
         height: 475,
         filterable: true,
         pageable: { refresh: true, pageSizes: true, },
-        toolbar: ['create','excel'],
+        selectable:true,
+        resizable: true,        
+        toolbar: ['create','excel','destroy'],
         columns: [
+            { selectable: true, width: "50px" },            
             { field: "name", title: "Marca", filterable: { multi: true, search: true, search: true } },
             { command: ["edit", "destroy"], title: "Acciones", width: '200px' }],
         editable: "inline"
