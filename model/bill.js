@@ -38,6 +38,29 @@ module.exports = {
         });
     },
 
+    readOne: function (bill,callback) {
+        connection.getConnection(function (err, connection) {
+            if (err) {
+                callback(err, null);
+            } else {
+                connection.query('SELECT  * FROM v_infobill WHERE id=?;',bill, function (error, results, fields) {
+                    if (error) {
+
+                        callback('error en la consulta: ' + error, null);
+                    } else {
+
+
+                        callback(null, results);
+
+                        connection.release();
+
+
+                    }
+                });
+            }
+        });
+    },
+
     read2: function (callback) {
         connection.getConnection(function (err, connection) {
             if (err) {
@@ -130,10 +153,4 @@ module.exports = {
             }
         });
     },
-}
-
-function parseDate(input) {
-  var parts = input.split('-');
-  // new Date(year, month [, day [, hours[, minutes[, seconds[, ms]]]]])
-  return new Date(parts[0], parts[1]-1, parts[2]); // Note: months are 0-based
 }

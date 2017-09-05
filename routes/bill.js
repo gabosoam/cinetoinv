@@ -14,12 +14,14 @@ router.get('/', isLoggedIn, function (req, res, next) {
 
 
 router.get('/:bill',isLoggedIn, function(req,res,next) {
-  var bill = req.params.bill;
+  var billsend = req.params.bill;
 
-  product.readBill(bill,function(error,data) {
-    res.render('product', {  user: sess.usuarioDatos, bill: bill });
-    
-  })  
+  bill.readOne(billsend, function(error,data) {
+    console.log(data[0].id);
+
+      res.render('product', {  user: sess.usuarioDatos, bill: billsend, data: data[0] });
+  })
+
 });
 
 router.get('/read/:bill',isLoggedIn, function(req,res,next) {
@@ -27,8 +29,8 @@ router.get('/read/:bill',isLoggedIn, function(req,res,next) {
 
   product.readBill(bill,function(error,data) {
     res.send(data);
-    
-  })  
+
+  })
 });
 
 

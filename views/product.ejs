@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Sistema de inventario - Marcas</title>
+    <title>Sistema de inventario - Factura</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -73,7 +73,7 @@
           <div class="container-fluid">
             <div class="navbar-holder d-flex align-items-center justify-content-between">
               <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="/brand" class="navbar-brand">
-                  <div class="brand-text hidden-sm-down"><span>Inventario </span><strong class="text-primary"> Marcas</strong></div></a></div>
+                  <div class="brand-text hidden-sm-down"><span>Inventario </span><strong class="text-primary"> Detalle ingreso</strong></div></a></div>
               <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
 
 
@@ -96,11 +96,46 @@
 
           <div class="row">
             <div class="col-lg-12">
-              <div id="example">
-                <div id="grid3"></div>
-              </div>
+              <script type="text/javascript">
 
-              <div id="grid2" tabindex="0"></div>
+              </script>
+
+
+
+
+              <div class="col-lg-12">
+              <div class="card pie-chart-example">
+
+                <div class="card-block">
+
+                  <table>
+                    <tr>
+                      <td><p><strong>Proveedor: </strong></p></td>
+                      <td><p><%= data.name%></p></td>
+                    </tr>
+                    <tr>
+                      <td><p><strong>Fecha: </strong></p></td>
+                      <td><p><%= data.date%></p></td>
+                    </tr>
+                    <tr>
+                      <td><p><strong>Referencia: </strong></p></td>
+                      <td><p><%= data.reference%></p></td>
+                    </tr>
+                  </table>
+
+
+                  <div id="example">
+                    <div id="grid3"></div>
+                  </div>
+                    <div id="grid2" tabindex="0"></div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
             </div>
           </div>
         </div>
@@ -119,6 +154,7 @@
         </div>
       </footer>
     </div>
+
     <!-- Javascript files-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="../js/tether.min.js"></script>
@@ -139,28 +175,130 @@
     <script src="../kendo/content/shablue/js/console.js"></script>
     <script src="../kendo/js/cultures/kendo.culture.es-ES.min.js"></script>
     <script src="../kendo/js/messages/kendo.messages.es-ES.min.js"></script>
+
+    <script type="x/kendo-template" id="page-template">
+
+      <div class="page-template">
+
+
+
+        <div class="header">
+          <img src="../image/logo.svg" alt="" width="200px">
+          <h3 style="text-align:center">Reporte de ingreso de productos</h3>
+          <table style="float: left">
+            <tr>
+              <td><p><strong>Proveedor: </strong></p></td>
+              <td><p><%= data.name%></p></td>
+            </tr>
+            <tr>
+              <td><p><strong>Fecha: </strong></p></td>
+              <td><p><%= data.date%></p></td>
+            </tr>
+            <tr>
+              <td><p><strong>Referencia: </strong></p></td>
+              <td><p><%= data.reference%></p></td>
+            </tr>
+          </table>
+        </div>
+        <div class="watermark">CINETO</div>
+
+        <div class="footer">
+          La Pinta 236 y Rábida. Quito Ecuador, Edficio Alcatel Teléfono: (593-2) 5100 528 - Email: info@cineto.net
+          <div style="float: right">Página #: pageNum # de #: totalPages #</div>
+        </div>
+      </div>
+    </script>
+    <script type="text/x-kendo-template" id="template">
+               <div class="refreshBtnContainer">
+                   <a href="\\#" class="k-pager-refresh k-link k-button" title="Refresh"><span class="k-icon k-i-reload"></span></a>
+               </div>
+               <div class="toolbar">
+                   <label class="category-label" for="category">Show products by category:</label>
+                   <input type="search" id="category" style="width: 150px"/>
+               </div>
+           </script>
+
     <% if (bill) { %>
       <script>
         var bill = <%= bill %>;
         </script>
     <% } %>
     <script src="../logic/product.1.js"></script>
-  
 
-
-
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID.-->
-    <!---->
-    <script>
-      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-      e.src='//www.google-analytics.com/analytics.js';
-      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-      ga('create','UA-XXXXX-X');ga('send','pageview');
-    </script>
      <script>
-       
+
       </script>
   </body>
 </html>
+
+<style>
+  /* Page Template for the exported PDF */
+  .page-template {
+    font-family: "DejaVu Sans", "Arial", sans-serif;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  .cosa{
+    background: url("../image/logo.png");
+  }
+
+  .page-template .header {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    right: 30px;
+    border-bottom: 1px solid #888;
+    color: black;
+  }
+
+  .page-template .imgagen{
+    max-width: 100px;
+
+  }
+
+  .page-template .footer {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    right: 30px;
+    border-top: 1px solid #888;
+    text-align: center;
+    color: #888;
+  }
+  .page-template .watermark {
+    font-weight: bold;
+    font-size: 400%;
+    text-align: center;
+    margin-top: 30%;
+    color: #aaaaaa;
+    opacity: 0.1;
+    transform: rotate(-35deg) scale(1.7, 1.5);
+  }
+
+  /* Content styling */
+  .customer-photo {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-size: 32px 35px;
+    background-position: center center;
+    vertical-align: middle;
+    line-height: 32px;
+    box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0,0,0,.2);
+    margin-left: 5px;
+  }
+  kendo-pdf-document .customer-photo {
+    border: 1px solid #dedede;
+  }
+  .customer-name {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 32px;
+    padding-left: 3px;
+  }
+</style>

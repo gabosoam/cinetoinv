@@ -38,7 +38,7 @@ module.exports = {
             if (err) {
                 callback(err, null);
             } else {
-                connection.query('SELECT  * FROM product where bill=?;',bill, function (error, results, fields) {
+                connection.query('SELECT  * FROM v_bill where bill=?;',bill, function (error, results, fields) {
                     if (error) {
                       console.log(error);
                         callback('error en la consulta: ' + error, null);
