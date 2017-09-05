@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Sistema de inventario - Reportes</title>
+    <title>Sistema de inventario - Productos</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -42,7 +42,7 @@
         <div class="main-menu">
           <ul id="side-main-menu" class="side-menu list-unstyled">
             <li ><a href="/"> <i class="icon-home"></i><span>Inicio</span></a></li>
-            <li><a href="/bill"> <i class="icon-list"></i><span>Registrar ingreso</span></a></li>
+            <li class="active"><a href="/bill"> <i class="icon-list"></i><span>Registrar ingreso</span></a></li>
 
           </ul>
         </div>
@@ -59,10 +59,9 @@
               </ul>
             </li>
             <li> <a href="/client"> <i class="icon-screen"> </i><span>Clientes</span></a></li>
-            <li > <a href="/provider"> <i class="icon-flask"> </i><span>Proveedores</span></a></li>
+            <li> <a href="/provider"> <i class="icon-flask"> </i><span>Proveedores</span></a></li>
             <li> <a href="/location"> <i class="icon-flask"> </i><span>Almacenes</span></a></li>
             <li> <a href="/user"> <i class="icon-user"> </i><span>Usuarios</span></a></li>
-            <li class="active"> <a href="/index/report"> <i class="icon-form"> </i><span>Reportes</span></a></li>
           </ul>
         </div>
       </div>
@@ -74,7 +73,7 @@
           <div class="container-fluid">
             <div class="navbar-holder d-flex align-items-center justify-content-between">
               <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html" class="navbar-brand">
-                  <div class="brand-text hidden-sm-down"><span>Inventario </span><strong class="text-primary"> Reportes</strong></div></a></div>
+                  <div class="brand-text hidden-sm-down"><span>Inventario </span><strong class="text-primary"> Registrar ingreso || Información del proveedor</strong></div></a></div>
               <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
 
 
@@ -88,7 +87,7 @@
         <div class="container-fluid">
           <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Inicio</a></li>
-            <li class="breadcrumb-item active">Reportes</li>
+            <li class="breadcrumb-item active">Registrar ingreso</li>
           </ul>
         </div>
       </div>
@@ -106,6 +105,7 @@
       </section>
       <footer class="main-footer">
         <div class="container-fluid">
+
           <div class="row">
             <div class="col-sm-6">
               <p>Cineto Telecomunicaciones &copy; 2017</p>
@@ -138,16 +138,104 @@
     <script src="../kendo/content/shablue/js/console.js"></script>
     <script src="../kendo/js/cultures/kendo.culture.es-ES.min.js"></script>
     <script src="../kendo/js/messages/kendo.messages.es-ES.min.js"></script>
-    <script src="../logic/report.js"></script>
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID.-->
-    <!---->
-    <script>
-      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-      e.src='//www.google-analytics.com/analytics.js';
-      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-      ga('create','UA-XXXXX-X');ga('send','pageview');
-    </script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/x-kendo-template" id="template">
+      <div>
+      <div class="orders"></div>
+      </div>
+      </div>
+  </script>
+    <script src="../logic/bill.js"></script>
+
+      <script type="x/kendo-template" id="page-template">
+
+        <div class="page-template">
+
+
+
+          <div class="header">
+            <img src="../image/logo.svg" alt="" width="200px">
+            <h2 style="text-align:center">Reporte de productos</h2>
+          </div>
+          <div class="watermark">CINETO</div>
+          <div class="footer">
+            La Pinta 236 y Rábida. Quito Ecuador, Edficio Alcatel Teléfono: (593-2) 5100 528 - Email: info@cineto.net
+            <div style="float: right">Página #: pageNum # de #: totalPages #</div>
+          </div>
+        </div>
+      </script>
+
+
   </body>
 </html>
+<style>
+  /* Page Template for the exported PDF */
+  .page-template {
+    font-family: "DejaVu Sans", "Arial", sans-serif;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  .cosa{
+    background: url("../image/logo.png");
+  }
+
+  .page-template .header {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    right: 30px;
+    border-bottom: 1px solid #888;
+    color: black;
+  }
+
+  .page-template .imgagen{
+    max-width: 100px;
+
+  }
+
+  .page-template .footer {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    right: 30px;
+    border-top: 1px solid #888;
+    text-align: center;
+    color: #888;
+  }
+  .page-template .watermark {
+    font-weight: bold;
+    font-size: 400%;
+    text-align: center;
+    margin-top: 30%;
+    color: #aaaaaa;
+    opacity: 0.1;
+    transform: rotate(-35deg) scale(1.7, 1.5);
+  }
+
+  /* Content styling */
+  .customer-photo {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-size: 32px 35px;
+    background-position: center center;
+    vertical-align: middle;
+    line-height: 32px;
+    box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0,0,0,.2);
+    margin-left: 5px;
+  }
+  kendo-pdf-document .customer-photo {
+    border: 1px solid #dedede;
+  }
+  .customer-name {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 32px;
+    padding-left: 3px;
+  }
+</style>

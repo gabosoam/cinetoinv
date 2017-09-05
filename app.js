@@ -22,6 +22,7 @@ var variant = require('./routes/variant');
 var voucher = require('./routes/voucher');
 var unit = require('./routes/unit');
 var price = require('./routes/price');
+var bill = require('./routes/bill');
 
 var app = express();
 
@@ -60,6 +61,7 @@ app.use('/variant', variant);
 app.use('/voucher', voucher);
 app.use('/unit', unit);
 app.use('/price', price);
+app.use('/bill', bill);
 
 
 // catch 404 and forward to error handler

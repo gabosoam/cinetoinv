@@ -33,6 +33,29 @@ module.exports = {
         });
     },
 
+    readBill: function (bill, callback) {
+        connection.getConnection(function (err, connection) {
+            if (err) {
+                callback(err, null);
+            } else {
+                connection.query('SELECT  * FROM product where bill=?;',bill, function (error, results, fields) {
+                    if (error) {
+                      console.log(error);
+                        callback('error en la consulta: ' + error, null);
+                    } else {
+
+
+                        callback(null, results);
+
+                        connection.release();
+
+
+                    }
+                });
+            }
+        });
+    },
+
     update: function (datos, callback) {
         connection.getConnection(function (err, connection) {
             if (err) {

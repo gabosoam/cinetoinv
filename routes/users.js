@@ -4,6 +4,7 @@ router.io = require('socket.io')();
 var category = require('../model/category.js');
 var brand = require('../model/brand.js');
 var unit = require('../model/unit.js');
+var provider = require('../model/provider.js');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -43,6 +44,20 @@ router.io.on('connection', function (socket) {
       if (error) {
 
       } else {
+        callback(unit);
+
+      }
+
+    })
+
+  })
+
+  socket.on('getProvider', function (callback) {
+    provider.read2(function (error, unit) {
+      if (error) {
+
+      } else {
+        console.log( unit);
         callback(unit);
 
       }

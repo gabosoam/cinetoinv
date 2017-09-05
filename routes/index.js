@@ -10,6 +10,9 @@ router.get('/',isLoggedIn, function(req, res, next) {
 router.get('/login', function(req, res, next) {
 	res.render('login',{message: null});
 });
+router.get('/entry', isLoggedIn, function(req, res, next) {
+	res.render('entry',{  user: sess.usuarioDatos });
+});
 
 router.get('/report', isLoggedIn, function(req, res, next) {
 	res.render('report',{  user: sess.usuarioDatos });

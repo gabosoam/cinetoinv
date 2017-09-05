@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Sistema de inventario - Reportes</title>
+    <title>Sistema de inventario - Marcas</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -35,14 +35,13 @@
       <div class="side-navbar-wrapper">
         <div class="sidenav-header d-flex align-items-center justify-content-center">
           <div class="sidenav-header-inner text-center"><img src="img/logo.png" alt="person" class="img-fluid rounded-circle">
-            <h2 class="h5 text-uppercase"><%= user.name %></h2><span class="text-uppercase">Usuario</span>
+            <h2 class="h5 text-uppercase"><%= user.name %></h2><span class="text-uppercase">Rol</span>
           </div>
           <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>B</strong><strong class="text-primary">D</strong></a></div>
         </div>
         <div class="main-menu">
           <ul id="side-main-menu" class="side-menu list-unstyled">
             <li ><a href="/"> <i class="icon-home"></i><span>Inicio</span></a></li>
-            <li><a href="/bill"> <i class="icon-list"></i><span>Registrar ingreso</span></a></li>
 
           </ul>
         </div>
@@ -52,17 +51,17 @@
                 <div class="arrow pull-right"><i class="fa fa-angle-down"></i></div></a>
               <ul id="pages-nav-list" class="collapse list-unstyled">
                 <li> <a href="/category">Categorías</a></li>
-                <li> <a href="/brand">Marcas</a></li>
+                <li class="active"> <a href="/brand">Marcas</a></li>
                 <li> <a href="/model">Productos</a></li>
                 <li> <a href="/unit">Unidades de medida</a></li>
                 <li> <a href="/price">Precios</a></li>
               </ul>
             </li>
             <li> <a href="/client"> <i class="icon-screen"> </i><span>Clientes</span></a></li>
-            <li > <a href="/provider"> <i class="icon-flask"> </i><span>Proveedores</span></a></li>
+            <li> <a href="/provider"> <i class="icon-flask"> </i><span>Proveedores</span></a></li>
             <li> <a href="/location"> <i class="icon-flask"> </i><span>Almacenes</span></a></li>
             <li> <a href="/user"> <i class="icon-user"> </i><span>Usuarios</span></a></li>
-            <li class="active"> <a href="/index/report"> <i class="icon-form"> </i><span>Reportes</span></a></li>
+            <li> <a href="/report"> <i class="icon-form"> </i><span>Reportes</span></a></li>
           </ul>
         </div>
       </div>
@@ -73,8 +72,8 @@
         <nav class="navbar">
           <div class="container-fluid">
             <div class="navbar-holder d-flex align-items-center justify-content-between">
-              <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html" class="navbar-brand">
-                  <div class="brand-text hidden-sm-down"><span>Inventario </span><strong class="text-primary"> Reportes</strong></div></a></div>
+              <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="/brand" class="navbar-brand">
+                  <div class="brand-text hidden-sm-down"><span>Inventario </span><strong class="text-primary"> Marcas</strong></div></a></div>
               <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
 
 
@@ -88,7 +87,7 @@
         <div class="container-fluid">
           <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Inicio</a></li>
-            <li class="breadcrumb-item active">Reportes</li>
+            <li class="breadcrumb-item active">Marcas</li>
           </ul>
         </div>
       </div>
@@ -98,8 +97,10 @@
           <div class="row">
             <div class="col-lg-12">
               <div id="example">
-                <div id="grid"></div>
+                <div id="grid3"></div>
               </div>
+
+              <div id="grid2" tabindex="0"></div>
             </div>
           </div>
         </div>
@@ -138,7 +139,16 @@
     <script src="../kendo/content/shablue/js/console.js"></script>
     <script src="../kendo/js/cultures/kendo.culture.es-ES.min.js"></script>
     <script src="../kendo/js/messages/kendo.messages.es-ES.min.js"></script>
-    <script src="../logic/report.js"></script>
+    <% if (bill) { %>
+      <script>
+        var bill = <%= bill %>;
+        </script>
+    <% } %>
+    <script src="../logic/product.1.js"></script>
+  
+
+
+
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID.-->
     <!---->
     <script>
@@ -149,5 +159,8 @@
       r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
       ga('create','UA-XXXXX-X');ga('send','pageview');
     </script>
+     <script>
+       
+      </script>
   </body>
 </html>
