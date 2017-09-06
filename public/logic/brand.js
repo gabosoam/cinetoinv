@@ -44,14 +44,20 @@ $(document).ready(function () {
         filterable: true,
         pageable: { refresh: true, pageSizes: true, },
         selectable:true,
-        resizable: true,        
+        resizable: true,
         toolbar: ['create','excel','destroy'],
         columns: [
-            { selectable: true, width: "50px" },            
+            { selectable: true, width: "50px" },
             { field: "name", title: "Marca", filterable: { multi: true, search: true, search: true } },
             { command: ["edit", "destroy"], title: "Acciones", width: '200px' }],
-        editable: "inline"
+        editable: "true"
     });
+
+    function customBoolEditor(container, options) {
+                    $('<input class="k-checkbox" type="checkbox" name="Discontinued" data-type="boolean" data-bind="checked:Discontinued">').appendTo(container);
+                    $('<label class="k-checkbox-label">&#8203;</label>').appendTo(container);
+                }
+
 });
 function redirect(brand) {
     window.location.href = brand;

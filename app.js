@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+const EventEmitter = require('events');
+class MyEmitter extends EventEmitter {}
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -62,6 +64,12 @@ app.use('/voucher', voucher);
 app.use('/unit', unit);
 app.use('/price', price);
 app.use('/bill', bill);
+
+const myEmitter = new MyEmitter();
+myEmitter.on('event', () => {
+  console.log('an event occurred!');
+});
+myEmitter.emit('event');
 
 
 // catch 404 and forward to error handler

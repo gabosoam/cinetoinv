@@ -26,7 +26,7 @@ module.exports = {
                         callback('error en la consulta: ' + error, null);
                     } else {
 
-                  
+
                         callback(null, results);
 
                         connection.release();
@@ -49,7 +49,7 @@ module.exports = {
                         callback('error en la consulta: ' + error, null);
                     } else {
 
-                  
+
                         callback(null, results);
 
                         connection.release();
@@ -104,12 +104,14 @@ module.exports = {
 
     create: function (datos, callback) {
 
-          
+
         connection.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null);
             } else {
-                
+
+          
+
                 connection.query('INSERT INTO brand(name) VALUES(?)', [datos.name], function (error, results, fields) {//
                     if (error) {
                         callback('error en la consulta: ' + error, null);

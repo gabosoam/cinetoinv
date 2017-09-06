@@ -1,6 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var product = require('../model/product');
+var cosa = require('../app');
+
+
+//cosa.myEmitter.emit('event');
 
 /* GET home page. */
 router.get('/',isLoggedIn, function(req, res, next) {

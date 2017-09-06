@@ -24,7 +24,6 @@ $(document).ready(function () {
                     id: { validation: { required: true, }, type: 'string' },
                     description: { validation: { required: true, }, type: 'string' },
                     bill: {type: 'string',defaultValue: bill, editable:false, visible:false}
-
                 }
             }
         }

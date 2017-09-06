@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var brand = require('../model/brand');
+const EventEmitter = require('events');
+
+
 
 /* GET home page. */
 router.get('/', isLoggedIn, function (req, res, next) {
@@ -37,7 +40,7 @@ router.post('/update', function (req,res,next) {
            res.send(true);
       } else {
             res.sendStatus(500);
-      }   
+      }
     }
   })
 })
@@ -54,7 +57,7 @@ router.post('/delete', function (req,res,next) {
            res.send(true);
       } else {
             res.sendStatus(500);
-      }   
+      }
     }
   })
 })
@@ -72,7 +75,7 @@ router.post('/create', function (req,res,next) {
            res.send(true);
       } else {
             res.sendStatus(500);
-      }   
+      }
     }
   })
 })
