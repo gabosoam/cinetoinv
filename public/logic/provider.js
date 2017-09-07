@@ -52,9 +52,9 @@ $(document).ready(function () {
             { field: "dni", title: "Cedula/RUC", filterable: { multi: true, search: true, search: true } },
             { field: "name", title: "Nombre o razon social", filterable: { multi: true, search: true, search: true } },
             { field: "address", title: "Direccion", filterable: { multi: true, search: true, search: true } },
-            { field: "phone", title: "Telefono", width: '280px', filterable: { multi: true, search: true, search: true } },
-            { command: ["edit", "destroy"], title: "Acciones", width: '200px' }],
-        editable: "inline"
+            { field: "phone", title: "Telefono", filterable: { multi: true, search: true, search: true } },
+            { command: ["edit", "destroy"], title: "Acciones"}],
+        editable: "popup"
     });
 });
 function redirect(location) {

@@ -4,11 +4,7 @@ var category = require('../model/category');
 
 /* GET home page. */
 router.get('/', isLoggedIn, function (req, res, next) {
-    if (sess.usuarioDatos.rol==1) {
-    res.render('index', {  user: sess.usuarioDatos });
-  } else {
-   res.render('category', {  user: sess.usuarioDatos });
- }
+  res.render('category', {  user: sess.adminDatos });
 });
 
 
@@ -79,7 +75,7 @@ router.post('/create', function (req,res,next) {
 
 function isLoggedIn(req, res, next) {
   sess = req.session;
-  if (sess.usuarioDatos)
+  if (sess.adminDatos)
     return next();
   sess.originalUrl = req.originalUrl;
   res.redirect('/login');

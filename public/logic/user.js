@@ -56,7 +56,7 @@ $(document).ready(function () {
             { field: "email", title: "Correo electronico", width: '280px', filterable: { multi: true, search: true, search: true } },
             { field: "rol", values: roles, title: "Rol", filterable: { multi: true, search: true, search: true } },
             { command: ["edit", "destroy"], title: "Acciones", width: '200px' }],
-        editable: "inline"
+        editable: "popup"
     });
 });
 function redirect(location) {

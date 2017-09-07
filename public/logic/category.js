@@ -46,7 +46,7 @@ $(document).ready(function () {
         toolbar: ['create','excel'],
         columns: [
             { field: "name", title: "Categoría", filterable: { multi: true, search: true, search: true } },
-            { command: ["edit", "destroy"], title: "Acciones", width: '200px' }],
+            { command: ["edit", "destroy"], title: "Acciones"}],
         editable: "inline"
     });
 });

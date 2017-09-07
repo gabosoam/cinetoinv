@@ -48,7 +48,7 @@ $(document).ready(function () {
         columns: [
             { field: "name", title: "Almacén", filterable: { multi: true, search: true, search: true } },
             { field: "description", title: "Descripción", filterable: { multi: true, search: true, search: true } },
-            { command: ["edit", "destroy"], title: "Acciones", width: '200px' }],
+            { command: ["edit", "destroy"], title: "Acciones" }],
         editable: "inline"
     });
 });

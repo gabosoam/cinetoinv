@@ -4,16 +4,15 @@ var user = require('../model/user');
 var prueba = require('../routes/users');
 
 /* GET home page. */
-router.get('/', isLoggedIn, function (req, res, next) {
-  if (sess.usuarioDatos.rol==1) {
-    res.render('index', {  user: sess.usuarioDatos });
-  } else {
-   res.render('user', {  user: sess.usuarioDatos });
- }
+router.get('/', isLoggedInAdmin, function (req, res, next) {
+  res.render('user', {  user: sess.adminDatos });
 
 });
 
+router.get('/admin', isLoggedInAdmin, function (req, res, next) {
+  res.render('user', {  user: sess.adminDatos });
 
+});
 
 
 router.get('/read', function (req, res, next) {
@@ -85,8 +84,18 @@ router.post('/login', function (req,res,next) {
     if (err) {
       res.render('login',{message:err})
     } else {
-      sess.usuarioDatos = dates;
-      res.redirect('/');
+      console.log(dates);
+      if (dates.rol==1) {
+        sess.usuarioDatos = dates;
+        res.redirect('/');
+        
+      } else {
+        sess.adminDatos = dates;
+        res.redirect('/admin');
+        
+      }
+      
+      
     }
 
   });
@@ -94,7 +103,17 @@ router.post('/login', function (req,res,next) {
 
 function isLoggedIn(req, res, next) {
   sess = req.session;
+  console.log(sess.adminDatos);
   if (sess.usuarioDatos)
+    return next();
+  sess.originalUrl = req.originalUrl;
+  res.redirect('/login');
+}
+
+function isLoggedInAdmin(req, res, next) {
+  sess = req.session;
+ 
+  if (sess.adminDatos)
     return next();
   sess.originalUrl = req.originalUrl;
   res.redirect('/login');

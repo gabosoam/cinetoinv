@@ -4,11 +4,7 @@ var provider = require('../model/provider');
 
 /* GET home page. */
 router.get('/', isLoggedIn, function (req, res, next) {
-    if (sess.usuarioDatos.rol==1) {
-    res.render('index', {  user: sess.usuarioDatos });
-  } else {
-   res.render('provider', {  user: sess.usuarioDatos });
- }
+  res.render('provider', {  user: sess.usuarioDatos });
 });
 
 

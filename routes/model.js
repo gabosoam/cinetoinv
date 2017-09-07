@@ -11,10 +11,6 @@ router.get('/', isLoggedIn, function (req, res, next) {
  }
 });
 
-
-
-
-
 router.get('/read', function (req, res, next) {
   model.read(function (error, datos) {
     if (error) {
@@ -34,10 +30,11 @@ router.get('/read2', function (req, res, next) {
 });
 
 router.post('/update', function (req,res,next) {
+  console.log('ya llegue2');
    var datos= req.body;
    model.update(datos,function(error, datos){
     if (error) {
-
+      console.log(error);
       res.sendStatus(500);
     } else {
 
@@ -54,6 +51,7 @@ router.post('/delete', function (req,res,next) {
    var datos= req.body;
    model.delete(datos,function(error, datos){
     if (error) {
+      console.log(error);
 
       res.sendStatus(500);
     } else {
@@ -73,7 +71,7 @@ console.log('ya llegue');
    var datos= req.body;
    model.create(datos,function(error, datos){
     if (error) {
-
+      console.log(error);
       res.sendStatus(500);
     } else {
 

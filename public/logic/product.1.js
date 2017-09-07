@@ -32,10 +32,10 @@ $(document).ready(function () {
 
     $("#grid2").kendoGrid({
       dataSource: dataSource,
-      height: 475,
       filterable: true,
       selectable: true,
       columnMenu: true,
+      height: 400,
       groupable: true,
       pageable: { refresh: true, pageSizes: true, },
       toolbar: ['create','excel','pdf'],
@@ -43,7 +43,7 @@ $(document).ready(function () {
            allPages: true,
            avoidLinks: false,
            paperSize: "A4",
-           margin: { top: "6.5cm", left: "1cm", right: "1cm", bottom: "2.54cm" },
+           margin: { top: "6.8cm", left: "1cm", right: "1cm", bottom: "2.54cm" },
            landscape: false,
            repeatHeaders: true,
            template: $("#page-template").html(),
@@ -62,7 +62,7 @@ $(document).ready(function () {
             { field: "total", title: "Cantidad", filterable: { search: true }, width:'100px' },
             { field: "id", title: "Código", filterable: { search: true }, width:'100px' },
             { field: "description", title: "Producto", filterable: { search: true } },
-          { field: "bill", title: "Factura", filterable: { search: true } }],
+          { field: "bill", title: "Factura", width: '1px' }],
         editable: "popup"
       }).on('focusin', function(e) {
 

@@ -40,7 +40,7 @@ $(document).ready(function () {
         columns: [
         { field: "description", title: "Descripción", filterable: { multi: true, search: true, search: true } },
         { field: "smallDescription", title: "Descripción corta", filterable: { multi: true, search: true, search: true } },
-        { command: ["edit", "destroy"], title: "Acciones", width: '200px' }],
+        { command: ["edit", "destroy"], title: "Acciones"}],
         editable: "inline"
     });
 });

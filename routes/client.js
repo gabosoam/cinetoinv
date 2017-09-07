@@ -4,11 +4,7 @@ var client = require('../model/client');
 
 /* GET home page. */
 router.get('/', isLoggedIn, function (req, res, next) {
-    if (sess.usuarioDatos.rol==1) {
-    res.render('index', {  user: sess.usuarioDatos });
-  } else {
-   res.render('client', {  user: sess.usuarioDatos });
- }
+  res.render('client', {  user: sess.usuarioDatos });
 });
 
 
