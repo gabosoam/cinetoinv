@@ -1,16 +1,16 @@
 /*
-Navicat MariaDB Data Transfer
+Navicat MySQL Data Transfer
 
-Source Server         : Local
-Source Server Version : 100207
+Source Server         : local
+Source Server Version : 50719
 Source Host           : localhost:3306
 Source Database       : inventory
 
-Target Server Type    : MariaDB
-Target Server Version : 100207
+Target Server Type    : MYSQL
+Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2017-08-18 17:40:18
+Date: 2017-09-08 17:46:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,8 +30,19 @@ CREATE TABLE `act` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
--- Records of act
+-- Table structure for bill
 -- ----------------------------
+DROP TABLE IF EXISTS `bill`;
+CREATE TABLE `bill` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `provider` int(11) DEFAULT NULL,
+  `type` tinyint(4) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `reference` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `providerbill` (`provider`),
+  CONSTRAINT `providerbill` FOREIGN KEY (`provider`) REFERENCES `provider` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for brand
@@ -42,18 +53,7 @@ CREATE TABLE `brand` (
   `name` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ukbrand` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of brand
--- ----------------------------
-INSERT INTO `brand` VALUES ('27', 'Acer');
-INSERT INTO `brand` VALUES ('23', 'Apple');
-INSERT INTO `brand` VALUES ('28', 'Lenovo');
-INSERT INTO `brand` VALUES ('26', 'Motorola');
-INSERT INTO `brand` VALUES ('24', 'Nokia');
-INSERT INTO `brand` VALUES ('25', 'Samsung');
-INSERT INTO `brand` VALUES ('29', 'Toshiba');
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for category
@@ -64,14 +64,7 @@ CREATE TABLE `category` (
   `name` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ukcategory` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of category
--- ----------------------------
-INSERT INTO `category` VALUES ('10', 'Celular');
-INSERT INTO `category` VALUES ('11', 'Laptop');
-INSERT INTO `category` VALUES ('9', 'Tablet');
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for client
@@ -86,15 +79,7 @@ CREATE TABLE `client` (
   `email` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ukdni` (`dni`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of client
--- ----------------------------
-INSERT INTO `client` VALUES ('6', '1707385985', 'Mario Oswaldo Salazar Silva', 'Quito Sur', '22621561', 'marinoswaldin@gmail.com');
-INSERT INTO `client` VALUES ('7', '1478569874', 'Pablo Geovanny Salazar Ortiz', 'La colón', '98435637', 'pablosoa@gmail.com');
-INSERT INTO `client` VALUES ('8', '17896541012', 'Paola Ramos', 'Ciudadela Ibarra', '098745694', 'conejita@gmail.com');
-INSERT INTO `client` VALUES ('10', '1723713557', 'Pablo Iglesias', 'La forestal', '022621456', 'iglesia@pablo.com');
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for detail
@@ -112,10 +97,6 @@ CREATE TABLE `detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
--- Records of detail
--- ----------------------------
-
--- ----------------------------
 -- Table structure for location
 -- ----------------------------
 DROP TABLE IF EXISTS `location`;
@@ -125,13 +106,7 @@ CREATE TABLE `location` (
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ukname` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of location
--- ----------------------------
-INSERT INTO `location` VALUES ('13', 'Bodega 1', 'descripcion');
-INSERT INTO `location` VALUES ('14', 'Bodega 2', 'Sucursal 2');
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for model
@@ -139,20 +114,38 @@ INSERT INTO `location` VALUES ('14', 'Bodega 2', 'Sucursal 2');
 DROP TABLE IF EXISTS `model`;
 CREATE TABLE `model` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  `category` int(11) NOT NULL,
-  `brand` int(11) NOT NULL,
+  `code` varchar(255) DEFAULT NULL,
+  `description` varchar(255) NOT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `stockmin` int(11) DEFAULT NULL,
+  `unit` int(11) DEFAULT NULL,
+  `category` int(11) DEFAULT NULL,
+  `brand` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `category` (`category`),
+  UNIQUE KEY `ukname` (`description`),
+  UNIQUE KEY `ukcode` (`code`),
+  KEY `unit` (`unit`),
   KEY `brand` (`brand`),
+  KEY `category` (`category`),
   CONSTRAINT `brand` FOREIGN KEY (`brand`) REFERENCES `brand` (`id`),
-  CONSTRAINT `category` FOREIGN KEY (`category`) REFERENCES `category` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+  CONSTRAINT `category` FOREIGN KEY (`category`) REFERENCES `category` (`id`),
+  CONSTRAINT `unit` FOREIGN KEY (`unit`) REFERENCES `unit` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
--- Records of model
+-- Table structure for price
 -- ----------------------------
-INSERT INTO `model` VALUES ('12', 'Lumia 830', '9', '24');
+DROP TABLE IF EXISTS `price`;
+CREATE TABLE `price` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `variant` int(11) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `size` int(11) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `variantprice` (`variant`),
+  CONSTRAINT `fkmodel` FOREIGN KEY (`variant`) REFERENCES `model` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for product
@@ -160,24 +153,18 @@ INSERT INTO `model` VALUES ('12', 'Lumia 830', '9', '24');
 DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `barcode` varchar(255) NOT NULL,
-  `admission` date DEFAULT NULL,
+  `barcode` varchar(255) NOT NULL DEFAULT 'S/N',
   `variant` int(11) DEFAULT NULL,
-  `provider` int(11) DEFAULT NULL,
-  `reference` varchar(100) DEFAULT NULL,
   `location` int(11) DEFAULT NULL,
+  `bill` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `location` (`location`),
-  KEY `provider` (`provider`),
   KEY `variant` (`variant`),
+  KEY `bill` (`bill`),
+  CONSTRAINT `bill` FOREIGN KEY (`bill`) REFERENCES `bill` (`id`),
   CONSTRAINT `location` FOREIGN KEY (`location`) REFERENCES `location` (`id`),
-  CONSTRAINT `provider` FOREIGN KEY (`provider`) REFERENCES `provider` (`id`),
-  CONSTRAINT `variant` FOREIGN KEY (`variant`) REFERENCES `variant` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of product
--- ----------------------------
+  CONSTRAINT `model` FOREIGN KEY (`variant`) REFERENCES `model` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=881 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for provider
@@ -196,10 +183,6 @@ CREATE TABLE `provider` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
--- Records of provider
--- ----------------------------
-
--- ----------------------------
 -- Table structure for unit
 -- ----------------------------
 DROP TABLE IF EXISTS `unit`;
@@ -209,20 +192,7 @@ CREATE TABLE `unit` (
   `smallDescription` varchar(50) DEFAULT '',
   `size` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of unit
--- ----------------------------
-INSERT INTO `unit` VALUES ('1', 'Caja de 100 unidades', 'Caja/100', '100');
-INSERT INTO `unit` VALUES ('2', 'Paquete de 4 unidades', 'Paq/4', '4');
-INSERT INTO `unit` VALUES ('3', 'Paquete de 3 unidads', 'Paq/3', '3');
-INSERT INTO `unit` VALUES ('4', 'Unidad', 'Unidad', '1');
-INSERT INTO `unit` VALUES ('5', 'Rollo de 100 metros', 'Rollo/100', '1000');
-INSERT INTO `unit` VALUES ('6', 'Rollo de 100 metros', 'Rollo/100', '100');
-INSERT INTO `unit` VALUES ('7', 'Rollo de 45 metros', 'Rollo/45', '45');
-INSERT INTO `unit` VALUES ('8', 'Libra', 'Libra', '1');
-INSERT INTO `unit` VALUES ('9', 'Quintal', 'Quintal', '220');
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for user
@@ -236,36 +206,10 @@ CREATE TABLE `user` (
   `email` varchar(70) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   `rol` int(11) DEFAULT NULL,
-  `password` text DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of user
--- ----------------------------
-INSERT INTO `user` VALUES ('16', 'Paolita', 'Ramos', 'ramito', 'paola@outlook.com', null, '1', '$2a$08$fOJ9h.fOuue9uP4AQGl4LOJTHk4HH2fwwIDZO75DNe69jWOg3jG0a');
-INSERT INTO `user` VALUES ('17', 'Gabriel', 'Salazar', 'gabosoam', 'gaso621@gmail.com', null, '2', '$2a$08$nPFNxSIRzqI0BpcaQcevU..p7ipT2Ppa.LVcImxqO59ld9HeeYZnO');
-
--- ----------------------------
--- Table structure for variant
--- ----------------------------
-DROP TABLE IF EXISTS `variant`;
-CREATE TABLE `variant` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` varchar(255) DEFAULT '',
-  `model` int(11) DEFAULT NULL,
-  `description` varchar(255) NOT NULL,
-  `price` decimal(10,2) DEFAULT NULL,
-  `stockmin` int(11) DEFAULT NULL,
+  `password` text,
   PRIMARY KEY (`id`),
-  KEY `model` (`model`),
-  CONSTRAINT `model` FOREIGN KEY (`model`) REFERENCES `model` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of variant
--- ----------------------------
-INSERT INTO `variant` VALUES ('11', 'XTREDF', '12', 'Lumia 830 con cargador ', '450.00', '10');
+  UNIQUE KEY `ukusername` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for voucher
@@ -280,26 +224,43 @@ CREATE TABLE `voucher` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
--- Records of voucher
+-- View structure for v_bill
 -- ----------------------------
+DROP VIEW IF EXISTS `v_bill`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_bill` AS select count(0) AS `total`,`model`.`id` AS `id`,`model`.`code` AS `code`,`model`.`description` AS `description`,`product`.`bill` AS `bill` from (`product` join `model` on((`product`.`variant` = `model`.`id`))) group by `product`.`variant`,`product`.`bill` ;
 
 -- ----------------------------
 -- View structure for v_brand
 -- ----------------------------
 DROP VIEW IF EXISTS `v_brand`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `v_brand` AS SELECT
-brand.id as value,
-brand.`name` as text
-FROM
-brand ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_brand` AS select `brand`.`id` AS `value`,`brand`.`name` AS `text` from `brand` ;
 
 -- ----------------------------
 -- View structure for v_category
 -- ----------------------------
 DROP VIEW IF EXISTS `v_category`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `v_category` AS SELECT
-category.id as value,
-category.`name` as text
-FROM
-category ;
-SET FOREIGN_KEY_CHECKS=1;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_category` AS select `category`.`id` AS `value`,`category`.`name` AS `text` from `category` ;
+
+-- ----------------------------
+-- View structure for v_infobill
+-- ----------------------------
+DROP VIEW IF EXISTS `v_infobill`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_infobill` AS select `bill`.`id` AS `id`,`provider`.`name` AS `name`,`bill`.`date` AS `date`,`bill`.`reference` AS `reference` from (`bill` join `provider` on((`bill`.`provider` = `provider`.`id`))) ;
+
+-- ----------------------------
+-- View structure for v_model
+-- ----------------------------
+DROP VIEW IF EXISTS `v_model`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_model` AS select `model`.`id` AS `id`,`model`.`code` AS `code`,`model`.`description` AS `description`,`unit`.`description` AS `unit`,`category`.`name` AS `category`,`brand`.`name` AS `brand` from (((`model` join `unit` on((`model`.`unit` = `unit`.`id`))) join `category` on((`model`.`category` = `category`.`id`))) join `brand` on((`model`.`brand` = `brand`.`id`))) ;
+
+-- ----------------------------
+-- View structure for v_provider
+-- ----------------------------
+DROP VIEW IF EXISTS `v_provider`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_provider` AS select `provider`.`id` AS `value`,`provider`.`name` AS `text` from `provider` ;
+
+-- ----------------------------
+-- View structure for v_unit
+-- ----------------------------
+DROP VIEW IF EXISTS `v_unit`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_unit` AS select `unit`.`id` AS `value`,`unit`.`smallDescription` AS `text` from `unit` ;
