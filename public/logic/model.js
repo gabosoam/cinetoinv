@@ -7,7 +7,15 @@ $(document).ready(function () {
     dataSource = new kendo.data.DataSource({
         transport:{
             read: {url:"/model/read", dataType: "json"},
-            create: {url:"/model/create",type:"POST", dataType: "json"}
+            create: {url:"/model/create",type:"POST", dataType: "json"},
+            destroy: { url: "/model/delete", type: "POST", dataType: "json" },
+            update: { url: "/model/update", type: "POST", dataType: "json" },
+            parameterMap: function (options, operation) {
+                if (operation !== "read" && options.models) {
+                    var datos = options.models[0]
+                    return datos;
+                }
+            }
         },
         batch: true,
         pageSize: 10,
@@ -16,7 +24,7 @@ $(document).ready(function () {
             model: {
                 id: "id",
                 fields: {
-                    id: { nullable:false,  validation: { required: true, size:13 }},
+                    code: { validation: { required: true, size:13 }, type: 'string' },
                     description: { validation: { required: true, size:13 }, type: 'string' },
                     stockmin: { validation: { required: true, }, type: 'string' },
                     unit: { validation: { required: true, }, type: 'string' },
@@ -42,7 +50,7 @@ $(document).ready(function () {
           
        
           columns: [
-              { field: "id", title: "Código", filterable: {search: true } },
+              { field: "code", title: "Código", filterable: {search: true } },
               { field: "description", title: "Producto",width: '270px', filterable: { search: true } },
               { field: "brand", values:brand, title: "Marca", filterable: {search: true, search: true } },
               { field: "category", values:category, title: "Categoría", filterable: {search: true, search: true } },

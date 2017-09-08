@@ -13,7 +13,7 @@ router.get('/', isLoggedIn, function(req, res, next) {
 
 router.post('/create', isLoggedIn, function(req, res, next) {
   var datos = req.body;
-  console.log(datos);
+  console.log(datos),
   res.send('true')
 });
 

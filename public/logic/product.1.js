@@ -1,8 +1,53 @@
 $(document).ready(function () {
 
+    dataSourceCombo = new kendo.data.DataSource({
+        transport: {
+            read: {
+              url: "/model/read",
+              dataType: "json"
+            }
+          }
+    })
+  
+
+    function userNameComboBoxEditor(container, options) {
+        $('<input required data-bind="value:' + options.field + '"/>')
+            .appendTo(container)
+            .kendoComboBox({
+                dataSource: dataSourceCombo,
+                dataTextField: "description",
+                dataValueField: "id"
+            });
+    }
+
+    function userNameAutoCompleteEditor(container, options) {
+        $('<input required data-bind="value:' + options.field + '"/>')
+            .appendTo(container)
+            .kendoAutoComplete({
+                dataSource: dataSourceCombo,
+                placeholder:"Busca un producto",
+                dataTextField: "description",
+                filter: "contains",
+                minLength: 1
+            });
+    }
+
+    function editNumberWithoutSpinners(container, options) {
+        $('<input data-text-field="' + options.field + '" ' +
+                'data-value-field="' + options.field + '" ' +
+                'data-bind="value:' + options.field + '" ' +
+                'data-format="' + options.format + '"/>')
+                .appendTo(container)
+                .kendoNumericTextBox({
+                    spinners : false
+                });
+    }
+    
+
+
     dataSource = new kendo.data.DataSource({
         transport: {
-            read: { url: "/bill/read/"+bill, dataType: "json" },
+            read: { url: "/bill/read/" + bill, dataType: "json" },
             update: { url: "/product/create", type: "POST", dataType: "json" },
             destroy: { url: "/product/delete", type: "POST", dataType: "json" },
             create: { url: "/product/create", type: "POST", dataType: "json" },
@@ -20,10 +65,10 @@ $(document).ready(function () {
             model: {
                 id: "id",
                 fields: {
-                    total: { validation: { required: true, }, type: 'string' },
-                    id: { validation: { required: true, }, type: 'string' },
+                    total: { validation: { required: true, decimals:0 }, type: 'number', editor:editNumberWithoutSpinners},
+                    code: { editable: false },
                     description: { validation: { required: true, }, type: 'string' },
-                    bill: {type: 'string',defaultValue: bill, editable:false, visible:false}
+                    bill: { type: 'string', defaultValue: bill, editable: false, visible: false }
                 }
             }
         }
@@ -31,91 +76,43 @@ $(document).ready(function () {
     );
 
     $("#grid2").kendoGrid({
-      dataSource: dataSource,
-      filterable: true,
-      selectable: true,
-      columnMenu: true,
-      height: 400,
-      groupable: true,
-      pageable: { refresh: true, pageSizes: true, },
-      toolbar: ['create','excel','pdf'],
-         pdf: {
-           allPages: true,
-           avoidLinks: false,
-           paperSize: "A4",
-           margin: { top: "6.8cm", left: "1cm", right: "1cm", bottom: "2.54cm" },
-           landscape: false,
-           repeatHeaders: true,
-           template: $("#page-template").html(),
-           scale: 0.8
-       },
-       pdfExport: function (e) {
-           var grid = $("#grid").data("kendoGrid");
-        //   grid.hideColumn(6);
+        dataSource: dataSource,
 
-           e.promise
-           .done(function () {
-          //   grid.showColumn(6);
-           });
-         },
+
+        height: 400,
+
+        pageable: { refresh: true, pageSizes: false, },
+        toolbar: ['create', 'save', 'cancel','pdf'],
+        pdf: {
+            allPages: true,
+            avoidLinks: false,
+            paperSize: "A4",
+            margin: { top: "6.8cm", left: "1cm", right: "1cm", bottom: "2.54cm" },
+            landscape: false,
+            repeatHeaders: true,
+            template: $("#page-template").html(),
+            scale: 0.8
+        },
+        pdfExport: function (e) {
+            var grid = $("#grid").data("kendoGrid");
+            //   grid.hideColumn(6);
+
+            e.promise
+                .done(function () {
+                    //   grid.showColumn(6);
+                });
+        },
         columns: [
-            { field: "total", title: "Cantidad", filterable: { search: true }, width:'100px' },
-            { field: "id", title: "Código", filterable: { search: true }, width:'100px' },
-            { field: "description", title: "Producto", filterable: { search: true } },
-          { field: "bill", title: "Factura", width: '1px' }],
-        editable: "popup"
-      }).on('focusin', function(e) {
+            { field: "total", title: "Cantidad", filterable: { search: true }, width: '10%' },
+            { field: "code", title: "Código", filterable: { search: true }, width: '15%' },
+            {
+                field: "description", title: "Producto", filterable: { search: true },
+                editor: userNameAutoCompleteEditor
+            },
+            { field: "bill", title: "Factura", width: '1px' }],
+        editable: "inline"
+    })
 
-      });
-
-      function showDetails(e) {
-        alert('hola');
-
-         // get the grid position
-         var offset = $(this).offset();
-         // crete a textarea element which will act as a clipboard
-         var textarea = $("<textarea>");
-         // position the textarea on top of the grid and make it transparent
-         textarea.css({
-           position: 'absolute',
-           top: offset.top,
-           left: offset.left,
-           border: 'none',
-           width: $(this).width(),
-           height: $(this).height()
-         })
-         .appendTo('body')
-         .on('paste', function() {
-           // handle the paste event
-           setTimeout(function() {
-             // the the pasted content
-             var value = $.trim(textarea.val());
-             // get instance to the grid
-             var grid = $("#grid2").data("kendoGrid");
-             // get the pasted rows - split the text by new line
-             var rows = value.split('\n');
-
-             var data = [];
-
-             for (var i = 0; i < rows.length; i++) {
-               var cells = rows[i].split('\t');
-               data.push({
-                 barcode: cells[0],
-                 variant: cells[1]
-               });
-             };
-             grid.dataSource.data(data);
-           });
-         }).on('focusout', function() {
-           // remove the textarea when it loses focus
-           $(this).remove();
-         });
-         // focus the textarea
-         setTimeout(function() {
-           textarea.focus();
-         });
-
-    }
 
 
 })

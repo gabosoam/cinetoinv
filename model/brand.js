@@ -6,12 +6,7 @@ var generateHash = function (password) {
 }
 
 
-var connection = mysql.createPool({
-    host: config.host,
-    user: config.user,
-    password: config.password,
-    database: config.database
-});
+var connection = mysql.createPool(config);
 
 module.exports = {
 
@@ -25,13 +20,8 @@ module.exports = {
                       console.log(error);
                         callback('error en la consulta: ' + error, null);
                     } else {
-
-
                         callback(null, results);
-
                         connection.release();
-
-
                     }
                 });
             }
@@ -48,13 +38,8 @@ module.exports = {
                       console.log(error);
                         callback('error en la consulta: ' + error, null);
                     } else {
-
-
                         callback(null, results);
-
                         connection.release();
-
-
                     }
                 });
             }
@@ -70,10 +55,7 @@ module.exports = {
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {
-
-
                         callback(null, results);
-
                         connection.release();
                     }
                 });
@@ -88,12 +70,9 @@ module.exports = {
             } else {
                 connection.query('DELETE FROM brand WHERE id=?', [datos.id], function (error, results, fields) {//
                     if (error) {
-                        callback('error en la consulta: ' + error, null);
+                        callback(error, null);
                     } else {
-
-
                         callback(null, results);
-
                         connection.release();
                     }
                 });
@@ -101,33 +80,20 @@ module.exports = {
         });
     },
 
-
     create: function (datos, callback) {
-
-
         connection.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null);
             } else {
-
-          
-
                 connection.query('INSERT INTO brand(name) VALUES(?)', [datos.name], function (error, results, fields) {//
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {
-
-
                         callback(null, results);
-
                         connection.release();
                     }
                 });
             }
         });
     },
-
-
-
-
 }

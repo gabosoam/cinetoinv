@@ -6,6 +6,15 @@ var roles = [{
     "text": "Administrador"
 }];
 
+var states = [{
+    "value": 0,
+    "text": "Inactivo"
+}, {
+    "value": 1,
+    "text": "Activo"
+}];
+
+
 
 
 kendo.culture("es-ES");
@@ -36,6 +45,7 @@ $(document).ready(function () {
                     lastname: { validation: { required: true, }, type: 'string' },
                     username: { validation: { required: true, }, type: 'string' },
                     email: { validation: { required: true, }, type: 'string' },
+                    status:{validation:{required:true}, type:'string'},
                     rol: { validation: { required: true, }, type: 'string' },
                 }
             }
@@ -53,9 +63,10 @@ $(document).ready(function () {
             { field: "name", title: "Nombre", filterable: { multi: true, search: true, search: true } },
             { field: "lastname", title: "Apellido", filterable: { multi: true, search: true, search: true } },
             { field: "username", title: "Username", filterable: { multi: true, search: true, search: true } },
-            { field: "email", title: "Correo electronico", width: '280px', filterable: { multi: true, search: true, search: true } },
+            { field: "email", title: "Correo electronico", width: '280px', filterable: {search: true } },
+            {field: "status", title:"Estado", values:states,filterable: { search: true }},
             { field: "rol", values: roles, title: "Rol", filterable: { multi: true, search: true, search: true } },
-            { command: ["edit", "destroy"], title: "Acciones", width: '200px' }],
+            { command: ["edit","destroy"], title: "Acciones", width: '200px' }],
         editable: "popup"
     });
 });
