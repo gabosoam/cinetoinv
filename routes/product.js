@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var product = require('../model/product');
 
 /* GET home page. */
 router.get('/', isLoggedIn, function(req, res, next) {
@@ -13,8 +14,16 @@ router.get('/', isLoggedIn, function(req, res, next) {
 
 router.post('/create', isLoggedIn, function(req, res, next) {
   var datos = req.body;
-  console.log(datos),
-  res.send('true')
+  product.create(datos, function(error, datos) {
+
+    if (error) {
+      res.sendStatus(500);
+    } else {
+      res.send('true');
+    }
+    
+  })
+  
 });
 
 function isLoggedIn(req, res, next) {

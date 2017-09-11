@@ -95,32 +95,50 @@ module.exports = {
             }
         });
     },
-
-
     create: function (datos, callback) {
-
-
         connection.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null);
             } else {
-
-                connection.query('INSERT INTO location(name, description) VALUES(?, ?)', [datos.name,datos.description,], function (error, results, fields) {//
+                connection.query('SELECT  * FROM model where model.description=?;',datos.description, function (error, results, fields) {
                     if (error) {
+                      console.log(error);
                         callback('error en la consulta: ' + error, null);
                     } else {
-
-
-                        callback(null, results);
-
-                        connection.release();
+                        if (results.length==1) {
+                            var query= createQuery({total:datos.total, model: results[0].id, bill: datos.bill});
+                            connection.query(query, function (error, results, fields) {
+                                if (error) {
+                                  console.log(error);
+                                    callback('error en la consulta: ' + error, null);
+                                } else { 
+                                    callback(null, results);
+                                    connection.release();
+                                }
+                            });
+                            
+                        } else {
+                            callback('error', null);
+                            connection.release();
+                            
+                        }
+                      
+                        
                     }
                 });
             }
         });
-    },
+        
+    }
+}
 
 
+function createQuery(datos) {
+    var query="";
+    for (var i = 0; i < parseInt(datos.total); i++) {
+        query+= '(\''+datos.model+'\',\''+'13'+'\',\''+datos.bill+'\'),';
+    }
 
-
+    return 'INSERT INTO product (variant, location, bill) VALUES'+query.slice(0,-1);
+    
 }
