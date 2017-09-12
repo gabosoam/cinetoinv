@@ -24,6 +24,10 @@ $(document).ready(function () {
                 }
             }
         },
+        error: function(e) {
+
+            document.getElementById('txtError').innerHTML = e.xhr.responseText;
+        },
         batch: true,
         pageSize: 10,
         serverFiltering: false,
@@ -56,7 +60,7 @@ $(document).ready(function () {
             { field: "phone", title: "Telefono", filterable: { multi: true, search: true, search: true } },
             { field: "email", title: "Correo electrónico", width: '270px', filterable: {search: true, search: true } },
             { command: ["edit", "destroy"], title: "Acciones" }],
-        editable: "popup"
+        editable: "inline"
     });
 });
 function redirect(location) {

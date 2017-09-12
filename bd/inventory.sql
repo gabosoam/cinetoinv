@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2017-09-08 17:46:37
+Date: 2017-09-12 12:09:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -42,7 +42,7 @@ CREATE TABLE `bill` (
   PRIMARY KEY (`id`),
   KEY `providerbill` (`provider`),
   CONSTRAINT `providerbill` FOREIGN KEY (`provider`) REFERENCES `provider` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for brand
@@ -64,7 +64,7 @@ CREATE TABLE `category` (
   `name` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ukcategory` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for client
@@ -79,7 +79,7 @@ CREATE TABLE `client` (
   `email` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ukdni` (`dni`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for detail
@@ -122,7 +122,6 @@ CREATE TABLE `model` (
   `category` int(11) DEFAULT NULL,
   `brand` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `ukname` (`description`),
   UNIQUE KEY `ukcode` (`code`),
   KEY `unit` (`unit`),
   KEY `brand` (`brand`),
@@ -130,7 +129,7 @@ CREATE TABLE `model` (
   CONSTRAINT `brand` FOREIGN KEY (`brand`) REFERENCES `brand` (`id`),
   CONSTRAINT `category` FOREIGN KEY (`category`) REFERENCES `category` (`id`),
   CONSTRAINT `unit` FOREIGN KEY (`unit`) REFERENCES `unit` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=505 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for price
@@ -145,7 +144,7 @@ CREATE TABLE `price` (
   PRIMARY KEY (`id`),
   KEY `variantprice` (`variant`),
   CONSTRAINT `fkmodel` FOREIGN KEY (`variant`) REFERENCES `model` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for product
@@ -164,7 +163,7 @@ CREATE TABLE `product` (
   CONSTRAINT `bill` FOREIGN KEY (`bill`) REFERENCES `bill` (`id`),
   CONSTRAINT `location` FOREIGN KEY (`location`) REFERENCES `location` (`id`),
   CONSTRAINT `model` FOREIGN KEY (`variant`) REFERENCES `model` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=881 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24102 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for provider
@@ -251,7 +250,13 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- View structure for v_model
 -- ----------------------------
 DROP VIEW IF EXISTS `v_model`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_model` AS select `model`.`id` AS `id`,`model`.`code` AS `code`,`model`.`description` AS `description`,`unit`.`description` AS `unit`,`category`.`name` AS `category`,`brand`.`name` AS `brand` from (((`model` join `unit` on((`model`.`unit` = `unit`.`id`))) join `category` on((`model`.`category` = `category`.`id`))) join `brand` on((`model`.`brand` = `brand`.`id`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_model` AS select `model`.`id` AS `id`,`model`.`code` AS `code`,`model`.`description` AS `description`,`unit`.`description` AS `unit`,`category`.`name` AS `category`,`brand`.`name` AS `brand` from (((`model` left join `unit` on((`model`.`unit` = `unit`.`id`))) left join `category` on((`model`.`category` = `category`.`id`))) left join `brand` on((`model`.`brand` = `brand`.`id`))) ;
+
+-- ----------------------------
+-- View structure for v_modelBill
+-- ----------------------------
+DROP VIEW IF EXISTS `v_modelBill`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_modelBill` AS select `model`.`id` AS `id`,concat(`model`.`code`,' - ',`model`.`description`) AS `description` from `model` ;
 
 -- ----------------------------
 -- View structure for v_provider

@@ -20,6 +20,15 @@ router.get('/read', function (req, res, next) {
   })
 });
 
+router.get('/readBill', function (req, res, next) {
+  model.readBil(function (error, datos) {
+    if (error) {
+    } else {
+      res.send(datos);
+    }
+  })
+});
+
 router.get('/read2', function (req, res, next) {
   model.read2(function (error, datos) {
     if (error) {

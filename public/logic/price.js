@@ -18,7 +18,6 @@ socket.emit('getUnit',function (unit) {
 
 var element = $("#grid").kendoGrid({
   dataSource: dataSource,
-  height: 500,
   filterable: true,
   pdf: {
     title: 'reporte',
@@ -46,12 +45,12 @@ var element = $("#grid").kendoGrid({
     // this.expandRow(this.tbody.find("tr.k-master-row").first());
   },
   columns: [
-    { field: "id", title: "Código", filterable: { search: true } },
+    { field: "code", title: "Código", filterable: { search: true } },
     { field: "description", title: "Producto", filterable: {  search: true } },
     { field: "unit", title: "Unidad de medida", filterable: { search: true } },
     { field: "category", title: "Categoría", filterable: {  search: true } },
     { field: "brand", title: "Marca", filterable: { search: true } }],
-    editable: "inline"
+    editable: "popup"
   });
 
 });

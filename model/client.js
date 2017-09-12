@@ -83,7 +83,7 @@ module.exports = {
                 callback(err, null);
             } else {
                 
-                connection.query('INSERT INTO client(dni, name, address, phone) VALUES(?,?,?,?)', [datos.dni,datos.name,datos.address, datos.phone], function (error, results, fields) {//
+                connection.query('INSERT INTO client(dni, name, address, phone,email) VALUES(?,?,?,?,?)', [datos.dni,datos.name,datos.address, datos.phone,datos.email], function (error, results, fields) {//
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {

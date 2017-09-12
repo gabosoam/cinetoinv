@@ -3,7 +3,7 @@ $(document).ready(function () {
     dataSourceCombo = new kendo.data.DataSource({
         transport: {
             read: {
-              url: "/model/read",
+              url: "/model/readBill",
               dataType: "json"
             }
           }
@@ -16,7 +16,18 @@ $(document).ready(function () {
             .kendoComboBox({
                 dataSource: dataSourceCombo,
                 dataTextField: "description",
-                dataValueField: "id"
+                filter: "contains",
+                dataValueField: "id",
+                placeholder:"Busca un producto por código o nombre",
+                change: function(e) {
+                    var widget = e.sender;
+                    
+                    if (widget.value() && widget.select() === -1) {
+                      //custom has been selected
+                      widget.value(""); //reset widget
+                      //widget.trigger("change");
+                    }
+                  }
             });
     }
 
@@ -50,7 +61,9 @@ $(document).ready(function () {
             read: { url: "/bill/read/" + bill, dataType: "json" },
             update: { url: "/product/create", type: "POST", dataType: "json" },
             destroy: { url: "/product/delete", type: "POST", dataType: "json" },
-            create: { url: "/product/create", type: "POST", dataType: "json" },
+            create: { url: "/product/create", type: "POST", dataType: "json",success: function (data) {
+                alert(data);
+            }, },
             parameterMap: function (options, operation) {
                 if (operation !== "read" && options.models) {
                     var datos = options.models[0]
@@ -58,6 +71,7 @@ $(document).ready(function () {
                 }
             }
         },
+        
         batch: true,
         pageSize: 10,
         serverFiltering: false,
@@ -65,7 +79,7 @@ $(document).ready(function () {
             model: {
                 id: "id",
                 fields: {
-                    total: { validation: { required: true, decimals:0 }, type: 'number', editor:editNumberWithoutSpinners},
+                    total: { validation: { required: true, decimals:0, min:1 }, type: 'number', editor:editNumberWithoutSpinners},
                     code: { editable: false },
                     description: { validation: { required: true, }, type: 'string' },
                     bill: { type: 'string', defaultValue: bill, editable: false, visible: false }
@@ -107,7 +121,7 @@ $(document).ready(function () {
             { field: "code", title: "Código", filterable: { search: true }, width: '15%' },
             {
                 field: "description", title: "Producto", filterable: { search: true },
-                editor: userNameAutoCompleteEditor
+                editor: userNameComboBoxEditor
             },
             { field: "bill", title: "Factura", width: '1px' }],
         editable: "inline"

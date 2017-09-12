@@ -61,7 +61,7 @@ router.post('/create', function (req,res,next) {
    client.create(datos,function(error, datos){
     if (error) {
       console.log(error);
-      res.sendStatus(500);
+      res.status(500).send(error);
     } else {
 
       if (datos.affectedRows>0) {

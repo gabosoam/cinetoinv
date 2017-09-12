@@ -38,6 +38,29 @@ module.exports = {
         });
     },
 
+    readBil: function (callback) {
+        connection.getConnection(function (err, connection) {
+            if (err) {
+                callback(err, null);
+            } else {
+                connection.query('SELECT  * FROM v_modelBill;', function (error, results, fields) {
+                    if (error) {
+
+                        callback('error en la consulta: ' + error, null);
+                    } else {
+
+
+                        callback(null, results);
+
+                        connection.release();
+
+
+                    }
+                });
+            }
+        });
+    },
+
     read2: function (callback) {
         connection.getConnection(function (err, connection) {
             if (err) {
