@@ -1,21 +1,19 @@
-var mysql = require('mysql');
 var config = require('../config/connection.js');
+var mysql = require('mysql');
+
+var connection = mysql.createPool({
+    host: config.host,
+    user: config.user,
+    password: config.password,
+    database: config.database
+});
+
 var bcrypt = require('bcrypt-nodejs');
 var generateHash = function (password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 }
 
-
-var connection = mysql.createPool({
-  host: config.host,
-  user: config.user,
-  password: config.password,
-  database: config.database
-});
-
-
 module.exports = {
-
   read: function (callback) {
     connection.getConnection(function (err, connection) {
       if (err) {

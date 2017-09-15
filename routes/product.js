@@ -14,15 +14,16 @@ router.get('/', isLoggedIn, function(req, res, next) {
 
 router.post('/create', isLoggedIn, function(req, res, next) {
   var datos = req.body;
-  product.create(datos, function(error, datos) {
-
+  product.create(datos, function(error, data) {
     if (error) {
-      res.sendStatus(500);
+      res.send(true);
     } else {
-      res.send('true');
+      res.send(true);
     }
-    
   })
+
+
+ 
   
 });
 

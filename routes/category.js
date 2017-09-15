@@ -4,12 +4,8 @@ var category = require('../model/category');
 
 /* GET home page. */
 router.get('/', isLoggedIn, function (req, res, next) {
-  res.render('category', {  user: sess.adminDatos });
+  res.render('category', { user: sess.adminDatos });
 });
-
-
-
-
 
 router.get('/read', function (req, res, next) {
   category.read(function (error, datos) {
@@ -21,54 +17,52 @@ router.get('/read', function (req, res, next) {
   })
 });
 
-router.post('/update', function (req,res,next) {
-   var datos= req.body;
-   category.update(datos,function(error, datos){
+router.post('/update', function (req, res, next) {
+  var datos = req.body;
+  category.update(datos, function (error, datos) {
     if (error) {
-      console.log('el errorrrrrrrrrrrrrrrrrrrrrrrrr '+error);
       res.sendStatus(500);
     } else {
 
-      if (datos.affectedRows>0) {
-           res.send(true);
+      if (datos.affectedRows > 0) {
+        res.send(true);
       } else {
-            res.sendStatus(500);
-      }   
+        res.sendStatus(500);
+      }
     }
   })
 })
 
-router.post('/delete', function (req,res,next) {
-   var datos= req.body;
-   category.delete(datos,function(error, datos){
+router.post('/delete', function (req, res, next) {
+  var datos = req.body;
+  category.delete(datos, function (error, datos) {
     if (error) {
       console.log(error);
       res.sendStatus(500);
     } else {
 
-      if (datos.affectedRows>0) {
-           res.send(true);
+      if (datos.affectedRows > 0) {
+        res.send(true);
       } else {
-            res.sendStatus(500);
-      }   
+        res.sendStatus(500);
+      }
     }
   })
 })
 
-
-router.post('/create', function (req,res,next) {
-   var datos= req.body;
-   category.create(datos,function(error, datos){
+router.post('/create', function (req, res, next) {
+  var datos = req.body;
+  category.create(datos, function (error, datos) {
     if (error) {
       console.log(error);
       res.sendStatus(500);
     } else {
 
-      if (datos.affectedRows>0) {
-           res.send(true);
+      if (datos.affectedRows > 0) {
+        res.send(true);
       } else {
-            res.sendStatus(500);
-      }   
+        res.sendStatus(500);
+      }
     }
   })
 })
@@ -80,11 +74,4 @@ function isLoggedIn(req, res, next) {
   sess.originalUrl = req.originalUrl;
   res.redirect('/login');
 }
-
-
-
-
-
-
-
 module.exports = router;

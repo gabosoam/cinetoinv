@@ -1,6 +1,5 @@
-var mysql = require('mysql');
 var config = require('../config/connection.js');
-
+var mysql = require('mysql');
 
 var connection = mysql.createPool({
     host: config.host,
@@ -21,13 +20,8 @@ module.exports = {
                       console.log(error);
                         callback('error en la consulta: ' + error, null);
                     } else {
-
-                  
                         callback(null, results);
-
                         connection.release();
-
-
                     }
                 });
             }

@@ -1,10 +1,5 @@
-var mysql = require('mysql');
 var config = require('../config/connection.js');
-var bcrypt = require('bcrypt-nodejs');
-var generateHash = function (password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-}
-
+var mysql = require('mysql');
 
 var connection = mysql.createPool({
     host: config.host,
@@ -12,6 +7,11 @@ var connection = mysql.createPool({
     password: config.password,
     database: config.database
 });
+
+var bcrypt = require('bcrypt-nodejs');
+var generateHash = function (password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+}
 
 module.exports = {
 

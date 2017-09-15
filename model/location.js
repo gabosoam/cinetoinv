@@ -1,10 +1,5 @@
-var mysql = require('mysql');
 var config = require('../config/connection.js');
-var bcrypt = require('bcrypt-nodejs');
-var generateHash = function (password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-}
-
+var mysql = require('mysql');
 
 var connection = mysql.createPool({
     host: config.host,
@@ -12,6 +7,11 @@ var connection = mysql.createPool({
     password: config.password,
     database: config.database
 });
+
+var bcrypt = require('bcrypt-nodejs');
+var generateHash = function (password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+}
 
 module.exports = {
 
@@ -25,13 +25,8 @@ module.exports = {
                       console.log(error);
                         callback('error en la consulta: ' + error, null);
                     } else {
-
-                  
                         callback(null, results);
-
                         connection.release();
-
-
                     }
                 });
             }
@@ -67,10 +62,7 @@ module.exports = {
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {
-
-
                         callback(null, results);
-
                         connection.release();
                     }
                 });
@@ -80,21 +72,15 @@ module.exports = {
 
 
     create: function (datos, callback) {
-
-          
         connection.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null);
             } else {
-                
                 connection.query('INSERT INTO location(name, description) VALUES(?, ?)', [datos.name,datos.description,], function (error, results, fields) {//
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {
-
-
                         callback(null, results);
-
                         connection.release();
                     }
                 });

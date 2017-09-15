@@ -24,10 +24,6 @@ $(document).ready(function () {
                 }
             }
         },
-        error: function(e) {
-
-            document.getElementById('txtError').innerHTML = e.xhr.responseText;
-        },
         batch: true,
         pageSize: 10,
         serverFiltering: false,

@@ -1,12 +1,12 @@
-var mysql = require('mysql');
 var config = require('../config/connection.js');
+var mysql = require('mysql');
+
 var connection = mysql.createPool({
     host: config.host,
     user: config.user,
     password: config.password,
     database: config.database
 });
-
 
 module.exports = {
 
@@ -17,18 +17,14 @@ module.exports = {
             } else {
                 connection.query('SELECT  * FROM v_product;', function (error, results, fields) {
                     if (error) {
-                      console.log(error);
+                     
                         callback('error en la consulta: ' + error, null);
                     } else {
-
-
                         callback(null, results);
-
-                        connection.release();
-
-
+                       
                     }
                 });
+                 connection.release();
             }
         });
     },
@@ -43,13 +39,8 @@ module.exports = {
                       console.log(error);
                         callback('error en la consulta: ' + error, null);
                     } else {
-
-
                         callback(null, results);
-
                         connection.release();
-
-
                     }
                 });
             }
@@ -61,14 +52,11 @@ module.exports = {
             if (err) {
                 callback(err, null);
             } else {
-                connection.query('UPDATE `location` SET `name`=?,`description`=? WHERE (`id`=?) LIMIT 1', [datos.name,datos.description,datos.id], function (error, results, fields) {//
+                connection.query('UPDATE location SET name=?,description=? WHERE (id=?) LIMIT 1', [datos.name,datos.description,datos.id], function (error, results, fields) {//
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {
-
-
                         callback(null, results);
-
                         connection.release();
                     }
                 });
@@ -85,10 +73,7 @@ module.exports = {
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {
-
-
                         callback(null, results);
-
                         connection.release();
                     }
                 });
@@ -96,24 +81,16 @@ module.exports = {
         });
     },
     create: function (datos, callback) {
-        console.log(datos);
-        connection.getConnection(function (err, connection) {
-            if (err) {
-                callback(err, null);
-            } else {
-                var query= createQuery(datos);
-                console.log(query);
-                connection.query(query, function (error, results, fields) {
-                    if (error) {
-                      console.log(error);
-                        callback('error en la consulta: ' + error, null);
-                    } else { 
-                        callback(null, results);
-                        connection.release();
-                    }
-                });
-                
-            }
+
+        connection.getConnection(function(err, connection) {
+            connection.query('INSERT INTO product (barcode,variant, location, bill, price) VALUES (?,?,?,?,?)',[datos.barcode,datos.code, datos.location, datos.bill, datos.price], function(error, results, fields) {
+                if (error) {
+                    callback(error,null)
+                } else {
+                    callback(null, results)
+                }
+                connection.release();
+            });
         });
         
     }

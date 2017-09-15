@@ -1,5 +1,13 @@
-var mysql = require('mysql');
 var config = require('../config/connection.js');
+var mysql = require('mysql');
+
+var connection = mysql.createPool({
+    host: config.host,
+    user: config.user,
+    password: config.password,
+    database: config.database
+});
+
 var bcrypt = require('bcrypt-nodejs');
 var nodemailer = require('nodemailer');
 var generateHash = function (password) {
@@ -19,13 +27,6 @@ function makePassword(length, chars) {
     for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
     return result;
 }
-
-var connection = mysql.createPool({
-    host: config.host,
-    user: config.user,
-    password: config.password,
-    database: config.database
-});
 
 module.exports = {
     read: function (callback) {
