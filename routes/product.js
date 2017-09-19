@@ -11,20 +11,15 @@ router.get('/', isLoggedIn, function(req, res, next) {
  }
 });
 
-
 router.post('/create', isLoggedIn, function(req, res, next) {
   var datos = req.body;
   product.create(datos, function(error, data) {
     if (error) {
-      res.send(true);
+      res.send(error);
     } else {
-      res.send(true);
+      res.send(data);
     }
   })
-
-
- 
-  
 });
 
 function isLoggedIn(req, res, next) {

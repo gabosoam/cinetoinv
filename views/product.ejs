@@ -58,171 +58,166 @@
                     </div>
                 </nav>
 
-                
+
                 <div id="example">
 
+
                     <div class="row">
-                        <div class="col-md-4">
-                            <br>
-                            <form id="formsave">
-                                <input type="hidden" name="bill" value="<%= bill %>">
-                              <div class="form-group">
-                                <label for="code">Producto:</label>
-                                <input type="text" class="form-control" required id="code" name="code" style="width: 100%">
-                            </div>
-                            <div class="form-group">
-                                <label for="pwd">Almacén:</label>
-                                <input type="text" class="form-control" name="location" required id="location" style="width: 100%">
-                            </div>
-                            <div class="form-group">
-                                <label for="pwd">Precio de costo:</label>
-                                <input type="number" class="form-control" required name="price" id="price" style="width: 100%">
-                            </div>
-                            <div class="form-group">
-                                <label for="pwd">Número de serie:</label>
-                                <input type="number" class="form-control" name="barcode" required id="barcode" style="width: 100%">
-                            </div>
 
-                            <button id="save" type="button" class="btn btn-default">Guardar</button>
-                        </form>
-                        
+                        <div class="col-md-12">
+                            <div class="row">
+                                <hr>
+                                <form id="formsave">
+                                    <input type="hidden" name="bill" value="<%= bill %>">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="code">Producto:</label>
+                                            <input autofocus type="text" class="form-control" validationMessage="Selecciona un producto" required id="code" name="code" style="width: 100%">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="pwd">Almacén:</label>
+                                            <input type="text" class="form-control" validationMessage="Selecciona un almacén" name="location" required id="location"
+                                                style="width: 100%">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="pwd">Precio de costo:</label>
+                                            <input type="number" validationMessage="Ingresa el precio del producto" class="form-control" required name="price" placeholder="Precio" id="price"
+                                                style="width: 100%">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="pwd">Número de serie:</label>
+                                            <input type="text" class="form-control" validationMessage="Ingresa el número de serie" name="barcode" required id="barcode"
+                                                placeholder="Número de serie" style="width: 100%">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-1">
+                                        <br>
+                                        <button id="save" type="button"  class="btn btn-primary">Guardar</button>
+
+                                    </div>
+                                </form>
+                                <hr>
+
+                            </div>
+                            <hr>
+
+                            <div id="grid2" tabindex="0"></div>
+
+
+                        </div>
                     </div>
-                    <div class="col-md-8">
-                        <table class="table">
-                            <tr>
-                                <td>
-                                    <p><strong>Proveedor: </strong></p>
-                                </td>
-                                <td>
-                                    <p>
-                                        <%= data.name%>
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p><strong>Fecha: </strong></p>
-                                </td>
-                                <td>
-                                    <p>
-                                        <%= data.date%>
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p><strong>Referencia: </strong></p>
-                                </td>
-                                <td>
-                                    <p>
-                                        <%= data.reference%>
-                                    </p>
-                                </td>
-                            </tr>
-                        </table>
-                        <div id="grid2" tabindex="0"></div>
+
+                </div>
 
 
+
+
+                <div id="about" class="main-section-content row">
+                    <script type="text/x-kendo-template" id="toolbar-template">
+                        <button type="button" class="k-button" id="hola">Print Grid</button>
+                    </script>
+
+                    <div class="section-white">
+                        <!--  <h3 class="section-title">Featured ASP.NET MVC UI Components</h3> -->
+                        <div class="row">
+
+
+                        </div>
                     </div>
                 </div>
 
-            </div>
 
+</body>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script src="../kendo/js/jquery-3.1.1.min.js"></script>
+<script src="../kendo/js/kendo.all.min.js"></script>
+<script src="../kendo/js/jszip.min.js"></script>
+<script src="../kendo/js/kendo.messages.es-MX.min.js"></script>
+<script type="x/kendo-template" id="page-template">
 
-
-
-          <div id="about" class="main-section-content row">
-
-            <div class="section-white">
-                <!--  <h3 class="section-title">Featured ASP.NET MVC UI Components</h3> -->
-                <div class="row">
-
-
-                </div>
-            </div>
-        </div>
-
-
-    </body>
-    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-    <script src="../kendo/js/jquery-3.1.1.min.js"></script>
-    <script src="../kendo/js/kendo.all.min.js"></script>
-    <script src="../kendo/js/jszip.min.js"></script>
-    <script src="../kendo/js/kendo.messages.es-MX.min.js"></script>
-    <script type="x/kendo-template" id="page-template">
-
-        <div class="page-template">
+    <div id="hola" class="page-template">
 
 
 
         <div class="header">
-        <img src="../image/logo.svg" alt="" width="200px">
-        <br>
+            <img src="../image/logo.svg" alt="" width="200px">
+            <br>
 
-        <table class="table" style="float: left">
-        <tr>
-        <td><strong>Reporte de ingreso de productos</strong><td>
-        </tr>
-        <tr>
-        <td>
-        <p><strong>Proveedor: </strong></p>
-        </td>
-        <td>
-        <p>
-        <%= data.name%>
-        </p>
-        </td>
-        </tr>
-        <tr>
-        <td>
-        <p><strong>Fecha: </strong></p>
-        </td>
-        <td>
-        <p>
-        <%= data.date%>
-        </p>
-        </td>
-        </tr>
-        <tr>
-        <td>
-        <p><strong>Referencia: </strong></p>
-        </td>
-        <td>
-        <p>
-        <%= data.reference%>
-        </p>
-        </td>
-        </tr>
-        </table>
+            <table class="table" style="float: left">
+                <tr>
+                    <td><strong>Reporte de ingreso No. <%= bill%>  </strong>
+                        <td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><strong>Proveedor: </strong></p>
+                    </td>
+                    <td>
+                        <p>
+                            <%= data.name%>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><strong>Fecha: </strong></p>
+                    </td>
+                    <td>
+                        <p>
+                            <%= data.date%>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><strong>Referencia: </strong></p>
+                    </td>
+                    <td>
+                        <p>
+                            <%= data.reference%>
+                        </p>
+                    </td>
+                </tr>
+            </table>
         </div>
         <div class="watermark">CINETO</div>
 
         <div class="footer">
-        La Pinta 236 y Rábida. Quito Ecuador, Edficio Alcatel Teléfono: (593-2) 5100 528 - Email: info@cineto.net
-        <div style="float: right">Página #: pageNum # de #: totalPages #</div>
+            La Pinta 236 y Rábida. Quito Ecuador, Edficio Alcatel Teléfono: (593-2) 5100 528 - Email: info@cineto.net
+            <div style="float: right">Página #: pageNum # de #: totalPages #</div>
         </div>
-        </div>
-    </script>
-    <script type="text/x-kendo-template" id="template">
-        <div class="refreshBtnContainer">
-            <a href="\\#" class="k-pager-refresh k-link k-button" title="Refresh"><span class="k-icon k-i-reload"></span></a>
-        </div>
-        <div class="toolbar">
-            <label class="category-label" for="category">Show products by category:</label>
-            <input type="search" id="category" style="width: 150px" />
-        </div>
-    </script>
-    <% if (bill) { %>
+    </div>
+</script>
+<script type="text/x-kendo-template" id="template">
+    <div class="refreshBtnContainer">
+        <a href="\\#" class="k-pager-refresh k-link k-button" title="Refresh"><span class="k-icon k-i-reload"></span></a>
+    </div>
+    <div class="toolbar">
+        <label class="category-label" for="category">Show products by category:</label>
+        <input type="search" id="category" style="width: 150px" />
+    </div>
+</script>
+<% if (bill) { %>
     <script>
         var bill = <%= bill %>;
     </script>
     <% } %>
-    <script src="../logic/product.1.js"></script>
+        <script src="../logic/product.1.js"></script>
 
 
-    </html>
+</html>
 
-    <style>
+<style>
     /* Page Template for the exported PDF */
 
     .page-template {
@@ -263,9 +258,9 @@
 
     .page-template .watermark {
         font-weight: bold;
-        font-size: 400%;
+        font-size: 800%;
         text-align: center;
-        margin-top: 30%;
+        margin-top: 50%;
         color: #aaaaaa;
         opacity: 0.1;
         transform: rotate(-35deg) scale(1.7, 1.5);

@@ -17,14 +17,14 @@ module.exports = {
             } else {
                 connection.query('SELECT  * FROM v_product;', function (error, results, fields) {
                     if (error) {
-                     
+
                         callback('error en la consulta: ' + error, null);
                     } else {
                         callback(null, results);
-                       
+
                     }
                 });
-                 connection.release();
+                connection.release();
             }
         });
     },
@@ -34,9 +34,9 @@ module.exports = {
             if (err) {
                 callback(err, null);
             } else {
-                connection.query('SELECT  * FROM v_bill where bill=?;',bill, function (error, results, fields) {
+                connection.query('SELECT  * FROM v_bill where bill=?;', bill, function (error, results, fields) {
                     if (error) {
-                      console.log(error);
+                        console.log(error);
                         callback('error en la consulta: ' + error, null);
                     } else {
                         callback(null, results);
@@ -52,7 +52,7 @@ module.exports = {
             if (err) {
                 callback(err, null);
             } else {
-                connection.query('UPDATE location SET name=?,description=? WHERE (id=?) LIMIT 1', [datos.name,datos.description,datos.id], function (error, results, fields) {//
+                connection.query('UPDATE location SET name=?,description=? WHERE (id=?) LIMIT 1', [datos.name, datos.description, datos.id], function (error, results, fields) {//
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {
@@ -82,27 +82,43 @@ module.exports = {
     },
     create: function (datos, callback) {
 
-        connection.getConnection(function(err, connection) {
-            connection.query('INSERT INTO product (barcode,variant, location, bill, price) VALUES (?,?,?,?,?)',[datos.barcode,datos.code, datos.location, datos.bill, datos.price], function(error, results, fields) {
-                if (error) {
-                    callback(error,null)
+        connection.getConnection(function (err, connection) {
+
+            connection.query('SELECT id from product WHERE barcode=? AND barcode !=\'S/N\' ', [datos.barcode], function (er, re, fi) {
+                if (er) {
+                    callback(er, null);
+                    connection.release();
+
                 } else {
-                    callback(null, results)
+                    if (re.length == 0) {
+                        connection.query('INSERT INTO product (barcode,variant, location, bill, price) VALUES (?,?,?,?,?)', [datos.barcode, datos.code, datos.location, datos.bill, datos.price], function (error, results, fields) {
+                            if (error) {
+                                callback(error, null)
+                            } else {
+                                callback(null, results)
+                            }
+                        });
+
+                    } else {
+                        callback('Ya existe el producto');
+                    }
+                    connection.release();
                 }
-                connection.release();
-            });
+
+            })
+
         });
-        
+
     }
 }
 
 
 function createQuery(datos) {
-    var query="";
+    var query = "";
     for (var i = 0; i < parseInt(datos.total); i++) {
-        query+= '(\''+datos.description+'\',\''+'13'+'\',\''+datos.bill+'\'),';
+        query += '(\'' + datos.description + '\',\'' + '13' + '\',\'' + datos.bill + '\'),';
     }
 
-    return 'INSERT INTO product (variant, location, bill) VALUES'+query.slice(0,-1);
-    
+    return 'INSERT INTO product (variant, location, bill) VALUES' + query.slice(0, -1);
+
 }

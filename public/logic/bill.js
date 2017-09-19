@@ -81,7 +81,7 @@ $(document).ready(function () {
               { field: "type", values: types, width: '150px',  title: "Tipo documento", filterable: { multi: true, search: true, search: true } },
               { field: "reference",title: "Referencia",  width: '100px', filterable: {search: true, search: true } },
 
-              { command: ["edit", "destroy",{ text: "Ver detalles", click: showDetails }], title: "Acciones" }],
+              { command: ["edit", "destroy",{ text: "Ver detalles", click: showDetails, iconClass: 'icon icon-chart-column' }], title: "Acciones" }],
           editable: "popup"
       });
 
