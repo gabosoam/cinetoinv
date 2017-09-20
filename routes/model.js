@@ -20,7 +20,20 @@ router.get('/read', function (req, res, next) {
   })
 });
 
+
+  router.get('/:code', function (req, res, next) {
+    var code = req.params.code;
+    model.readOne(code,function (error, datos) {
+      if (error) {
+      } else {
+        res.send(datos);
+      }
+    })
+  });
+
+
 router.get('/readBill', function (req, res, next) {
+  console.log('hola')
   model.readBil(function (error, datos) {
     if (error) {
     } else {

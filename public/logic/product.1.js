@@ -1,7 +1,14 @@
 var validator = $("#formsave").kendoValidator().data("kendoValidator");
+var validatorModel = $("#formSaveModel").kendoValidator().data("kendoValidator");
 $("#save").on("click", function () {
     if (validator.validate()) {
         save();
+    }
+});
+
+$("#saveModel").on("click", function () {
+    if (validatorModel.validate()) {
+        saveModel();
     }
 });
 
@@ -10,6 +17,48 @@ $('#barcode').keypress(function(e) {
         save();
     }
 });
+
+$('#code2').keypress(function(e) {
+    if(e.which == 13) {
+        $.ajax({
+            type: 'GET',
+            url: '/model/'+$(this).val(),
+            success: sendData
+        });
+    }
+});
+
+function sendData(data) {
+    if(data.length>0){
+        $('#modelProduct').val(data[0].id)
+        $('#nameProduct').data('kendoComboBox').value(data[0].code);
+    }else{
+        var r = confirm("El producto con el código "+$('#code2').val()+" no existe \n ¿Desea agregarlo?");
+        if (r == true) {
+            $('#myModal').modal('show');
+            $('#codeModal').val($('#code2').val());
+        } else {
+            alert('not okay');
+        }
+    }
+    
+}
+
+function sendData2(data) {
+    if(data.length>0){
+        $('#modelProduct').val(data[0].id)
+      
+    }else{
+        var r = confirm("El producto con el código "+$('#code2').val()+" no existe \n ¿Desea agregarlo?");
+        if (r == true) {
+            $('#myModal').modal('show');
+            $('#codeModal').val($('#code2').val());
+        } else {
+            alert('not okay');
+        }
+    }
+    
+}
 
 function save() {
     var data = $('#formsave').serialize();
@@ -28,11 +77,22 @@ function save() {
     });
 }
 
+function saveModel() {
+   
+    var data = $('#formSaveModel').serialize();
+    alert(data);
+    $.post("/model/create", data, function (info) {
+        alert(info);
+    
+    });
+}
+
 $(document).ready(function () {
+   
     dataSourceCombo = new kendo.data.DataSource({
         transport: {
             read: {
-                url: "/model/readBill",
+                url: "/model/read",
                 dataType: "json"
             }
         }
@@ -47,12 +107,39 @@ $(document).ready(function () {
         }
     });
 
+    dataSourceBrand = new kendo.data.DataSource({
+        transport: {
+            read: {
+                url: "/brand/read",
+                dataType: "json"
+            }
+        }
+    });
 
-    $("#code").kendoComboBox({
+    dataSourceCategory = new kendo.data.DataSource({
+        transport: {
+            read: {
+                url: "/category/read",
+                dataType: "json"
+            }
+        }
+    });
+
+    dataSourceUnit = new kendo.data.DataSource({
+        transport: {
+            read: {
+                url: "/unit/read",
+                dataType: "json"
+            }
+        }
+    });
+
+
+    $("#nameProduct").kendoComboBox({
         dataSource: dataSourceCombo,
         filter: "contains",
         dataTextField: "description",
-        dataValueField: "id",
+        dataValueField: "code",
         placeholder: "Buscar producto",
         minLength: 1,
         change: onChange
@@ -61,13 +148,17 @@ $(document).ready(function () {
 
 
     function onChange(e) {
-        var widget = e.sender;
+        var code = this.value();
+        $('#code2').val(code);
 
-        if (widget.value() && widget.select() === -1) {
-            //custom has been selected
-            widget.value(""); //reset widget
-            //widget.trigger("change");
-        }
+        $.ajax({
+            type: 'GET',
+            url: '/model/'+code,
+            success: sendData
+        });
+     
+
+      
     };
 
     $("#location").kendoDropDownList({
@@ -79,6 +170,37 @@ $(document).ready(function () {
         minLength: 1
 
     });
+
+    $("#brand").kendoDropDownList({
+        dataSource: dataSourceBrand,
+        editable: false,
+        dataTextField: "name",
+        dataValueField: "id",
+        title: "Seleccionar almacén",
+        minLength: 1
+
+    });
+
+    $("#category").kendoDropDownList({
+        dataSource: dataSourceCategory,
+        editable: false,
+        dataTextField: "name",
+        dataValueField: "id",
+        title: "Seleccionar almacén",
+        minLength: 1
+
+    });
+
+    $("#unit").kendoDropDownList({
+        dataSource: dataSourceUnit,
+        editable: false,
+        dataTextField: "smallDescription",
+        dataValueField: "id",
+        title: "Seleccionar almacén",
+        minLength: 1
+
+    });
+    $('#formSaveModel')[0].reset();
 
     function userNameAutoCompleteEditor(container, options) {
         $('<input required data-bind="value:' + options.field + '"/>')
@@ -110,7 +232,7 @@ $(document).ready(function () {
             destroy: { url: "/product/delete", type: "POST", dataType: "json" },
             create: {
                 url: "/product/create", type: "POST", dataType: "json", success: function (data) {
-                    alert(data);
+                    
                 },
             },
             parameterMap: function (options, operation) {
@@ -151,7 +273,7 @@ $(document).ready(function () {
         height: 400,
 
 
-        pageable: false,
+        pageable: { refresh: true, pageSizes: true, },
         toolbar: ['pdf', 'excel'],
         pdf: {
             allPages: true,
@@ -164,12 +286,12 @@ $(document).ready(function () {
             scale: 0.8
         },
         pdfExport: function (e) {
-            var grid = $("#grid").data("kendoGrid");
-            //   grid.hideColumn(6);
+            var grid = $("#grid2").data("kendoGrid");
+               grid.hideColumn(7);
 
             e.promise
                 .done(function () {
-                    //   grid.showColumn(6);
+                       grid.showColumn(7);
                 });
         },
         columns: [
@@ -179,7 +301,8 @@ $(document).ready(function () {
             { field: "description", title: "Producto", filterable: { search: true } },
             { field: "location", title: "Almacén", width: '100px' },
             { field: "price", title: "Precio", width: '100px' },
-            { field: "bill", title: "Factura", width: '1px' }],
+            { field: "bill", title: "Factura", width: '1px' },
+            { command: ["destroy"], title: "Acciones" }],
         editable: "inline"
     })
 

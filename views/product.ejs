@@ -66,16 +66,36 @@
 
                         <div class="col-md-12">
                             <div class="row">
-                                <hr>
-                                <form id="formsave">
-                                    <input type="hidden" name="bill" value="<%= bill %>">
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label for="code">Producto:</label>
-                                            <input autofocus type="text" class="form-control" validationMessage="Selecciona un producto" required id="code" name="code" style="width: 100%">
-                                        </div>
+                                <br>
+                                <div class="col-md-3"></div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="code">Código:</label>
+                                        <input autofocus type="text" class="form-control" validationMessage="Selecciona un producto" required id="code2" name="code"
+                                            style="width: 100%" placeholder="Buscar por código">
                                     </div>
-                                    <div class="col-md-2">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="pwd">Nombre del producto:</label>
+                                        <input type="text" class="form-control" validationMessage="Nombre" name="description" required id="nameProduct" style="width: 100%">
+                                    </div>
+
+                                </div>
+
+                                
+
+                            </div>
+
+                            <div class="row">
+                                    <br>
+
+                                <form id="formsave" disabled>
+                                    <input type="hidden" name="bill" value="<%= bill %>">
+                                    <input type="hidden" required name="code" id="modelProduct" value="">
+
+                                    <div class="col-md-3"></div>
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="pwd">Almacén:</label>
                                             <input type="text" class="form-control" validationMessage="Selecciona un almacén" name="location" required id="location"
@@ -87,12 +107,12 @@
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="pwd">Precio de costo:</label>
-                                            <input type="number" validationMessage="Ingresa el precio del producto" class="form-control" required name="price" placeholder="Precio" id="price"
-                                                style="width: 100%">
+                                            <input type="number" validationMessage="Ingresa el precio del producto" class="form-control" required name="price" placeholder="Precio"
+                                                id="price" style="width: 100%">
                                         </div>
 
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="pwd">Número de serie:</label>
                                             <input type="text" class="form-control" validationMessage="Ingresa el número de serie" name="barcode" required id="barcode"
@@ -101,15 +121,15 @@
 
                                     </div>
                                     <div class="col-md-1">
-                                        <br>
-                                        <button id="save" type="button"  class="btn btn-primary">Guardar</button>
+                                        <label for="pwd">&nbsp</label>
+                                        <button id="save" type="button" class="btn btn-primary">Guardar</button>
 
                                     </div>
                                 </form>
                                 <hr>
 
                             </div>
-                            <hr>
+                            <br>
 
                             <div id="grid2" tabindex="0"></div>
 
@@ -135,14 +155,90 @@
                         </div>
                     </div>
                 </div>
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Registrar modelo</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="formSaveModel">
+
+
+                                    <div class="form-group">
+                                        <label for="code">Código:</label>
+                                        <input autofocus type="text" class="form-control" validationMessage="Selecciona un producto" required id="codeModal" name="code"
+                                            style="width: 100%">
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="pwd">Nombre del producto:</label>
+                                        <input type="text" class="form-control" validationMessage="Nombre" name="description" required id="description" style="width: 100%">
+                                    </div>
+
+
+
+
+                                    <div class="form-group">
+                                        <label for="pwd">Stock mín:</label>
+                                        <input type="number" validationMessage="Ingresa el stock mínimo" class="form-control" required name="stockmin" placeholder="Stock mínimo"
+                                            id="stockmin" style="width: 100%">
+                                    </div>
+
+
+
+
+                                    <div class="form-group">
+                                        <label for="pwd">Unidad de medida:</label>
+                                        <input type="text" class="form-control" required name="unit" id="unit" style="width: 100%">
+                                    </div>
+
+
+
+
+
+
+                                    <div class="form-group">
+                                        <label for="pwd">Categoría:</label>
+                                        <input type="text" class="form-control" required name="category" id="category" style="width: 100%">
+                                    </div>
+
+
+
+
+
+                                    <div class="form-group">
+                                        <label for="pwd">Marca:</label>
+                                        <input type="text" class="form-control" required name="brand" id="brand" style="width: 100%">
+                                    </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button id="saveModel" type="button" class="btn btn-primary">Guardar</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
 
 </body>
+<!-- Modal -->
+
+
 <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 <script src="../kendo/js/jquery-3.1.1.min.js"></script>
 <script src="../kendo/js/kendo.all.min.js"></script>
+<script src="../kendo/js/bootstrap.min.js"></script>
 <script src="../kendo/js/jszip.min.js"></script>
 <script src="../kendo/js/kendo.messages.es-MX.min.js"></script>
+
 <script type="x/kendo-template" id="page-template">
 
     <div id="hola" class="page-template">

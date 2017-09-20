@@ -13,8 +13,6 @@ router.get('/:bill', isLoggedIn, function (req, res, next) {
   var billsend = req.params.bill;
 
   bill.readOne(billsend, function (error, data) {
-    console.log(data[0].id);
-
     res.render('product', { user: sess.usuarioDatos, bill: billsend, data: data[0] });
   })
 
