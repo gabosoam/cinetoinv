@@ -25,13 +25,8 @@ module.exports = {
 
                         callback('error en la consulta: ' + error, null);
                     } else {
-
-
                         callback(null, results);
-
                         connection.release();
-
-
                     }
                 });
             }

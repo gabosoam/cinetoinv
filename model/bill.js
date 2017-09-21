@@ -13,9 +13,6 @@ var connection = mysql.createPool({
     database: config.database
 });
 
-
-
-
 module.exports = {
 
     read: function (callback) {

@@ -31,12 +31,12 @@
 
                 <div class="collapse navbar-collapse" id="sidebar-nav" role="navigation">
                     <ul class="nav">
-                        <li class="active" id="RegionalSalesStatus"><a href="/"><span class="icon icon-chart-column "></span>Registrar salidas</a></li>
-                        <li id="RegionalSalesStatus"><a href="/bill"><span class="icon icon-chart-column "></span>Registrar ingresos</a></li>
-                        <li id="RegionalSalesStatus"><a href="/client"><span class="icon icon-chart-column "></span>Clientes</a></li>
-                        <li id="RegionalSalesStatus"><a href="/provider"><span class="icon icon-chart-column "></span>Proveedores</a></li>
+                        <li class="active"><a href="/"><span class="icon icon-chart-column "></span>Registrar salidas</a></li>
+                        <li><a href="/bill"><span class="icon icon-chart-column "></span>Registrar ingresos</a></li>
+                        <li><a href="/client"><span class="icon icon-chart-column "></span>Clientes</a></li>
+                        <li><a href="/client"><span class="icon icon-chart-column "></span>Proveedores</a></li>
                     </ul>
-                   
+   
 
                 </div>
             </div>
@@ -47,27 +47,25 @@
 
                 <nav class="navbar-default">
                     <div class="container-fluid">
-                      <div class="navbar-header">
-                        <a class="navbar-brand" href="/">Registrar salidas</a>
-                      </div>
-                      
-                      <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#"><span class="glyphicon glyphicon-user"></span> <%= user.name %></a></li>
-                        <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
-                      </ul>
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="/">Registrar salidas</a>
+                        </div>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#"><span class="glyphicon glyphicon-user"></span> <%= user.name %></a></li>
+                            <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
+                        </ul>
                     </div>
-                  </nav>
+                </nav>
+                <div class="row" id="example">
+                    <div id="grid"></div>
+                </div>
 
 
                 <div id="about" class="main-section-content row">
 
-                    <div>
-                        <h3 class="section-title">En construcción</h3>
-                       
-                    </div>
-
                     <div class="section-white">
-                       <!--  <h3 class="section-title">Featured ASP.NET MVC UI Components</h3> -->
+                        <!--  <h3 class="section-title">Featured ASP.NET MVC UI Components</h3> -->
                         <div class="row">
 
 
@@ -77,10 +75,12 @@
 
 
 </body>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
 <script src="../kendo/js/jquery-3.1.1.min.js"></script>
-<script src="../kendo/js/kendo.all.min.js"></script>
 <script src="../kendo/js/bootstrap.min.js"></script>
+<script src="../kendo/js/kendo.all.min.js"></script>
 <script src="../kendo/js/kendo.messages.es-MX.min.js"></script>
+<script src="../logic/voucher.js"></script>
 
 
 </html>

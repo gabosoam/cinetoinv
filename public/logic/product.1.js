@@ -30,12 +30,15 @@ $('#code2').keypress(function(e) {
 
 function sendData(data) {
     if(data.length>0){
-        $('#modelProduct').val(data[0].id)
+        $('#modelProduct').val(data[0].id);
         $('#nameProduct').data('kendoComboBox').value(data[0].code);
     }else{
         var r = confirm("El producto con el código "+$('#code2').val()+" no existe \n ¿Desea agregarlo?");
         if (r == true) {
-            $('#myModal').modal('show');
+            $('#myModal').modal({
+                backdrop: 'static',
+                keyboard: false  // to prevent closing with Esc button (if you want this too)
+            })
             $('#codeModal').val($('#code2').val());
         } else {
             alert('not okay');
@@ -80,9 +83,29 @@ function save() {
 function saveModel() {
    
     var data = $('#formSaveModel').serialize();
-    alert(data);
+    var data2= $('#formSaveModel').serializeArray();
+
+
     $.post("/model/create", data, function (info) {
-        alert(info);
+
+        if (info) {
+            $('#nameProduct').data('kendoComboBox').dataSource.read();
+            $('#nameProduct').data('kendoComboBox').refresh();
+
+            $.ajax({
+                type: 'GET',
+                url: '/model/'+data2[0].value,
+                success: sendData
+            });
+            $('#myModal').modal('toggle');
+            $('#formSaveModel')[0].reset();
+            
+        } else {
+            
+            
+        }
+       
+       
     
     });
 }

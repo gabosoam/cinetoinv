@@ -5,7 +5,7 @@ var category = require('../model/category.js');
 var brand = require('../model/brand.js');
 var unit = require('../model/unit.js');
 var provider = require('../model/provider.js');
-
+var client = require('../model/client');
 /* GET users listing. */
 router.get('/', function (req, res, next) {
   res.send('respond with a resource');
@@ -57,7 +57,7 @@ router.io.on('connection', function (socket) {
       if (error) {
 
       } else {
-        console.log( unit);
+        console.log(unit);
         callback(unit);
 
       }
@@ -66,7 +66,14 @@ router.io.on('connection', function (socket) {
 
   })
 
-
+  socket.on('getClients', function (callback) {
+    client.readOne(function (error, clients) {
+      if (error) {
+      } else {
+        callback(clients);
+      }
+    })
+  })
 
   socket.on('disconnect', function () {
     console.log("Desconectado");

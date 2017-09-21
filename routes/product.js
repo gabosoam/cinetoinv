@@ -5,8 +5,11 @@ var product = require('../model/product');
 /* GET home page. */
 router.get('/', isLoggedIn, function(req, res, next) {
     if (sess.usuarioDatos.rol==1) {
+
+      console.log(sess.usuarioDatos);
     res.render('index', {  user: sess.usuarioDatos });
   } else {
+    console.log(sess.usuarioDatos);
    res.render('product', {  user: sess.usuarioDatos });
  }
 });

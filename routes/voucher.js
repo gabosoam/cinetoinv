@@ -1,13 +1,20 @@
 var express = require('express');
 var router = express.Router();
+var voucher = require('../model/voucher');
 
-/* GET home page. */
-router.get('/', isLoggedIn, function(req, res, next) {
-    if (sess.usuarioDatos.rol==1) {
-    res.render('index', {  user: sess.usuarioDatos });
-  } else {
-   res.render('voucher', {  user: sess.usuarioDatos });
- }
+router.get('/', isLoggedIn, function (req, res, next) {
+  res.render('index', { user: sess.usuarioDatos });
+});
+
+router.get('/read', isLoggedIn, function (req, res, next) {
+  voucher.read(function (err, data) {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.send(data);
+    }
+  });
+
 });
 
 function isLoggedIn(req, res, next) {
@@ -17,6 +24,5 @@ function isLoggedIn(req, res, next) {
   sess.originalUrl = req.originalUrl;
   res.redirect('/login');
 }
-
 
 module.exports = router;
