@@ -10,24 +10,14 @@ var connection = mysql.createPool({
 });
 
 var bcrypt = require('bcrypt-nodejs');
-var nodemailer = require('nodemailer');
+
 var generateHash = function (password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 }
 
-var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: 'gabosoam621@gmail.com',
-        pass: 'gaso621561'
-    }
-});
 
-function makePassword(length, chars) {
-    var result = '';
-    for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
-    return result;
-}
+
+
 
 module.exports = {
     read: function (callback) {
@@ -88,25 +78,12 @@ module.exports = {
             if (err) {
                 callback(err, null);
             } else {
-                var pass = makePassword(10, datos.username);
+              
 
-                connection.query('INSERT INTO user(name, lastname, username, rol,email,password,status) VALUES(?, ?, ?,?,?,?,?)', [datos.name, datos.lastname, datos.username, datos.rol, datos.email, generateHash(pass), datos.status], function (error, results, fields) {//
+                connection.query('INSERT INTO user(name, lastname, username, rol,email,password,status) VALUES(?, ?, ?,?,?,?,?)', [datos.name, datos.lastname, datos.username, datos.rol, datos.email, generateHash(datos.username), datos.status], function (error, results, fields) {//
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {
-                        var mailOptions = {
-                            from: 'gabosoam621@gmail.com',
-                            to: datos.email,
-                            subject: 'Sistema de inventario - Contraseña',
-                            html: '<h1>Contraseña:</h1><p>' + pass + '</p>'
-                        }
-                        transporter.sendMail(mailOptions, function (error, info) {
-                            if (error) {
-                                console.log(error);
-                            } else {
-                                console.log('Email sent: ' + info.response);
-                            }
-                        });
                         callback(null, results);
                         connection.release();
                     }
