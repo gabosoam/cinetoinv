@@ -28,12 +28,12 @@ module.exports = {
         });
     },
 
-    readOne: function (bill, callback) {
+    readOne: function (voucher, callback) {
         connection.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null);
             } else {
-                connection.query('SELECT  * FROM voucher WHERE id=?;', bill, function (error, results, fields) {
+                connection.query('SELECT  * FROM voucher WHERE id=?;', voucher, function (error, results, fields) {
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {
@@ -50,10 +50,12 @@ module.exports = {
             if (err) {
                 callback(err, null);
             } else {
-                connection.query('UPDATE voucher SET `provider`=?, `date`=?, `reference`=?, type=? WHERE (`id`=?) LIMIT 1', [datos.provider, new Date(datos.date).toLocaleDateString(), datos.reference, datos.type, datos.id], function (error, results, fields) {//
+                connection.query('UPDATE voucher SET `client`=?, `date`=?, `reference`=? WHERE (`id`=?) LIMIT 1', [datos.client, new Date(datos.date).toLocaleDateString(), datos.reference, datos.id], function (error, results, fields) {//
                     if (error) {
+                        console.log(error);
                         callback('error en la consulta: ' + error, null);
                     } else {
+                        console.log(results);
                         callback(null, results);
                         connection.release();
                     }
@@ -63,16 +65,28 @@ module.exports = {
     },
 
     delete: function (datos, callback) {
+    
         connection.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null);
             } else {
-                connection.query('DELETE FROM voucher WHERE id=?', [datos.id], function (error, results, fields) {//
+                connection.query('DELETE FROM voucher WHERE id=?', [datos.id], function (error, results, fields) {
+                
+                   
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {
-                        callback(null, results);
-                        connection.release();
+                        console.log(results);
+                        if (results.affectedRows==0) {
+                         
+                            callback('no se puede eliminar', null);
+                        }else{
+                  
+                            callback(null, results);
+                            connection.release();
+
+                        }
+                        
                     }
                 });
             }
@@ -81,11 +95,12 @@ module.exports = {
 
 
     create: function (datos, callback) {
+        console.log(datos);
         connection.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null);
             } else {
-                connection.query('INSERT INTO voucher (client, date, reference, type) VALUES (?,?,?,?)', [datos.provider, new Date(datos.date).toLocaleDateString(), datos.reference, datos.type], function (error, results, fields) {
+                connection.query('INSERT INTO voucher (client, date, reference, type) VALUES (?,?,?,?)', [datos.client, new Date(datos.date).toLocaleDateString(), datos.reference, datos.type], function (error, results, fields) {
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {

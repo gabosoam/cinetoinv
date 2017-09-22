@@ -51,7 +51,7 @@ $(document).ready(function () {
         toolbar: ['create','excel'],
         columns: [
             { field: "dni", title: "Cedula/RUC", filterable: {search: true } },
-            { field: "name", title: "Nombre o razon social", filterable: { multi: true, search: true, search: true } },
+            { field: "name", title: "Nombre o razón social", filterable: { multi: true, search: true, search: true } },
             { field: "address", title: "Direccion", filterable: { multi: true, search: true, search: true } },
             { field: "phone", title: "Telefono", filterable: { multi: true, search: true, search: true } },
             { field: "email", title: "Correo electrónico", width: '270px', filterable: {search: true, search: true } },

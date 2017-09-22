@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Home Page - My Kendo UI Application</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="../kendo/styles/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="../kendo/styles/site.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../kendo/css/kendo.common-bootstrap.min.css" />
+    <link rel="stylesheet" href="../kendo/css/kendo.bootstrap.min.css" />
+    <link rel="stylesheet" href="../kendo/css/kendo.bootstrap.mobile.min.css" />
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <!--open container-->
+        <div class="row row-offcanvas row-offcanvas-left">
+            <!--open row-->
+            <div id="nav-section" class="col-xs-12 column">
+                <!--open nav column-->
+                <div class="navbar-default">
+                    <button id="toggle-button" type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <h1 id="dash-logo" class="center-block">Inventario</h1>
+
+                <div class="collapse navbar-collapse" id="sidebar-nav" role="navigation">
+                    <ul class="nav">
+                        <li id="RegionalSalesStatus"><a href="/"><span class="icon icon-chart-column "></span>Registrar salidas</a></li>
+                        <li class="active" id="RegionalSalesStatus"><a href="/bill"><span class="icon icon-chart-column "></span>Registrar ingresos</a></li>
+                        <li id="RegionalSalesStatus"><a href="/client"><span class="icon icon-chart-column "></span>Clientes</a></li>
+                        <li id="RegionalSalesStatus"><a href="/provider"><span class="icon icon-chart-column "></span>Proveedores</a></li>
+                    </ul>
+
+
+                </div>
+            </div>
+            <!--close left column-->
+            <div id="main-section" class="col-xs-12 column">
+                <!--open main column-->
+
+
+                <nav class="navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="/">Registrar ingresos</a>
+                        </div>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#"><span class="glyphicon glyphicon-user"></span> <%= user.name %></a></li>
+                            <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
+                        </ul>
+                    </div>
+                </nav>
+
+
+                <div id="example">
+
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="row">
+                                <br>
+                                <div class="col-md-3">
+
+
+
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="code">Número de serie:</label>
+                                        <input autofocus type="text" class="form-control" required id="code2" name="code"
+                                            style="width: 100%" placeholder="Ingresar número de serie">
+                                        <input type="hidden" value="<%=bill%>">
+                                    </div>
+                                </div>
+                             
+
+
+
+                            </div>
+
+                            
+                            <br>
+
+                            <div id="grid2" tabindex="0"></div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+                <div id="about" class="main-section-content row">
+                    <script type="text/x-kendo-template" id="toolbar-template">
+                        <button type="button" class="k-button" id="hola">Print Grid</button>
+                    </script>
+
+                    <div class="section-white">
+                        <!--  <h3 class="section-title">Featured ASP.NET MVC UI Components</h3> -->
+                        <div class="row">
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Registrar modelo</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="formSaveModel">
+
+
+                                    <div class="form-group">
+                                        <label for="code">Código:</label>
+                                        <input autofocus type="text" class="form-control" validationMessage="Selecciona un producto" required id="codeModal" name="code"
+                                            style="width: 100%">
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="pwd">Nombre del producto:</label>
+                                        <input type="text" class="form-control" validationMessage="Nombre" name="description" required id="description" style="width: 100%">
+                                    </div>
+
+
+
+
+                                    <div class="form-group">
+                                        <label for="pwd">Stock mín:</label>
+                                        <input type="number" validationMessage="Ingresa el stock mínimo" class="form-control" required name="stockmin" placeholder="Stock mínimo"
+                                            id="stockmin" style="width: 100%">
+                                    </div>
+
+
+
+
+                                    <div class="form-group">
+                                        <label for="pwd">Unidad de medida:</label>
+                                        <input type="text" class="form-control" required name="unit" id="unit" style="width: 100%">
+                                    </div>
+
+
+
+
+
+
+                                    <div class="form-group">
+                                        <label for="pwd">Categoría:</label>
+                                        <input type="text" class="form-control" required name="category" id="category" style="width: 100%">
+                                    </div>
+
+
+
+
+
+                                    <div class="form-group">
+                                        <label for="pwd">Marca:</label>
+                                        <input type="text" class="form-control" required name="brand" id="brand" style="width: 100%">
+                                    </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button id="saveModel" type="button" class="btn btn-primary">Guardar</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+</body>
+<!-- Modal -->
+
+
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script src="../kendo/js/jquery-3.1.1.min.js"></script>
+<script src="../kendo/js/kendo.all.min.js"></script>
+<script src="../kendo/js/bootstrap.min.js"></script>
+<script src="../kendo/js/jszip.min.js"></script>
+<script src="../kendo/js/kendo.messages.es-MX.min.js"></script>
+
+<script type="x/kendo-template" id="page-template">
+
+    <div id="hola" class="page-template">
+
+
+
+        <div class="header">
+            <img src="../image/logo.svg" alt="" width="200px">
+            <br>
+
+            <table class="table" style="float: left">
+                <tr>
+                    <td><strong>Reporte de ingreso No. <%= bill%>  </strong>
+                        <td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><strong>Proveedor: </strong></p>
+                    </td>
+                    <td>
+                        <p>
+                            <%= data.name%>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><strong>Fecha: </strong></p>
+                    </td>
+                    <td>
+                        <p>
+                            <%= data.date%>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><strong>Referencia: </strong></p>
+                    </td>
+                    <td>
+                        <p>
+                            <%= data.reference%>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="watermark">CINETO</div>
+
+        <div class="footer">
+            La Pinta 236 y Rábida. Quito Ecuador, Edficio Alcatel Teléfono: (593-2) 5100 528 - Email: info@cineto.net
+            <div style="float: right">Página #: pageNum # de #: totalPages #</div>
+        </div>
+    </div>
+</script>
+<script type="text/x-kendo-template" id="template">
+    <div class="refreshBtnContainer">
+        <a href="\\#" class="k-pager-refresh k-link k-button" title="Refresh"><span class="k-icon k-i-reload"></span></a>
+    </div>
+    <div class="toolbar">
+        <label class="category-label" for="category">Show products by category:</label>
+        <input type="search" id="category" style="width: 150px" />
+    </div>
+</script>
+<% if (bill) { %>
+    <script>
+        var bill = <%= bill %>;
+    </script>
+    <% } %>
+        <script src="../logic/voucherDetail.js"></script>
+
+
+</html>
+
+<style>
+    /* Page Template for the exported PDF */
+
+    .page-template {
+        font-family: "DejaVu Sans", "Arial", sans-serif;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+
+    .cosa {
+        background: url("../image/logo.png");
+    }
+
+    .page-template .header {
+        position: absolute;
+        top: 30px;
+        left: 30px;
+        right: 30px;
+        border-bottom: 1px solid #888;
+        color: black;
+    }
+
+    .page-template .imgagen {
+        max-width: 100px;
+    }
+
+    .page-template .footer {
+        position: absolute;
+        bottom: 30px;
+        left: 30px;
+        right: 30px;
+        border-top: 1px solid #888;
+        text-align: center;
+        color: #888;
+    }
+
+    .page-template .watermark {
+        font-weight: bold;
+        font-size: 800%;
+        text-align: center;
+        margin-top: 50%;
+        color: #aaaaaa;
+        opacity: 0.1;
+        transform: rotate(-35deg) scale(1.7, 1.5);
+    }
+    /* Content styling */
+
+    .customer-photo {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-size: 32px 35px;
+        background-position: center center;
+        vertical-align: middle;
+        line-height: 32px;
+        box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0, 0, 0, .2);
+        margin-left: 5px;
+    }
+
+    kendo-pdf-document .customer-photo {
+        border: 1px solid #dedede;
+    }
+
+    .customer-name {
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 32px;
+        padding-left: 3px;
+    }
+</style>

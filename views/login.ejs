@@ -1,17 +1,12 @@
-
 <!DOCTYPE html>
-<html >
+<html>
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Sistema de inventario - inicio de sesión</title>
-
-
 	<link rel='stylesheet prefetch' href='http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css'>
-
 	<link rel="stylesheet" href="../css/style.css">
-
-
 </head>
 
 <body onload="nobackbutton();">
@@ -19,29 +14,31 @@
 		<form class="form-signin" action="/user/login" method="post">
 			<img src="http://www.cineto.net/images/cineto/logo_cineto.svg" width="100%" alt="">
 			<hr>
-			<h4 class="form-signin-heading">Inica sesión para ingresar al sistema de inventario</h4>
+			<h4 class="form-signin-heading">Inicia sesión para ingresar al sistema de inventario</h4>
 			<% if (message) { %>
 				<div class="alert alert-danger">
-					<strong>Error!</strong> <%=message%>
+					<strong>Error!</strong>
+					<%=message%>
 				</div>
 
 				<% } %>
 
-				<input type="text" class="form-control" name="username" placeholder="Nombre de usuario" required="" autofocus="" autocomplete="off" />
-				<input type="password" class="form-control" name="password" placeholder="Contraseña" required=""/>
-				<button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar sesión</button>
-			</form>
-		</div>
+					<input type="text" class="form-control" name="username" placeholder="Nombre de usuario" required="" autofocus="" autocomplete="off"
+					/>
+					<input type="password" class="form-control" name="password" placeholder="Contraseña" required="" />
+					<button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar sesión</button>
+		</form>
+	</div>
 
-		<script type="text/javascript">
-		function nobackbutton(){
-			window.location.hash="no-back-button";
-			window.location.hash="Again-No-back-button" //chrome
-			window.onhashchange=function(){window.location.hash="no-back-button";}
+	<script type="text/javascript">
+		function nobackbutton() {
+			window.location.hash = "no-back-button";
+			window.location.hash = "Again-No-back-button"
+			window.onhashchange = function () { window.location.hash = "no-back-button"; }
 		}
+	</script>
 
-		</script>
 
+</body>
 
-	</body>
-	</html>
+</html>

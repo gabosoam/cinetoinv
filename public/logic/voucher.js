@@ -13,7 +13,7 @@ $(document).ready(function () {
 
     dataSource = new kendo.data.DataSource({
         transport: {
-            read: { url: "/voucher/read", type: "GET", dataType: "json" },
+            read: { url: "/voucher/", type: "GET", dataType: "json" },
             update: { url: "/voucher/update", type: "POST", dataType: "json" },
             destroy: { url: "/voucher/delete", type: "POST", dataType: "json" },
             create: { url: "/voucher/create", type: "POST", dataType: "json" },
@@ -32,25 +32,39 @@ $(document).ready(function () {
                 id: "id",
                 fields: {
                     client: { validation: { required: true, }, type: 'number' },
-                    date: {validation: {type: 'date'}},
-                    reference: {type: 'string'}
+                    date: { validation: { type: 'date' } },
+                    reference: { type: 'string' }
                 }
             }
         }
     },
     );
 
-    $("#grid").kendoGrid({
-        dataSource: dataSource,
-        height: 475,
-        filterable: true,
-        pageable: { refresh: true, pageSizes: true, },
-        toolbar: ['create','excel'],
-        columns: [
-            { field: "client", title: "Cliente" },
-            { field: "date", title: "Fecha"},
-            { field: "reference", title: "Referencia", filterable: {search: true } },
-            { command: ["edit", "destroy"], title: "Acciones" }],
-        editable: "inline"
+    $.get("/client/read2", function (clients) {
+
+        $("#grid").kendoGrid({
+            dataSource: dataSource,
+            height: 475,
+            filterable: true,
+            pageable: { refresh: true, pageSizes: true, },
+            toolbar: ['create', 'excel'],
+            columns: [
+                { field: "client",values: clients, title: "Cliente" },
+                { field: "date", title: "Fecha",format: "{0:dd/MM/yyyy}" },
+                { field: "reference", title: "Referencia", filterable: { search: true } },
+                { command:  ["edit", "destroy",{ text: "Ver detalles", click: showDetails, iconClass: 'icon icon-chart-column' }], title: "Acciones",  width:'500px' }],
+            editable: "inline"
+        });
+
     });
+
+
+    function showDetails(e) {
+        e.preventDefault();
+
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        location.href ="/voucher/"+dataItem.id;
+    }
+
+
 });
