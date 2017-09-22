@@ -5,7 +5,8 @@ var connection = mysql.createPool({
     host: config.host,
     user: config.user,
     password: config.password,
-    database: config.database
+    database: config.database,
+    port: config.port
 });
 
 var bcrypt = require('bcrypt-nodejs');
@@ -122,14 +123,14 @@ module.exports = {
                 connection.query('SELECT * FROM user WHERE username = ?', user.username, function (error, results, fields) {//
                     if (error) {
                         callback('error en la consulta: ' + error, null);
-                        console.log(err);
+
                     } else {
-                        if (results[0].status == 0) {
-                            callback('El usuario esta desactivado, concacta con el administrador del sistema ', null);
-                        } else {
-                            var usuarioDatos = {};
-                            if (results[0]) {
-                                if (bcrypt.compareSync(user.password, results[0].password)) {
+                        var usuarioDatos = {};
+                        if (results[0]) {
+                            if (bcrypt.compareSync(user.password, results[0].password)) {
+                                if (results[0].status == 0) {
+                                    callback('El usuario se encuentra desactivado', null);
+                                } else {
                                     usuarioDatos = {
                                         name: results[0].name + ' ' + results[0].lastname,
                                         username: results[0].username,
@@ -138,15 +139,16 @@ module.exports = {
                                     };
                                     callback(null, usuarioDatos);
 
-                                } else {
-                                    callback('La contraseña es incorrecta', null);
                                 }
-                                //console.log("La contraseña es: ",generateHash(results[0].password));
                             } else {
-                                callback('El usuario no existe', null);
+                                callback('La contraseña es incorrecta', null);
                             }
+                         
+                        } else {
+                            callback('El usuario no existe', null);
                         }
                     }
+
                     connection.release();
                 });
             }
