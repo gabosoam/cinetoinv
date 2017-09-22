@@ -22,7 +22,7 @@ module.exports = {
             } else {
                 connection.query('SELECT  * FROM unit;', function (error, results, fields) {
                     if (error) {
-                      console.log(error);
+                  
                         callback('error en la consulta: ' + error, null);
                     } else {
                         callback(null, results);
@@ -39,7 +39,7 @@ module.exports = {
             } else {
                 connection.query('SELECT  * FROM v_unit;', function (error, results, fields) {
                     if (error) {
-                      console.log(error);
+                  
                         callback('error en la consulta: ' + error, null);
                     } else {
                         callback(null, results);

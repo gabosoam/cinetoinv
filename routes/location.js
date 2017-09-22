@@ -14,7 +14,7 @@ router.get('/', isLoggedIn, function (req, res, next) {
 router.get('/read', function (req, res, next) {
   location.read(function (error, datos) {
     if (error) {
-      console.log(error);
+   
     } else {
       res.send(datos);
     }
@@ -25,7 +25,7 @@ router.post('/update', function (req,res,next) {
    var datos= req.body;
    location.update(datos,function(error, datos){
     if (error) {
-      console.log('el errorrrrrrrrrrrrrrrrrrrrrrrrr '+error);
+  
       res.sendStatus(500);
     } else {
 
@@ -42,7 +42,7 @@ router.post('/delete', function (req,res,next) {
    var datos= req.body;
    location.delete(datos,function(error, datos){
     if (error) {
-      console.log(error);
+   
       res.sendStatus(500);
     } else {
 
@@ -60,7 +60,7 @@ router.post('/create', function (req,res,next) {
    var datos= req.body;
    location.create(datos,function(error, datos){
     if (error) {
-      console.log(error);
+
       res.sendStatus(500);
     } else {
 

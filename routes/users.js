@@ -18,7 +18,7 @@ router.io.on('connection', function (socket) {
       socket.broadcast.emit('user connected');
     }
   }
-  console.log('usuario conectado');
+
 
   socket.on('getDates', function (callback) {
     category.read2(function (error, category) {
@@ -57,7 +57,7 @@ router.io.on('connection', function (socket) {
       if (error) {
 
       } else {
-        console.log(unit);
+     
         callback(unit);
 
       }
@@ -76,7 +76,7 @@ router.io.on('connection', function (socket) {
   })
 
   socket.on('disconnect', function () {
-    console.log("Desconectado");
+   
   });
 });
 

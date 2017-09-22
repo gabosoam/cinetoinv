@@ -8,7 +8,7 @@ var cosa = require('../app');
 
 /* GET home page. */
 router.get('/',isLoggedIn, function(req, res, next) {
-    console.log('usuario conectado');
+
 	res.render('index', {  user: sess.usuarioDatos });
 });
 router.get('/admin', isLoggedInAdmin, function (req, res, next) {

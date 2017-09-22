@@ -39,7 +39,7 @@ module.exports = {
       } else {
         connection.query('UPDATE price SET variant=?,price=?,size=?,description=? WHERE (id=?) LIMIT 1', [datos.variant,datos.price, datos.size, datos.description,datos.id], function (error, results, fields) {//
           if (error) {
-            console.log(error);
+ 
             callback('error en la consulta: ' + error, null);
           } else {
             callback(null, results);

@@ -27,7 +27,7 @@ module.exports = {
             } else {
                 connection.query('SELECT  * FROM user;', function (error, results, fields) {
                     if (error) {
-                        console.log(error);
+                
                         callback('error en la consulta: ' + error, null);
                     } else {
                         callback(null, results);

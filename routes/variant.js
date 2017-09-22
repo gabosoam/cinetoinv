@@ -33,7 +33,7 @@ router.get('/read2', function (req, res, next) {
 
 router.post('/update', function (req,res,next) {
    var datos= req.body;
-    console.log(datos);
+
 
    variant.update(datos,function(error, datos){
     if (error) {

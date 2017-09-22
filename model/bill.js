@@ -134,11 +134,9 @@ module.exports = {
             if (err) {
                 callback(err, null);
             } else {
-                    console.log('los datos son:');
+                 
                     var fecha = datos.date;
-                    console.log(new Date(fecha).toISOString());
-                    console.log(datos);
-
+                  
                 connection.query('INSERT INTO bill (provider, date, reference, type) VALUES (?,?,?,?)', [datos.provider,new Date(datos.date).toLocaleDateString(),datos.reference,datos.type], function (error, results, fields) {
                     if (error) {
 

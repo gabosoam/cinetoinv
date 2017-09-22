@@ -33,7 +33,7 @@ router.get('/read', function (req, res, next) {
 
 
 router.get('/readBill', function (req, res, next) {
-  console.log('hola')
+ 
   model.readBil(function (error, datos) {
     if (error) {
     } else {
@@ -52,11 +52,11 @@ router.get('/read2', function (req, res, next) {
 });
 
 router.post('/update', function (req,res,next) {
-  console.log('ya llegue2');
+ 
    var datos= req.body;
    model.update(datos,function(error, datos){
     if (error) {
-      console.log(error);
+   
       res.sendStatus(500);
     } else {
 
@@ -73,7 +73,7 @@ router.post('/delete', function (req,res,next) {
    var datos= req.body;
    model.delete(datos,function(error, datos){
     if (error) {
-      console.log(error);
+     
 
       res.sendStatus(500);
     } else {
@@ -89,11 +89,11 @@ router.post('/delete', function (req,res,next) {
 
 
 router.post('/create', function (req,res,next) {
-console.log('ya llegue');
+
    var datos= req.body;
    model.create(datos,function(error, datos){
     if (error) {
-      console.log(error);
+   
       res.sendStatus(500);
     } else {
 

@@ -53,10 +53,10 @@ module.exports = {
             } else {
                 connection.query('UPDATE voucher SET `client`=?, `date`=?, `reference`=? WHERE (`id`=?) LIMIT 1', [datos.client, new Date(datos.date).toLocaleDateString(), datos.reference, datos.id], function (error, results, fields) {//
                     if (error) {
-                        console.log(error);
+                      
                         callback('error en la consulta: ' + error, null);
                     } else {
-                        console.log(results);
+                      
                         callback(null, results);
                         connection.release();
                     }
@@ -77,7 +77,7 @@ module.exports = {
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {
-                        console.log(results);
+                   
                         if (results.affectedRows==0) {
                          
                             callback('no se puede eliminar', null);
@@ -96,7 +96,7 @@ module.exports = {
 
 
     create: function (datos, callback) {
-        console.log(datos);
+       
         connection.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null);

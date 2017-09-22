@@ -18,7 +18,7 @@ router.get('/admin', isLoggedInAdmin, function (req, res, next) {
 router.get('/read', function (req, res, next) {
   user.read(function (error, datos) {
     if (error) {
-      console.log(error);
+   
     } else {
       res.send(datos);
     }
@@ -45,7 +45,7 @@ router.post('/delete', function (req,res,next) {
  var datos= req.body;
  user.delete(datos,function(error, datos){
   if (error) {
-    console.log(error);
+
     res.sendStatus(500);
   } else {
 
@@ -63,7 +63,7 @@ router.post('/create', function (req,res,next) {
  var datos= req.body;
  user.create(datos,function(error, datos){
   if (error) {
-    console.log(error);
+
     res.sendStatus(500);
   } else {
 
@@ -84,7 +84,7 @@ router.post('/login', function (req,res,next) {
     if (err) {
       res.render('login',{message:err})
     } else {
-      console.log(dates);
+   
       if (dates.rol==1) {
         sess.usuarioDatos = dates;
         res.redirect('/');
@@ -103,7 +103,7 @@ router.post('/login', function (req,res,next) {
 
 function isLoggedIn(req, res, next) {
   sess = req.session;
-  console.log(sess.adminDatos);
+
   if (sess.usuarioDatos)
     return next();
   sess.originalUrl = req.originalUrl;

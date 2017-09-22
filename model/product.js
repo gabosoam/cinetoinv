@@ -37,7 +37,7 @@ module.exports = {
             } else {
                 connection.query('SELECT  * FROM v_bill where bill=?;', bill, function (error, results, fields) {
                     if (error) {
-                        console.log(error);
+            
                         callback('error en la consulta: ' + error, null);
                     } else {
                         callback(null, results);
@@ -87,7 +87,7 @@ module.exports = {
 
             connection.query('SELECT id from product WHERE barcode=? AND barcode !=\'S/N\' ', [datos.barcode], function (er, re, fi) {
                 if (er) {
-                    console.log(er);
+              
                     callback(er, null);
                     connection.release();
 
@@ -95,7 +95,7 @@ module.exports = {
                     if (re.length == 0) {
                         connection.query('INSERT INTO product (barcode,variant, location, bill, price) VALUES (?,?,?,?,?)', [datos.barcode, datos.code, datos.location, datos.bill, datos.price], function (error, results, fields) {
                             if (error) {
-                                console.log(error);
+                           
                                 callback(error, null)
                             } else {
                                 callback(null, results)

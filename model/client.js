@@ -19,7 +19,7 @@ module.exports = {
             } else {
                 connection.query('SELECT  * FROM client;', function (error, results, fields) {
                     if (error) {
-                      console.log(error);
+                 
                         callback('error en la consulta: ' + error, null);
                     } else {
                 
@@ -41,7 +41,7 @@ module.exports = {
             } else {
                 connection.query('SELECT  * FROM v_client;', function (error, results, fields) {
                     if (error) {
-                      console.log(error);
+                   
                         callback('error en la consulta: ' + error, null);
                     } else {
                 
