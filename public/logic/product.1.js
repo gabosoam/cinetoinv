@@ -13,28 +13,28 @@ $("#saveModel").on("click", function () {
     }
 });
 
-$('#barcode').keypress(function(e) {
-    if(e.which == 13) {
+$('#barcode').keypress(function (e) {
+    if (e.which == 13) {
         save();
     }
 });
 
-$('#code2').keypress(function(e) {
-    if(e.which == 13) {
+$('#code2').keypress(function (e) {
+    if (e.which == 13) {
         $.ajax({
             type: 'GET',
-            url: '/model/'+$(this).val(),
+            url: '/model/' + $(this).val(),
             success: sendData
         });
     }
 });
 
 function sendData(data) {
-    if(data.length>0){
+    if (data.length > 0) {
         $('#modelProduct').val(data[0].id);
         $('#nameProduct').data('kendoComboBox').value(data[0].code);
-    }else{
-        var r = confirm("El producto con el código "+$('#code2').val()+" no existe \n ¿Desea agregarlo?");
+    } else {
+        var r = confirm("El producto con el código " + $('#code2').val() + " no existe \n ¿Desea agregarlo?");
         if (r == true) {
             $('#myModal').modal({
                 backdrop: 'static',
@@ -42,18 +42,18 @@ function sendData(data) {
             })
             $('#codeModal').val($('#code2').val());
         } else {
-           
+
         }
     }
-    
+
 }
 
 function sendData2(data) {
-    if(data.length>0){
+    if (data.length > 0) {
         $('#modelProduct').val(data[0].id)
-      
-    }else{
-        var r = confirm("El producto con el código "+$('#code2').val()+" no existe \n ¿Desea agregarlo?");
+
+    } else {
+        var r = confirm("El producto con el código " + $('#code2').val() + " no existe \n ¿Desea agregarlo?");
         if (r == true) {
             $('#myModal').modal('show');
             $('#codeModal').val($('#code2').val());
@@ -61,7 +61,7 @@ function sendData2(data) {
             alert('not okay');
         }
     }
-    
+
 }
 
 function save() {
@@ -70,34 +70,34 @@ function save() {
     console.log(data2[4].value);
 
 
-    var confirmation = confirm('Está seguro de guardar el número de serie: '+data2[4].value);
+    var confirmation = confirm('Está seguro de guardar el número de serie: ' + data2[4].value);
 
     if (confirmation) {
         $.post("/product/create", data, function (info) {
-            
-                   if(info!='Ya existe el producto'){
-                    $('#grid2').data('kendoGrid').dataSource.read();
-                    $('#grid2').data('kendoGrid').refresh();
-                    $('#barcode').val(null);
-                    $('#barcode').focus();
-                   }else{
-                    alert('Ya existe el número de serie');
-                    $('#barcode').focus();
-                   }
-                    
-                });
-        
+
+            if (info != 'Ya existe el producto') {
+                $('#grid2').data('kendoGrid').dataSource.read();
+                $('#grid2').data('kendoGrid').refresh();
+                $('#barcode').val(null);
+                $('#barcode').focus();
+            } else {
+                alert('Ya existe el número de serie');
+                $('#barcode').focus();
+            }
+
+        });
+
     } else {
-        
+
     }
 
 
 }
 
 function saveModel() {
-   
+
     var data = $('#formSaveModel').serialize();
-    var data2= $('#formSaveModel').serializeArray();
+    var data2 = $('#formSaveModel').serializeArray();
 
 
     $.post("/model/create", data, function (info) {
@@ -108,24 +108,24 @@ function saveModel() {
 
             $.ajax({
                 type: 'GET',
-                url: '/model/'+data2[0].value,
+                url: '/model/' + data2[0].value,
                 success: sendData
             });
             $('#myModal').modal('toggle');
             $('#formSaveModel')[0].reset();
-            
+
         } else {
-            
-            
+
+
         }
-       
-       
-    
+
+
+
     });
 }
 
 $(document).ready(function () {
-   
+
     dataSourceCombo = new kendo.data.DataSource({
         transport: {
             read: {
@@ -190,12 +190,12 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'GET',
-            url: '/model/'+code,
+            url: '/model/' + code,
             success: sendData
         });
-     
 
-      
+
+
     };
 
     $("#location").kendoDropDownList({
@@ -269,7 +269,7 @@ $(document).ready(function () {
             destroy: { url: "/product/delete", type: "POST", dataType: "json" },
             create: {
                 url: "/product/create", type: "POST", dataType: "json", success: function (data) {
-                    
+
                 },
             },
             parameterMap: function (options, operation) {
@@ -288,7 +288,7 @@ $(document).ready(function () {
                 id: "id",
                 fields: {
                     Producto: { editable: false },
-                    barcode: { validation: { required: true, decimals: 0, min: 1 }, type: 'string', editor: editNumberWithoutSpinners },
+                    barcode: { validation: { required: true }, type: 'string' },
                     description: { validation: { required: true, }, type: 'string' },
                     bill: { type: 'string', defaultValue: bill, editable: false, visible: false },
                     code: { editable: false }
@@ -308,7 +308,7 @@ $(document).ready(function () {
     $("#grid2").kendoGrid({
         dataSource: dataSource,
         height: 400,
-
+        resizable: true,
 
         pageable: { refresh: true, pageSizes: true, },
         toolbar: ['pdf', 'excel'],
@@ -324,11 +324,13 @@ $(document).ready(function () {
         },
         pdfExport: function (e) {
             var grid = $("#grid2").data("kendoGrid");
-               grid.hideColumn(7);
+            grid.hideColumn(5);
+            grid.hideColumn(7);
 
             e.promise
                 .done(function () {
-                       grid.showColumn(7);
+                    grid.showColumn(5);
+                    grid.showColumn(7);
                 });
         },
         columns: [

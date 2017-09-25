@@ -51,7 +51,7 @@ module.exports = {
             if (err) {
                 callback(err, null);
             } else {
-                connection.query('UPDATE voucher SET `client`=?, `date`=?, `reference`=? WHERE (`id`=?) LIMIT 1', [datos.client, new Date(datos.date).toLocaleDateString(), datos.reference, datos.id], function (error, results, fields) {//
+                connection.query('UPDATE voucher SET `client`=?, `date`=?, `reference`=? WHERE (`id`=?) LIMIT 1', [datos.client, new Date(datos.date).toLocaleDateString(), datos.reference.toUpperCase(), datos.id], function (error, results, fields) {//
                     if (error) {
                       
                         callback('error en la consulta: ' + error, null);
@@ -101,7 +101,7 @@ module.exports = {
             if (err) {
                 callback(err, null);
             } else {
-                connection.query('INSERT INTO voucher (client, date, reference, type) VALUES (?,?,?,?)', [datos.client, new Date(datos.date).toLocaleDateString(), datos.reference, datos.type], function (error, results, fields) {
+                connection.query('INSERT INTO voucher (client, date, reference, type) VALUES (?,?,?,?)', [datos.client, new Date(datos.date).toLocaleDateString(), datos.reference.toUpperCase(), datos.type], function (error, results, fields) {
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {

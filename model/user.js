@@ -61,7 +61,7 @@ module.exports = {
             if (err) {
                 callback(err, null);
             } else {
-                connection.query('UPDATE `user` SET `name`=?,`lastname`=?,`username`=?, `rol`=?, email=?, status=? WHERE (`id`=?) LIMIT 1', [datos.name, datos.lastname, datos.username, datos.rol, datos.email, datos.status, datos.id], function (error, results, fields) {//
+                connection.query('UPDATE `user` SET `name`=?,`lastname`=?,`username`=?, `rol`=?, email=?, status=? WHERE (`id`=?) LIMIT 1', [datos.name.toUpperCase(), datos.lastname.toUpperCase(), datos.username, datos.rol, datos.email, datos.status, datos.id], function (error, results, fields) {//
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {
@@ -98,7 +98,7 @@ module.exports = {
             } else {
               
 
-                connection.query('INSERT INTO user(name, lastname, username, rol,email,password,status) VALUES(?, ?, ?,?,?,?,?)', [datos.name, datos.lastname, datos.username, datos.rol, datos.email, generateHash(datos.username), datos.status], function (error, results, fields) {//
+                connection.query('INSERT INTO user(name, lastname, username, rol,email,password,status) VALUES(?, ?, ?,?,?,?,?)', [datos.name.toUpperCase(), datos.lastname.toUpperCase(), datos.username, datos.rol, datos.email, generateHash(datos.username), datos.status], function (error, results, fields) {//
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {

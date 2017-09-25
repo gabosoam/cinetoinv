@@ -54,7 +54,7 @@ module.exports = {
             if (err) {
                 callback(err, null);
             } else {
-                connection.query('UPDATE unit SET description=?, smallDescription=? WHERE (id=?) LIMIT 1', [datos.description, datos.smallDescription,datos.id], function (error, results, fields) {//
+                connection.query('UPDATE unit SET description=?, smallDescription=? WHERE (id=?) LIMIT 1', [datos.description.toUpperCase(), datos.smallDescription.toUpperCase(),datos.id], function (error, results, fields) {//
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {
@@ -89,7 +89,7 @@ module.exports = {
             if (err) {
                 callback(err, null);
             } else {
-                connection.query('INSERT INTO unit(description,smallDescription) VALUES(?,?)', [datos.description, datos.smallDescription], function (error, results, fields) {//
+                connection.query('INSERT INTO unit(description,smallDescription) VALUES(?,?)', [datos.description.toUpperCase(), datos.smallDescription.toUpperCase()], function (error, results, fields) {//
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {

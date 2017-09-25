@@ -39,7 +39,7 @@ module.exports = {
             if (err) {
                 callback(err, null);
             } else {
-                connection.query('UPDATE `location` SET `name`=?,`description`=? WHERE (`id`=?) LIMIT 1', [datos.name,datos.description,datos.id], function (error, results, fields) {//
+                connection.query('UPDATE `location` SET `name`=?,`description`=? WHERE (`id`=?) LIMIT 1', [datos.name.toUpperCase(),datos.description.toUpperCase(),datos.id], function (error, results, fields) {//
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {
@@ -77,7 +77,7 @@ module.exports = {
             if (err) {
                 callback(err, null);
             } else {
-                connection.query('INSERT INTO location(name, description) VALUES(?, ?)', [datos.name,datos.description,], function (error, results, fields) {//
+                connection.query('INSERT INTO location(name, description) VALUES(?, ?)', [datos.name.toUpperCase(),datos.description.toUpperCase()], function (error, results, fields) {//
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {

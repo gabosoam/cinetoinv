@@ -37,7 +37,7 @@ module.exports = {
       if (err) {
         callback(err, null);
       } else {
-        connection.query('UPDATE price SET variant=?,price=?,size=?,description=? WHERE (id=?) LIMIT 1', [datos.variant,datos.price, datos.size, datos.description,datos.id], function (error, results, fields) {//
+        connection.query('UPDATE price SET variant=?,price=?,size=?,description=? WHERE (id=?) LIMIT 1', [datos.variant,datos.price, datos.size, datos.description.toUpperCase(),datos.id], function (error, results, fields) {//
           if (error) {
  
             callback('error en la consulta: ' + error, null);
@@ -72,7 +72,7 @@ module.exports = {
       if (err) {
         callback(err, null);
       } else {
-        connection.query('INSERT INTO price (variant, price, size, description) VALUES (?, ?, ?, ?)', [datos.variant,datos.price,datos.size,datos.description], function (error, results, fields) {//
+        connection.query('INSERT INTO price (variant, price, size, description) VALUES (?, ?, ?, ?)', [datos.variant,datos.price,datos.size,datos.description.toUpperCase()], function (error, results, fields) {//
           if (error) {
             callback('error en la consulta: ' + error, null);
           } else {

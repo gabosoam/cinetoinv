@@ -60,7 +60,7 @@ module.exports = {
             if (err) {
                 callback(err, null);
             } else {
-                connection.query('UPDATE `brand` SET `name`=? WHERE (`id`=?) LIMIT 1', [datos.name,datos.id], function (error, results, fields) {//
+                connection.query('UPDATE `brand` SET `name`=? WHERE (`id`=?) LIMIT 1', [datos.name.toUpperCase(),datos.id], function (error, results, fields) {//
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {
@@ -94,7 +94,7 @@ module.exports = {
             if (err) {
                 callback(err, null);
             } else {
-                connection.query('INSERT INTO brand(name) VALUES(?)', [datos.name], function (error, results, fields) {//
+                connection.query('INSERT INTO brand(name) VALUES(?)', [datos.name.toUpperCase()], function (error, results, fields) {//
                     if (error) {
                         callback('error en la consulta: ' + error, null);
                     } else {
