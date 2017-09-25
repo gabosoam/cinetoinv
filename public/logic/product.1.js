@@ -316,7 +316,7 @@ $(document).ready(function () {
             allPages: true,
             avoidLinks: true,
             paperSize: "A4",
-            margin: { top: "6.8cm", left: "1cm", right: "1cm", bottom: "2.54cm" },
+            margin: { top: "7.8cm", left: "1cm", right: "1cm", bottom: "2.54cm" },
             landscape: false,
             repeatHeaders: true,
             template: $("#page-template").html(),
