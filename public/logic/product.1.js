@@ -288,9 +288,10 @@ $(document).ready(function () {
                 id: "id",
                 fields: {
                     Producto: { editable: false },
-                    barcode: { validation: { required: true }, type: 'string' },
-                    description: { validation: { required: true, }, type: 'string' },
+                    barcode: { validation: { required: true }, type: 'string', editable: false },
+                    description: { validation: { required: true, }, type: 'string' , editable: false },
                     bill: { type: 'string', defaultValue: bill, editable: false, visible: false },
+                    price: {type: 'number'},
                     code: { editable: false }
                 }
             }
@@ -341,7 +342,7 @@ $(document).ready(function () {
             { field: "location", title: "Almacén", width: '100px' },
             { field: "price", title: "Precio", width: '100px' },
             { field: "bill", title: "Factura", width: '1px' },
-            { command: ["destroy"], title: "Acciones" }],
+            { command: ["edit","destroy"], title: "Acciones" }],
         editable: "inline"
     })
 

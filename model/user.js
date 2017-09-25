@@ -27,7 +27,7 @@ module.exports = {
             } else {
                 connection.query('SELECT  * FROM user;', function (error, results, fields) {
                     if (error) {
-                
+
                         callback('error en la consulta: ' + error, null);
                     } else {
                         callback(null, results);
@@ -45,7 +45,7 @@ module.exports = {
             } else {
                 connection.query('SELECT  * FROM v_user;', function (error, results, fields) {
                     if (error) {
-                
+
                         callback('error en la consulta: ' + error, null);
                     } else {
                         callback(null, results);
@@ -68,6 +68,46 @@ module.exports = {
                         callback(null, results);
                         connection.release();
                     }
+                });
+            }
+        });
+    },
+    
+    updatePass: function (datos, callback) {
+        connection.getConnection(function (err, connection) {
+            if (err) {
+                callback(err, null);
+            } else {
+                connection.query('SELECT * from user WHERE `user`.id= ? ',[datos.user] ,function (e, r, f) {
+                    if (r[0]) {
+                        if(bcrypt.compareSync(datos.Anterior, r[0].password)){
+
+                            if (datos.Nueva == datos.Confirm) {
+                                connection.query('UPDATE `user` SET `password`=? WHERE (`id`=?)',[generateHash(datos.Nueva), datos.user], function(errr, res, fiel) {
+                                    if (errr) {
+                                        console.log(errr);
+                                        callback('Existio un error al modificar la contraseña', null);
+                                        
+                                    } else {
+                                        callback(null, 'Contraseña modificada con éxito');
+                                        
+                                    }
+                                    
+                                });
+                                
+                                
+                            } else {
+                                callback('Las contraseñá no coinciden', null);
+                                
+                            }
+                         
+
+                        }else{
+                            callback('Contraseña anterior incorrecta', null);
+                        }
+                    }
+                    connection.release();
+
                 });
             }
         });
@@ -96,7 +136,7 @@ module.exports = {
             if (err) {
                 callback(err, null);
             } else {
-              
+
 
                 connection.query('INSERT INTO user(name, lastname, username, rol,email,password,status) VALUES(?, ?, ?,?,?,?,?)', [datos.name.toUpperCase(), datos.lastname.toUpperCase(), datos.username, datos.rol, datos.email, generateHash(datos.username), datos.status], function (error, results, fields) {//
                     if (error) {
@@ -139,7 +179,7 @@ module.exports = {
                             } else {
                                 callback('La contraseña es incorrecta', null);
                             }
-                         
+
                         } else {
                             callback('El usuario no existe', null);
                         }
