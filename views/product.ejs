@@ -65,7 +65,7 @@
                     <div class="row">
 
                         <div class="col-md-12">
-                            <div class="row">
+                            <div id="busqueda" class="row">
                                 <br>
                                 <div class="col-md-3">
 
@@ -323,9 +323,18 @@
     </script>
     <% } %>
 
+    <% if (data.iduser == user.id) { %>
+        <script src="../logic/product.1.js"></script>
+        <% } else { %>
+            <script src="../logic/product.2.js"></script>
+            <% } %>
+            
+
+
+
 
     
-        <script src="../logic/product.1.js"></script>
+        
 
 
 </html>
