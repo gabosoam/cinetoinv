@@ -6,6 +6,9 @@ var types = [{
 }, {
     "value": 2,
     "text": "ACTA"
+}, {
+    "value": 3,
+    "text": "GUÍA DE REMISIÓN"
 }];
 
 
