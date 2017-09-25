@@ -38,6 +38,24 @@ module.exports = {
         });
     },
 
+    read2: function (callback) {
+        connection.getConnection(function (err, connection) {
+            if (err) {
+                callback(err, null);
+            } else {
+                connection.query('SELECT  * FROM v_user;', function (error, results, fields) {
+                    if (error) {
+                
+                        callback('error en la consulta: ' + error, null);
+                    } else {
+                        callback(null, results);
+                        connection.release();
+                    }
+                });
+            }
+        });
+    },
+
     update: function (datos, callback) {
         connection.getConnection(function (err, connection) {
             if (err) {
@@ -109,6 +127,7 @@ module.exports = {
                                     callback('El usuario se encuentra desactivado', null);
                                 } else {
                                     usuarioDatos = {
+                                        id: results[0].id,
                                         name: results[0].name + ' ' + results[0].lastname,
                                         username: results[0].username,
                                         email: results[0].email,

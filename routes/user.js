@@ -25,6 +25,16 @@ router.get('/read', function (req, res, next) {
   })
 });
 
+router.get('/read2', function (req, res, next) {
+  user.read2(function (error, datos) {
+    if (error) {
+   
+    } else {
+      res.send(datos);
+    }
+  })
+});
+
 router.post('/update', function (req,res,next) {
  var datos= req.body;
  user.update(datos,function(error, datos){

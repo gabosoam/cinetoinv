@@ -1,3 +1,4 @@
+
 var validator = $("#formsave").kendoValidator().data("kendoValidator");
 var validatorModel = $("#formSaveModel").kendoValidator().data("kendoValidator");
 $("#save").on("click", function () {
