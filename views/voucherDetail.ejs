@@ -31,10 +31,10 @@
 
                 <div class="collapse navbar-collapse" id="sidebar-nav" role="navigation">
                     <ul class="nav">
-                        <li id="RegionalSalesStatus"><a href="/"><span class="icon icon-chart-column "></span>Registrar salidas</a></li>
-                        <li class="active" id="RegionalSalesStatus"><a href="/bill"><span class="icon icon-chart-column "></span>Registrar ingresos</a></li>
-                        <li id="RegionalSalesStatus"><a href="/client"><span class="icon icon-chart-column "></span>Clientes</a></li>
-                        <li id="RegionalSalesStatus"><a href="/provider"><span class="icon icon-chart-column "></span>Proveedores</a></li>
+                        <li class="active"><a href="/"><span class="icon icon-chart-column "></span>Registrar salidas</a></li>
+                        <li><a href="/bill"><span class="icon icon-chart-column "></span>Registrar ingresos</a></li>
+                        <li><a href="/client"><span class="icon icon-chart-column "></span>Clientes</a></li>
+                        <li><a href="/provider"><span class="icon icon-chart-column "></span>Proveedores</a></li>
                     </ul>
 
 
@@ -52,7 +52,7 @@
                         </div>
 
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#"><span class="glyphicon glyphicon-user"></span> <%= user.name %></a></li>
+                            <li style="cursor: pointer; cursor: hand;"><a data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-user"></span> <%= user.name %></a></li>
                             <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
                         </ul>
                     </div>
@@ -77,7 +77,7 @@
                                         <label for="code">Número de serie:</label>
                                         <input autofocus type="text" class="form-control" required id="code2" name="code"
                                             style="width: 100%" placeholder="Ingresar número de serie">
-                                        <input type="hidden" value="<%=bill%>">
+                                        <input id="voucher" type="hidden" value="<%=bill%>">
                                     </div>
                                 </div>
                              
@@ -113,77 +113,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="myModal" role="dialog">
-                    <div class="modal-dialog">
-
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Registrar modelo</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form id="formSaveModel">
-
-
-                                    <div class="form-group">
-                                        <label for="code">Código:</label>
-                                        <input autofocus type="text" class="form-control" validationMessage="Selecciona un producto" required id="codeModal" name="code"
-                                            style="width: 100%">
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <label for="pwd">Nombre del producto:</label>
-                                        <input type="text" class="form-control" validationMessage="Nombre" name="description" required id="description" style="width: 100%">
-                                    </div>
-
-
-
-
-                                    <div class="form-group">
-                                        <label for="pwd">Stock mín:</label>
-                                        <input type="number" validationMessage="Ingresa el stock mínimo" class="form-control" required name="stockmin" placeholder="Stock mínimo"
-                                            id="stockmin" style="width: 100%">
-                                    </div>
-
-
-
-
-                                    <div class="form-group">
-                                        <label for="pwd">Unidad de medida:</label>
-                                        <input type="text" class="form-control" required name="unit" id="unit" style="width: 100%">
-                                    </div>
-
-
-
-
-
-
-                                    <div class="form-group">
-                                        <label for="pwd">Categoría:</label>
-                                        <input type="text" class="form-control" required name="category" id="category" style="width: 100%">
-                                    </div>
-
-
-
-
-
-                                    <div class="form-group">
-                                        <label for="pwd">Marca:</label>
-                                        <input type="text" class="form-control" required name="brand" id="brand" style="width: 100%">
-                                    </div>
-
-
-                            </div>
-                            <div class="modal-footer">
-                                <button id="saveModel" type="button" class="btn btn-primary">Guardar</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                
 
 
 </body>
@@ -209,12 +139,12 @@
 
             <table class="table" style="float: left">
                 <tr>
-                    <td><strong>Reporte de ingreso No. <%= bill%>  </strong>
+                    <td><strong>Reporte de salida No. <%= bill%>  </strong>
                         <td>
                 </tr>
                 <tr>
                     <td>
-                        <p><strong>Proveedor: </strong></p>
+                        <p><strong>Cliente: </strong></p>
                     </td>
                     <td>
                         <p>

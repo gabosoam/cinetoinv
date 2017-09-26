@@ -42,6 +42,16 @@ router.post('/create', function (req, res, next) {
     })
   })
 
+
+  router.get('/read/:bill', isLoggedIn, function (req, res, next) {
+    var bill = req.params.bill;
+  
+    voucher.read2(bill, function (error, data) {
+      res.send(data);
+  
+    })
+  });
+
   router.post('/delete', function (req, res, next) {
     var datos = req.body;
     voucher.delete(datos, function (error, datos) {

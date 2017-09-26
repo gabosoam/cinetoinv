@@ -29,6 +29,7 @@ router.get('/read/:bill', isLoggedIn, function (req, res, next) {
 });
 
 router.post('/read', function (req, res, next) {
+  console.log('si llega');
   bill.read(function (error, datos) {
     if (error) {
     } else {

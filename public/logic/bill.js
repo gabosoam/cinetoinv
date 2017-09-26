@@ -52,8 +52,10 @@ $(document).ready(function () {
 
     var socket = io.connect();
     socket.emit('getProvider', function (providers) {
+     
 
         $.get("/user/read2", function (users) {
+          
 
             $("#grid").kendoGrid({
                 dataSource: dataSource,

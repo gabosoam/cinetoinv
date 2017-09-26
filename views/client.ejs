@@ -52,16 +52,16 @@
                         </div>
 
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#"><span class="glyphicon glyphicon-user"></span> <%= user.name %></a></li>
+                            <li style="cursor: pointer; cursor: hand;"><a data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-user"></span> <%= user.name %></a></li>
                             <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
                         </ul>
                     </div>
                 </nav>
                 <div id="example">
-                      
-                        <div id="grid"></div>
-                      </div>
-                      
+
+                    <div id="grid"></div>
+                </div>
+
                 <div id="grid2" tabindex="0"></div>
 
 
@@ -75,6 +75,10 @@
                         </div>
                     </div>
                 </div>
+                <div id="modal"></div>
+                <script>
+                    var user = '<%= user.id%>';
+                </script>
 
 
 </body>
@@ -93,7 +97,7 @@
         <div class="header">
             <img src="../image/logo.svg" alt="" width="200px">
             <h3 style="text-align:center">Reporte de ingreso de productos</h3>
-            
+
         </div>
         <div class="watermark">CINETO</div>
 
@@ -113,7 +117,7 @@
     </div>
 </script>
 
-        <script src="../logic/client.js"></script>
+<script src="../logic/client.js"></script>
 
 
 </html>

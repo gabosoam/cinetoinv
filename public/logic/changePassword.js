@@ -1,4 +1,4 @@
-var cosa = '<div class="modal fade" id="myModal" role="dialog">'+
+var modal = '<div class="modal fade" id="myModal" role="dialog">'+
 '<div class="modal-dialog modal-sm">'+
     '<div class="modal-content">'+
         '<div class="modal-header">'+
@@ -8,17 +8,17 @@ var cosa = '<div class="modal fade" id="myModal" role="dialog">'+
         '<div class="modal-body">'+
             '<form id="formPass">'+
                 '<div class="form-group">'+
-                    '<input type="hidden" name="user" value="<%= user.id%>" required>'+
-                    '<label for="email">Contraseña anterior:</label>'+
-                    '<input autofocus type="password" class="form-control" name="Anterior" required>'+
+                    '<input type="hidden" name="user" value="'+user+'" required>'+
+                    '<label for="email">Contraseña actual:</label>'+
+                    '<input placeholder="Ingrese su contraseña actual" autofocus type="password" class="form-control" name="Anterior" required>'+
                 '</div>'+
                 '<div class="form-group">'+
                     '<label for="pwd">Nueva contraseña:</label>'+
-                    '<input type="password" class="form-control" id="pwd" name="Nueva" id="Nueva" required>'+
+                    '<input placeholder="Ingrese su nueva contraseña" type="password" class="form-control" id="pwd" name="Nueva" id="Nueva" required>'+
                 '</div>'+
                 '<div class="form-group">'+
                     '<label for="pwd">Confirmar contraseña:</label>'+
-                    '<input type="password" class="form-control" id="pwd" name="Confirm" id="Nueva" required>'+
+                    '<input placeholder="Repita su contraseña" type="password" class="form-control" id="pwd" name="Confirm" id="Nueva" required>'+
                 '</div>'+
         '</div>'+
         '<div class="modal-footer">'+
@@ -30,7 +30,7 @@ var cosa = '<div class="modal fade" id="myModal" role="dialog">'+
 '</div>'+
 '</div>';
 
-document.getElementById('cosa').innerHTML= cosa;
+document.getElementById('modal').innerHTML= modal;
 
 
   
@@ -40,9 +40,8 @@ document.getElementById('cosa').innerHTML= cosa;
     var validator = $("#formPass").kendoValidator().data("kendoValidator");
     if (validator.validate()) {
       var data = $('#formPass').serialize();
-      alert(data);
       $.post("/user/editPassword",data, function (datares) {
-        alert(datares);
+        
         if (datares=="Contraseña modificada con éxito") {
           alert(datares);
           location.href ="/logout";

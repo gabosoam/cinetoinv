@@ -56,11 +56,14 @@ router.post('/update', function (req, res, next) {
 })
 
 router.post('/editPassword', function (req, res, next) {
+
   var datos = req.body;
   user.updatePass(datos, function (error, datos) {
     if (error) {
+      console.log(error);
       res.send(error);
     } else {
+      console.log(datos);
       res.send(datos);
       
     }

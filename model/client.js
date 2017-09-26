@@ -1,138 +1,68 @@
-var config = require('../config/connection.js');
-var mysql = require('mysql');
-
-var connection = mysql.createPool({
-    host: config.host,
-    user: config.user,
-    password: config.password,
-    database: config.database,
-    port: config.port
-});
+var connection = require('../config/connection.js');
 
 
 module.exports = {
 
     read: function (callback) {
-        connection.getConnection(function (err, connection) {
-            if (err) {
-                callback(err, null);
+        connection.query('SELECT  * FROM client;', function (error, results, fields) {
+            if (error) {
+
+                callback('error en la consulta: ' + error, null);
             } else {
-                connection.query('SELECT  * FROM client;', function (error, results, fields) {
-                    if (error) {
-                 
-                        callback('error en la consulta: ' + error, null);
-                    } else {
-                
-                        callback(null, results);
-
-                        connection.release();
-
-
-                    }
-                });
+                callback(null, results);
             }
         });
     },
 
     read2: function (callback) {
-        connection.getConnection(function (err, connection) {
-            if (err) {
-                callback(err, null);
+        connection.query('SELECT  * FROM v_client;', function (error, results, fields) {
+            if (error) {
+
+                callback('error en la consulta: ' + error, null);
             } else {
-                connection.query('SELECT  * FROM v_client;', function (error, results, fields) {
-                    if (error) {
-                   
-                        callback('error en la consulta: ' + error, null);
-                    } else {
-                
-                        callback(null, results);
-
-                        connection.release();
-
-
-                    }
-                });
+                callback(null, results);
             }
         });
     },
 
     readOne: function (callback) {
-        connection.getConnection(function (err, connection) {
-            if (err) {
-                callback(err, null);
+        connection.query('SELECT  * FROM v_client;', function (error, results, fields) {
+            if (error) {
+                callback('error en la consulta: ' + error, null);
             } else {
-                connection.query('SELECT  * FROM v_client;', function (error, results, fields) {
-                    if (error) {
-                        callback('error en la consulta: ' + error, null);
-                    } else {
-                        callback(null, results);
-                        connection.release();
-                    }
-                });
+                callback(null, results);
+
             }
         });
     },
 
     update: function (datos, callback) {
-        connection.getConnection(function (err, connection) {
-            if (err) {
-                callback(err, null);
+        connection.query('UPDATE `client` SET `dni`=?,`name`=?,`address`=?, `phone`=?, email=? WHERE (`id`=?) LIMIT 1', [datos.dni, datos.name.toUpperCase(), datos.address.toUpperCase(), datos.phone, datos.email, datos.id], function (error, results, fields) {//
+            if (error) {
+                callback('error en la consulta: ' + error, null);
             } else {
-                connection.query('UPDATE `client` SET `dni`=?,`name`=?,`address`=?, `phone`=?, email=? WHERE (`id`=?) LIMIT 1', [datos.dni,datos.name.toUpperCase(),datos.address.toUpperCase(), datos.phone,datos.email, datos.id], function (error, results, fields) {//
-                    if (error) {
-                        callback('error en la consulta: ' + error, null);
-                    } else {
-
-
-                        callback(null, results);
-
-                        connection.release();
-                    }
-                });
+                callback(null, results);
             }
         });
     },
 
     delete: function (datos, callback) {
-        connection.getConnection(function (err, connection) {
-            if (err) {
-                callback(err, null);
+        connection.query('DELETE FROM client WHERE id=?', [datos.id], function (error, results, fields) {//
+            if (error) {
+                callback('error en la consulta: ' + error, null);
             } else {
-                connection.query('DELETE FROM client WHERE id=?', [datos.id], function (error, results, fields) {//
-                    if (error) {
-                        callback('error en la consulta: ' + error, null);
-                    } else {
-
-
-                        callback(null, results);
-
-                        connection.release();
-                    }
-                });
+                callback(null, results);
             }
         });
     },
 
 
     create: function (datos, callback) {
-
-          
-        connection.getConnection(function (err, connection) {
-            if (err) {
-                callback(err, null);
+        connection.query('INSERT INTO client(dni, name, address, phone,email) VALUES(?,?,?,?,?)', [datos.dni, datos.name.toUpperCase(), datos.address.toUpperCase(), datos.phone, datos.email], function (error, results, fields) {//
+            if (error) {
+                callback('error en la consulta: ' + error, null);
             } else {
-                
-                connection.query('INSERT INTO client(dni, name, address, phone,email) VALUES(?,?,?,?,?)', [datos.dni,datos.name.toUpperCase(),datos.address.toUpperCase(), datos.phone,datos.email], function (error, results, fields) {//
-                    if (error) {
-                        callback('error en la consulta: ' + error, null);
-                    } else {
-
-
-                        callback(null, results);
-
-                        connection.release();
-                    }
-                });
+                callback(null, results);
             }
         });
     },
