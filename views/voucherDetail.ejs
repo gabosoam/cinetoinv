@@ -31,7 +31,8 @@
 
                 <div class="collapse navbar-collapse" id="sidebar-nav" role="navigation">
                     <ul class="nav">
-                        <li class="active"><a href="/"><span class="icon icon-chart-column "></span>Registrar salidas</a></li>
+                        <li><a href="/"><span class="icon icon-chart-column "></span>Inicio</a></li>
+                        <li class="active"><a href="/vouchers"><span class="icon icon-chart-column "></span>Registrar salidas</a></li>
                         <li><a href="/bill"><span class="icon icon-chart-column "></span>Registrar ingresos</a></li>
                         <li><a href="/client"><span class="icon icon-chart-column "></span>Clientes</a></li>
                         <li><a href="/provider"><span class="icon icon-chart-column "></span>Proveedores</a></li>
@@ -68,6 +69,33 @@
                             <div class="row">
                                 <br>
                                 <div class="col-md-3">
+                                    <table class="table">
+                                        <tr>
+                                            <td><strong>Cliente:</strong></td>
+                                            <td>
+                                                <%=data.name%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Fecha:</strong></td>
+                                            <td>
+                                                <%=data.date%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Referencia:</strong></td>
+                                            <td>
+                                                <%=data.reference%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Creado por:</strong></td>
+                                            <td>
+                                                <%=data.user%>
+                                            </td>
+                                        </tr>
+
+                                    </table>
 
 
 
@@ -75,18 +103,17 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="code">Número de serie:</label>
-                                        <input autofocus type="text" class="form-control" required id="code2" name="code"
-                                            style="width: 100%" placeholder="Ingresar número de serie">
+                                        <input autofocus type="text" class="form-control" required id="code2" name="code" style="width: 100%" placeholder="Ingresar número de serie">
                                         <input id="voucher" type="hidden" value="<%=bill%>">
                                     </div>
                                 </div>
-                             
+
 
 
 
                             </div>
 
-                            
+
                             <br>
 
                             <div id="grid2" tabindex="0"></div>
@@ -113,7 +140,7 @@
                         </div>
                     </div>
                 </div>
-                
+
 
 
 </body>

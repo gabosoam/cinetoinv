@@ -28,8 +28,22 @@ router.get('/read/:bill', isLoggedIn, function (req, res, next) {
   })
 });
 
+router.post('/close', isLoggedIn, function (req, res, next) {
+  var data = req.body;
+
+  bill.closeBill(data,function(error, data) {
+    if (error) {
+      res.send(error);
+    } else {
+      res.send(data);
+    }
+  });
+
+
+});
+
 router.post('/read', function (req, res, next) {
-  console.log('si llega');
+
   bill.read(function (error, datos) {
     if (error) {
     } else {

@@ -4,7 +4,8 @@ let mysql = require('mysql'),
         host: 'localhost',
         user: 'root',
         password: '12345',
-        database: 'inventory'
+        database: 'inventory',
+        port: '3306'
     },
     myConn = mysql.createConnection(db_config);
 

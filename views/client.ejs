@@ -2,156 +2,157 @@
 <html>
 
 <head>
-    <title>Sistema de inventario - Cineto</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sistema de inventario - Cineto</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="../kendo/styles/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="../kendo/styles/site.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="../kendo/css/kendo.common-bootstrap.min.css" />
-    <link rel="stylesheet" href="../kendo/css/kendo.bootstrap.min.css" />
-    <link rel="stylesheet" href="../kendo/css/kendo.bootstrap.mobile.min.css" />
+  <link href="../kendo/styles/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="../kendo/styles/site.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="../kendo/css/kendo.common-bootstrap.min.css" />
+  <link rel="stylesheet" href="../kendo/css/kendo.bootstrap.min.css" />
+  <link rel="stylesheet" href="../kendo/css/kendo.bootstrap.mobile.min.css" />
 
 </head>
 
 <body>
-    <div class="container-fluid">
-        <!--open container-->
-        <div class="row row-offcanvas row-offcanvas-left">
-            <!--open row-->
-            <div id="nav-section" class="col-xs-12 column">
-                <!--open nav column-->
-                <div class="navbar-default">
-                    <button id="toggle-button" type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <h1 id="dash-logo" class="center-block">Inventario</h1>
+  <div class="container-fluid">
+    <!--open container-->
+    <div class="row row-offcanvas row-offcanvas-left">
+      <!--open row-->
+      <div id="nav-section" class="col-xs-12 column">
+        <!--open nav column-->
+        <div class="navbar-default">
+          <button id="toggle-button" type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <h1 id="dash-logo" class="center-block">Inventario</h1>
 
-                <div class="collapse navbar-collapse" id="sidebar-nav" role="navigation">
-                    <ul class="nav">
-                        <li id="RegionalSalesStatus"><a href="/"><span class="icon icon-chart-column "></span>Registrar salidas</a></li>
-                        <li id="RegionalSalesStatus"><a href="/bill"><span class="icon icon-chart-column "></span>Registrar ingresos</a></li>
-                        <li class="active" id="RegionalSalesStatus"><a href="/client"><span class="icon icon-chart-column "></span>Clientes</a></li>
-                        <li id="RegionalSalesStatus"><a href="/provider"><span class="icon icon-chart-column "></span>Proveedores</a></li>
-                    </ul>
+        <div class="collapse navbar-collapse" id="sidebar-nav" role="navigation">
+          <ul class="nav">
+            <li><a href="/"><span class="icon icon-chart-column "></span>Inicio</a></li>
+            <li><a href="/vouchers"><span class="icon icon-chart-column "></span>Registrar salidas</a></li>
+            <li><a href="/bill"><span class="icon icon-chart-column "></span>Registrar ingresos</a></li>
+            <li class="active" id="RegionalSalesStatus"><a href="/client"><span class="icon icon-chart-column "></span>Clientes</a></li>
+            <li><a href="/provider"><span class="icon icon-chart-column "></span>Proveedores</a></li>
+          </ul>
 
 
-                </div>
+        </div>
+      </div>
+      <!--close left column-->
+      <div id="main-section" class="col-xs-12 column">
+        <!--open main column-->
+
+
+        <nav class="navbar-default">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="/">Clientes</a>
             </div>
-            <!--close left column-->
-            <div id="main-section" class="col-xs-12 column">
-                <!--open main column-->
 
+            <ul class="nav navbar-nav navbar-right">
+              <li style="cursor: pointer; cursor: hand;"><a data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-user"></span> <%= user.name %></a></li>
+              <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
+            </ul>
+          </div>
+        </nav>
+        <div id="example">
 
-                <nav class="navbar-default">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <a class="navbar-brand" href="/">Clientes</a>
-                        </div>
-
-                        <ul class="nav navbar-nav navbar-right">
-                            <li style="cursor: pointer; cursor: hand;"><a data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-user"></span> <%= user.name %></a></li>
-                            <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
-                        </ul>
-                    </div>
-                </nav>
-                <div id="example">
-
-                    <div id="grid"></div>
-                </div>
-
-                <div id="grid2" tabindex="0"></div>
-
-
-                <div id="about" class="main-section-content row">
-
-                    <div class="section-white">
-                        <!--  <h3 class="section-title">Featured ASP.NET MVC UI Components</h3> -->
-                        <div class="row">
-
-
-                        </div>
-                    </div>
-                </div>
-                <div id="modal"></div>
-                <script>
-                    var user = '<%= user.id%>';
-                </script>
-
-
-</body>
-<script type="text/javascript" src="/socket.io/socket.io.js"></script>
-<script src="../kendo/js/jquery-3.1.1.min.js"></script>
-<script src="../kendo/js/bootstrap.min.js"></script>
-<script src="../kendo/js/kendo.all.min.js"></script>
-<script src="../kendo/js/jszip.min.js"></script>
-<script src="../kendo/js/kendo.messages.es-MX.min.js"></script>
-<script type="x/kendo-template" id="page-template">
-
-    <div class="page-template">
-
-
-
-        <div class="header">
-            <img src="../image/logo.svg" alt="" width="200px">
-            <h3 style="text-align:center">Reporte de ingreso de productos</h3>
-
+          <div id="grid"></div>
         </div>
-        <div class="watermark">CINETO</div>
 
-        <div class="footer">
-            La Pinta 236 y Rábida. Quito Ecuador, Edficio Alcatel Teléfono: (593-2) 5100 528 - Email: info@cineto.net
-            <div style="float: right">Página #: pageNum # de #: totalPages #</div>
+        <div id="grid2" tabindex="0"></div>
+
+
+        <div id="about" class="main-section-content row">
+
+          <div class="section-white">
+            <!--  <h3 class="section-title">Featured ASP.NET MVC UI Components</h3> -->
+            <div class="row">
+
+
+            </div>
+          </div>
         </div>
-    </div>
-</script>
-<script type="text/x-kendo-template" id="template">
-    <div class="refreshBtnContainer">
-        <a href="\\#" class="k-pager-refresh k-link k-button" title="Refresh"><span class="k-icon k-i-reload"></span></a>
-    </div>
-    <div class="toolbar">
-        <label class="category-label" for="category">Show products by category:</label>
-        <input type="search" id="category" style="width: 150px" />
-    </div>
-</script>
-
-<script src="../logic/client.js"></script>
+        <div id="modal"></div>
+        <script>
+        var user = '<%= user.id%>';
+        </script>
 
 
-</html>
+      </body>
+      <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+      <script src="../kendo/js/jquery-3.1.1.min.js"></script>
+      <script src="../kendo/js/bootstrap.min.js"></script>
+      <script src="../kendo/js/kendo.all.min.js"></script>
+      <script src="../kendo/js/jszip.min.js"></script>
+      <script src="../kendo/js/kendo.messages.es-MX.min.js"></script>
+      <script type="x/kendo-template" id="page-template">
 
-<style>
-    /* Page Template for the exported PDF */
+      <div class="page-template">
 
-    .page-template {
+
+
+      <div class="header">
+      <img src="../image/logo.svg" alt="" width="200px">
+      <h3 style="text-align:center">Reporte de ingreso de productos</h3>
+
+      </div>
+      <div class="watermark">CINETO</div>
+
+      <div class="footer">
+      La Pinta 236 y Rábida. Quito Ecuador, Edficio Alcatel Teléfono: (593-2) 5100 528 - Email: info@cineto.net
+      <div style="float: right">Página #: pageNum # de #: totalPages #</div>
+      </div>
+      </div>
+      </script>
+      <script type="text/x-kendo-template" id="template">
+      <div class="refreshBtnContainer">
+      <a href="\\#" class="k-pager-refresh k-link k-button" title="Refresh"><span class="k-icon k-i-reload"></span></a>
+      </div>
+      <div class="toolbar">
+      <label class="category-label" for="category">Show products by category:</label>
+      <input type="search" id="category" style="width: 150px" />
+      </div>
+      </script>
+
+      <script src="../logic/client.js"></script>
+
+
+      </html>
+
+      <style>
+      /* Page Template for the exported PDF */
+
+      .page-template {
         font-family: "DejaVu Sans", "Arial", sans-serif;
         position: absolute;
         width: 100%;
         height: 100%;
         top: 0;
         left: 0;
-    }
+      }
 
-    .cosa {
+      .cosa {
         background: url("../image/logo.png");
-    }
+      }
 
-    .page-template .header {
+      .page-template .header {
         position: absolute;
         top: 30px;
         left: 30px;
         right: 30px;
         border-bottom: 1px solid #888;
         color: black;
-    }
+      }
 
-    .page-template .imgagen {
+      .page-template .imgagen {
         max-width: 100px;
-    }
+      }
 
-    .page-template .footer {
+      .page-template .footer {
         position: absolute;
         bottom: 30px;
         left: 30px;
@@ -159,9 +160,9 @@
         border-top: 1px solid #888;
         text-align: center;
         color: #888;
-    }
+      }
 
-    .page-template .watermark {
+      .page-template .watermark {
         font-weight: bold;
         font-size: 400%;
         text-align: center;
@@ -169,10 +170,10 @@
         color: #aaaaaa;
         opacity: 0.1;
         transform: rotate(-35deg) scale(1.7, 1.5);
-    }
-    /* Content styling */
+      }
+      /* Content styling */
 
-    .customer-photo {
+      .customer-photo {
         display: inline-block;
         width: 32px;
         height: 32px;
@@ -183,16 +184,16 @@
         line-height: 32px;
         box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0, 0, 0, .2);
         margin-left: 5px;
-    }
+      }
 
-    kendo-pdf-document .customer-photo {
+      kendo-pdf-document .customer-photo {
         border: 1px solid #dedede;
-    }
+      }
 
-    .customer-name {
+      .customer-name {
         display: inline-block;
         vertical-align: middle;
         line-height: 32px;
         padding-left: 3px;
-    }
-</style>
+      }
+      </style>

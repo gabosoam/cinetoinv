@@ -24,7 +24,7 @@ module.exports = {
     },
 
     readOne: function (voucher, callback) {
-        connection.query('SELECT  * FROM voucher WHERE id=?;', voucher, function (error, results, fields) {
+        connection.query('SELECT  * FROM v_voucher WHERE id=?;', voucher, function (error, results, fields) {
             if (error) {
                 callback('error en la consulta: ' + error, null);
             } else {
@@ -64,7 +64,7 @@ module.exports = {
 
 
     create: function (datos, callback) {
-        connection.query('INSERT INTO voucher (client, date, reference, type) VALUES (?,?,?,?)', [datos.client, new Date(datos.date).toLocaleDateString(), datos.reference.toUpperCase(), datos.type], function (error, results, fields) {
+        connection.query('INSERT INTO voucher (client, date, reference, type, user) VALUES (?,?,?,?,?)', [datos.client, new Date(datos.date).toLocaleDateString(), datos.reference.toUpperCase(), datos.type, datos.user], function (error, results, fields) {
             if (error) {
                 callback('error en la consulta: ' + error, null);
             } else {

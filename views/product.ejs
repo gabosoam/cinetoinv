@@ -31,10 +31,11 @@
 
                 <div class="collapse navbar-collapse" id="sidebar-nav" role="navigation">
                     <ul class="nav">
-                        <li id="RegionalSalesStatus"><a href="/"><span class="icon icon-chart-column "></span>Registrar salidas</a></li>
-                        <li class="active" id="RegionalSalesStatus"><a href="/bill"><span class="icon icon-chart-column "></span>Registrar ingresos</a></li>
-                        <li id="RegionalSalesStatus"><a href="/client"><span class="icon icon-chart-column "></span>Clientes</a></li>
-                        <li id="RegionalSalesStatus"><a href="/provider"><span class="icon icon-chart-column "></span>Proveedores</a></li>
+                        <li><a href="/"><span class="icon icon-chart-column "></span>Inicio</a></li>
+                        <li><a href="/vouchers"><span class="icon icon-chart-column "></span>Registrar salidas</a></li>
+                        <li class="active"><a href="/bill"><span class="icon icon-chart-column "></span>Registrar ingresos</a></li>
+                        <li><a href="/client"><span class="icon icon-chart-column "></span>Clientes</a></li>
+                        <li><a href="/provider"><span class="icon icon-chart-column "></span>Proveedores</a></li>
                     </ul>
 
 
@@ -68,69 +69,125 @@
                             <div id="busqueda" class="row">
                                 <br>
                                 <div class="col-md-3">
+                                    <table class="table">
+                                        <tr>
+                                            <td><strong>Proveedor:</strong></td>
+                                            <td>
+                                                <%=data.name%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Fecha:</strong></td>
+                                            <td>
+                                                <%=data.date%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Referencia:</strong></td>
+                                            <td>
+                                                <%=data.reference%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Creado por:</strong></td>
+                                            <td>
+                                                <%=data.user%>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+
+                                    <button id="closeBill" class="btn btn-danger">Cerrar ingreso</button>
 
 
 
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="code">Código:</label>
-                                        <input autofocus type="text" class="form-control" validationMessage="Selecciona un producto" required id="code2" name="code"
-                                            style="width: 100%" placeholder="Buscar por código">
+                                <div class="col-md-9">
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="code">Código:</label>
+                                                <input autofocus type="text" class="form-control" validationMessage="Selecciona un producto" required id="code2" name="code"
+                                                    style="width: 100%" placeholder="Buscar por código">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label for="pwd">Nombre del producto:</label>
+                                                <input type="text" class="form-control" validationMessage="Nombre" name="description" required id="nameProduct" style="width: 100%">
+                                            </div>
+                                        </div>
+
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="pwd">Nombre del producto:</label>
-                                        <input type="text" class="form-control" validationMessage="Nombre" name="description" required id="nameProduct" style="width: 100%">
+
+
+                                    <div class="row">
+
+                                        <form id="formsave" disabled>
+                                            <input type="hidden" name="bill" value="<%= bill %>">
+                                            <input type="hidden" required name="code" id="modelProduct" value="">
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="pwd">Almacén:</label>
+                                                    <input type="text" class="form-control" validationMessage="Selecciona un almacén" name="location" required id="location"
+                                                        style="width: 100%">
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="pwd">Precio de costo:</label>
+                                                    <input type="number" validationMessage="Ingresa el precio del producto" class="form-control" required name="price" placeholder="Precio"
+                                                        id="price" style="width: 100%">
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="pwd">Observación:</label>
+                                                    <textarea style="resize: none" class="form-control" name="observation" id="" rows="2" placeholder="Ingrese una observación"></textarea>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="pwd">Número de serie:</label>
+                                                    <input type="text" class="form-control" validationMessage="Ingresa el número de serie" name="barcode" required id="barcode"
+                                                        placeholder="Número de serie" style="width: 100%">
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-1">
+                                                <label for="pwd">&nbsp</label>
+                                                <button id="save" type="button" class="btn btn-primary">Guardar</button>
+
+                                            </div>
+                                        </form>
+
+
+
+
                                     </div>
 
+
                                 </div>
+
+
+
 
 
 
                             </div>
 
                             <div class="row">
-                                <br>
 
-                                <form id="formsave" disabled>
-                                    <input type="hidden" name="bill" value="<%= bill %>">
-                                    <input type="hidden" required name="code" id="modelProduct" value="">
-
-                                    <div class="col-md-3"></div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="pwd">Almacén:</label>
-                                            <input type="text" class="form-control" validationMessage="Selecciona un almacén" name="location" required id="location"
-                                                style="width: 100%">
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="pwd">Precio de costo:</label>
-                                            <input type="number" validationMessage="Ingresa el precio del producto" class="form-control" required name="price" placeholder="Precio"
-                                                id="price" style="width: 100%">
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="pwd">Número de serie:</label>
-                                            <input type="text" class="form-control" validationMessage="Ingresa el número de serie" name="barcode" required id="barcode"
-                                                placeholder="Número de serie" style="width: 100%">
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-1">
-                                        <label for="pwd">&nbsp</label>
-                                        <button id="save" type="button" class="btn btn-primary">Guardar</button>
-
-                                    </div>
-                                </form>
-                                <hr>
 
                             </div>
                             <br>
@@ -289,15 +346,15 @@
                     </td>
                 </tr>
                 <tr>
-                        <td>
-                            <p><strong>Realizado por: </strong></p>
-                        </td>
-                        <td>
-                            <p>
-                                <%= data.user%>
-                            </p>
-                        </td>
-                    </tr>
+                    <td>
+                        <p><strong>Realizado por: </strong></p>
+                    </td>
+                    <td>
+                        <p>
+                            <%= data.user%>
+                        </p>
+                    </td>
+                </tr>
             </table>
         </div>
         <div class="watermark">CINETO</div>
@@ -319,22 +376,25 @@
 </script>
 <% if (bill) { %>
     <script>
-        var bill = <%= bill %>;
+        var bill = '<%= bill %>';
+        var userBill = '<%=data.iduser%>';
+        var userSession = '<%=user.id%>';
+        var user = '<%=data.user%>';
     </script>
     <% } %>
 
-    <% if (data.iduser == user.id) { %>
-        <script src="../logic/product.1.js"></script>
-        <% } else { %>
-            <script src="../logic/product.2.js"></script>
-            <% } %>
-            
+        <% if (data.state == 0) { %>
+            <script src="../logic/product.1.js"></script>
+            <% } else { %>
+                <script src="../logic/product.2.js"></script>
+                <% } %>
 
 
 
 
-    
-        
+
+
+
 
 
 </html>

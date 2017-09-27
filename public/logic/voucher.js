@@ -33,7 +33,8 @@ $(document).ready(function () {
                 fields: {
                     client: { validation: { required: true, }, type: 'number' },
                     date: { validation: { type: 'date' } },
-                    reference: { type: 'string' }
+                    reference: { type: 'string' },
+                    user: { type: 'string', defaultValue: user, editable: false, visible: false }
                 }
             }
         }
@@ -42,18 +43,23 @@ $(document).ready(function () {
 
     $.get("/client/read2", function (clients) {
 
-        $("#grid").kendoGrid({
-            dataSource: dataSource,
-            height: 475,
-            filterable: true,
-            pageable: { refresh: true, pageSizes: true, },
-            toolbar: ['create', 'excel'],
-            columns: [
-                { field: "client",values: clients, title: "Cliente" },
-                { field: "date", title: "Fecha",format: "{0:dd/MM/yyyy}" },
-                { field: "reference", title: "Referencia", filterable: { search: true } },
-                { command:  ["edit", "destroy",{ text: "Ver detalles", click: showDetails, iconClass: 'icon icon-chart-column' }], title: "Acciones",  width:'500px' }],
-            editable: "inline"
+        $.get("/user/read2", function (users) {
+
+            $("#grid").kendoGrid({
+                dataSource: dataSource,
+                height: 475,
+                filterable: true,
+                pageable: { refresh: true, pageSizes: true, },
+                toolbar: ['create', 'excel'],
+                columns: [
+                    { field: "client", values: clients, title: "Cliente" },
+                    { field: "date", title: "Fecha", format: "{0:dd/MM/yyyy}" },
+                    { field: "reference", title: "Referencia", filterable: { search: true } },
+                    { field: "user", values: users, title: "Creado por" },
+                    { command: ["edit", "destroy", { text: "Ver detalles", click: showDetails, iconClass: 'icon icon-chart-column' }], title: "Acciones", width: '500px' }],
+                editable: "popup"
+            });
+
         });
 
     });
@@ -63,7 +69,7 @@ $(document).ready(function () {
         e.preventDefault();
 
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        location.href ="/voucher/"+dataItem.id;
+        location.href = "/voucher/" + dataItem.id;
     }
 
 

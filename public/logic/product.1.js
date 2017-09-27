@@ -13,6 +13,30 @@ $("#saveModel").on("click", function () {
     }
 });
 
+$("#closeBill").on("click", function () {
+
+
+    if (userBill == userSession) {
+        const confirmation = confirm('Al cerrar el ingreso ya no se podrá agregar ni eliminar productos a esta orden \n ¿Desea continuar?');
+        if (confirmation) {
+            $.post("/bill/close",{code:bill}, function (data) {
+                if (data.affectedRows>0) {
+                    location.href = "/bill/" + bill;
+                    
+                } else {
+                    
+                }
+            });
+        } else {
+
+        }
+    } else {
+        alert('Sólo el usuario ' + user + ' puede cerrar el ingreso');
+    }
+
+
+});
+
 $('#barcode').keypress(function (e) {
     if (e.which == 13) {
         save();
@@ -289,9 +313,9 @@ $(document).ready(function () {
                 fields: {
                     Producto: { editable: false },
                     barcode: { validation: { required: true }, type: 'string', editable: false },
-                    description: { validation: { required: true, }, type: 'string' , editable: false },
+                    description: { validation: { required: true, }, type: 'string', editable: false },
                     bill: { type: 'string', defaultValue: bill, editable: false, visible: false },
-                    price: {type: 'number'},
+                    price: { type: 'number' },
                     code: { editable: false }
                 }
             }
@@ -312,7 +336,6 @@ $(document).ready(function () {
         resizable: true,
 
         pageable: { refresh: true, pageSizes: true, },
-        toolbar: ['pdf', 'excel'],
         pdf: {
             allPages: true,
             avoidLinks: true,
@@ -335,6 +358,7 @@ $(document).ready(function () {
                 });
         },
         columns: [
+            { field: 'id', hidden: true },
             { field: "Producto", hidden: true, aggregates: ["min", "max", "count"], groupHeaderTemplate: "Cantidad: #= count#" },
             { field: "barcode", aggregates: ["count"], title: "No. de serie", filterable: { search: true }, width: '20%' },
             { field: "code", title: "Código", filterable: { search: true }, width: '15%' },
@@ -342,7 +366,7 @@ $(document).ready(function () {
             { field: "location", title: "Almacén", width: '100px' },
             { field: "price", title: "Precio", width: '100px' },
             { field: "bill", title: "Factura", width: '1px' },
-            { command: ["edit","destroy"], title: "Acciones" }],
+            { command: ["edit", "destroy"], title: "Acciones" }],
         editable: "inline"
     })
 

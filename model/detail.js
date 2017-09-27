@@ -72,38 +72,37 @@ module.exports = {
 
   create: function (data, callback) {
 
-    connection.query('SELECT * FROM product WHERE barcode= ? LIMIT 1', [data.serie], function (error, results, fields) {
+    connection.query('SELECT * FROM v_product WHERE barcode= ? LIMIT 1', [data.serie], function (error, results, fields) {
       if (results[0]) {
-        if (results[0].state == 0) {
-          connection.query('INSERT INTO detail(voucher,product) VALUES(?,?)', [data.voucher, results[0].id], function (e, r, f) {
-            if (e) {
-              callback(e, null);
-            } else {
-              connection.query("UPDATE `product` SET `state`='1' WHERE (`id`=?)", [results[0].id], function (er, re, fi) {
+        if (results[0].billstate == 1) {
+          if (results[0].state == 0) {
 
-
-                if (err) {
-                  console.log(err);
-                  callback(err, null);
-
-                } else {
-
-                  callback(null, 'Se registro la salida satisfactoriamente');
-
-                }
-              });
+            connection.query('INSERT INTO detail(voucher,product) VALUES(?,?)', [data.voucher, results[0].id], function (e, r, f) {
+              if (e) {
+                callback(e, null);
+              } else {
+                connection.query("UPDATE `product` SET `state`='1', location= NULL WHERE (`id`=?)", [results[0].id], function (er, re, fi) {
+                  if (er) {
+                    console.log(er);
+                    callback(er, null);
+                  } else {
+                    callback(null, 'Se registro la salida satisfactoriamente');
+                  }
+                });
+              }
+            });
+          } else {
+            if (results[0].state == 1) {
+              callback('El producto se encuentra entregado', null);
+            } else if (results[0].state == 2) {
+              callback('El producto se encuentra reservado', null);
             }
-
-          });
-
+          }
         } else {
-          callback('No se puede registrar una salida del producto', null);
+          callback('El ingreso del producto no ha sido cerrado aún', null);
         }
-
-
       } else {
-        callback('no existe el producto', null);
-
+        callback('No existe el producto', null);
       }
 
     })

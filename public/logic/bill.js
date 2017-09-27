@@ -104,7 +104,6 @@ $(document).ready(function () {
 
     function showDetails(e) {
         e.preventDefault();
-
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
         location.href = "/bill/" + dataItem.id;
     }
