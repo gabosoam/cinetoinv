@@ -38,13 +38,7 @@ module.exports = {
 
         callback('error en la consulta: ' + error, null);
       } else {
-
-
         callback(null, results);
-
-
-
-
       }
     });
   },
@@ -59,12 +53,31 @@ module.exports = {
     });
   },
 
-  delete: function (datos, callback) {
-    connection.query('DELETE FROM bill WHERE id=?', [datos.id], function (error, results, fields) {//
+  delete: function (data, callback) {
+    console.log(data);
+
+    connection.query('DELETE FROM detail WHERE id=?', [data.id], function (error, results, fields) {//
       if (error) {
         callback('error en la consulta: ' + error, null);
       } else {
-        callback(null, results);
+
+        if (results.affectedRows==1) {
+
+          connection.query({
+            sql: "UPDATE `product` SET `state`='0' WHERE (`id`=?)",
+            values: [data.idproduct]
+          }, function (error, results, fields) {
+            if (error) {
+              console.log(error);
+              callback(error, null);
+            } else {
+              callback(null, results);
+            }
+          });
+        } else {
+
+        }
+
       }
     });
   },
@@ -75,13 +88,13 @@ module.exports = {
     connection.query('SELECT * FROM v_product WHERE barcode= ? LIMIT 1', [data.serie], function (error, results, fields) {
       if (results[0]) {
         if (results[0].billstate == 1) {
-          if (results[0].state == 0) {
+          if (results[0].stateid == 0) {
 
-            connection.query('INSERT INTO detail(voucher,product) VALUES(?,?)', [data.voucher, results[0].id], function (e, r, f) {
+            connection.query('INSERT INTO detail(voucher,product,observation) VALUES(?,?,?)', [data.voucher, results[0].id, data.observation], function (e, r, f) {
               if (e) {
                 callback(e, null);
               } else {
-                connection.query("UPDATE `product` SET `state`='1', location= NULL WHERE (`id`=?)", [results[0].id], function (er, re, fi) {
+                connection.query("UPDATE `product` SET `state`='2' WHERE (`id`=?)", [results[0].id], function (er, re, fi) {
                   if (er) {
                     console.log(er);
                     callback(er, null);
@@ -92,9 +105,9 @@ module.exports = {
               }
             });
           } else {
-            if (results[0].state == 1) {
+            if (results[0].stateid == 1) {
               callback('El producto se encuentra entregado', null);
-            } else if (results[0].state == 2) {
+            } else if (results[0].stateid == 2) {
               callback('El producto se encuentra reservado', null);
             }
           }

@@ -19,12 +19,12 @@ $("#closeBill").on("click", function () {
     if (userBill == userSession) {
         const confirmation = confirm('Al cerrar el ingreso ya no se podrá agregar ni eliminar productos a esta orden \n ¿Desea continuar?');
         if (confirmation) {
-            $.post("/bill/close",{code:bill}, function (data) {
-                if (data.affectedRows>0) {
+            $.post("/bill/close", { code: bill }, function (data) {
+                if (data.affectedRows > 0) {
                     location.href = "/bill/" + bill;
-                    
+
                 } else {
-                    
+
                 }
             });
         } else {
@@ -39,17 +39,26 @@ $("#closeBill").on("click", function () {
 
 $('#barcode').keypress(function (e) {
     if (e.which == 13) {
-        save();
+        if ($(this).val()!='') {
+            save();
+            
+        } else {
+            
+        }
+        
     }
 });
 
 $('#code2').keypress(function (e) {
     if (e.which == 13) {
-        $.ajax({
-            type: 'GET',
-            url: '/model/' + $(this).val(),
-            success: sendData
-        });
+     
+        if ($('#code2').val() != '') {
+            $.ajax({
+                type: 'GET',
+                url: '/model/' + $(this).val(),
+                success: sendData
+            });
+        }
     }
 });
 
@@ -91,10 +100,10 @@ function sendData2(data) {
 function save() {
     var data = $('#formsave').serialize();
     var data2 = $('#formsave').serializeArray();
-    console.log(data2[4].value);
+    console.log(data2);
 
 
-    var confirmation = confirm('Está seguro de guardar el número de serie: ' + data2[4].value);
+    var confirmation = confirm('Está seguro de guardar el número de serie: ' + data2[5].value);
 
     if (confirmation) {
         $.post("/product/create", data, function (info) {
@@ -102,7 +111,7 @@ function save() {
             if (info != 'Ya existe el producto') {
                 $('#grid2').data('kendoGrid').dataSource.read();
                 $('#grid2').data('kendoGrid').refresh();
-                $('#barcode').val(null);
+            
                 $('#barcode').focus();
             } else {
                 alert('Ya existe el número de serie');

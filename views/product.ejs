@@ -288,6 +288,10 @@
                     </div>
                 </div>
 
+                
+
+                
+
 
 </body>
 <!-- Modal -->
@@ -308,60 +312,35 @@
 
         <div class="header">
             <img src="../image/logo.svg" alt="" width="200px">
-            <br>
+       
+            <div class="row">
+                </br>
+            </br>
+                    <div class="col-md-3"><p><strong>Proveedor: </strong><%= data.name%></p></div>
+                    <div class="col-md-3"><p><strong>Fecha: </strong><%= data.date%></p></div>
+                    <div class="col-md-3"><p><strong>Referencía: </strong><%= data.reference%></p></div>
+                    <div class="col-md-3"><p><strong>Realizado por: </strong><%= data.user%></p></div>
 
-            <table class="table" style="float: left">
-                <tr>
-                    <td><strong>Reporte de ingreso No. <%= bill%>  </strong>
-                        <td>
-                </tr>
-                <tr>
-                    <td>
-                        <p><strong>Proveedor: </strong></p>
-                    </td>
-                    <td>
-                        <p>
-                            <%= data.name%>
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p><strong>Fecha: </strong></p>
-                    </td>
-                    <td>
-                        <p>
-                            <%= data.date%>
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p><strong>Referencia: </strong></p>
-                    </td>
-                    <td>
-                        <p>
-                            <%= data.reference%>
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p><strong>Realizado por: </strong></p>
-                    </td>
-                    <td>
-                        <p>
-                            <%= data.user%>
-                        </p>
-                    </td>
-                </tr>
-            </table>
+                </br></br>
+                </div>
+
         </div>
         <div class="watermark">CINETO</div>
-
+       
         <div class="footer">
-            La Pinta 236 y Rábida. Quito Ecuador, Edficio Alcatel Teléfono: (593-2) 5100 528 - Email: info@cineto.net
-            <div style="float: right">Página #: pageNum # de #: totalPages #</div>
+                <div class="row">
+                </br>
+                <div class="col-md-9">
+                        La Pinta 236 y Rábida. Quito Ecuador, Edficio Alcatel Teléfono: (593-2) 5100 528 - Email: info@cineto.net    
+                    </div>
+                        <div class="col-md-3">
+                            ______________________</br></br>
+                            <%= data.user%>
+                            
+                            
+                            </div>
+                        
+                    </div>
         </div>
     </div>
 </script>
@@ -380,6 +359,7 @@
         var userBill = '<%=data.iduser%>';
         var userSession = '<%=user.id%>';
         var user = '<%=data.user%>';
+        var reference= '<%=data.reference%>';
     </script>
     <% } %>
 
@@ -420,7 +400,6 @@
         top: 30px;
         left: 30px;
         right: 30px;
-        border-bottom: 1px solid #888;
         color: black;
     }
 
@@ -433,7 +412,6 @@
         bottom: 30px;
         left: 30px;
         right: 30px;
-        border-top: 1px solid #888;
         text-align: center;
         color: #888;
     }
@@ -442,7 +420,7 @@
         font-weight: bold;
         font-size: 800%;
         text-align: center;
-        margin-top: 50%;
+        margin-top: 35%;
         color: #aaaaaa;
         opacity: 0.1;
         transform: rotate(-35deg) scale(1.7, 1.5);

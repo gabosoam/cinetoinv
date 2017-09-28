@@ -86,10 +86,10 @@ $(document).ready(function () {
                 },
                 columns: [
 
-                    { field: "provider", values: providers, title: "Proveedor", width: '270px', filterable: { search: true } },
-                    { field: "date", title: "Fecha", width: '100px', filterable: { search: true, search: true }, format: "{0:dd/MM/yyyy}" },
-                    { field: "type", values: types, width: '150px', title: "Tipo documento", filterable: { multi: true, search: true, search: true } },
-                    { field: "reference", title: "Referencia", width: '100px', filterable: { search: true, search: true } },
+                    { field: "provider", values: providers, title: "Proveedor", filterable: { search: true } },
+                    { field: "date", title: "Fecha", filterable: { search: true, search: true }, format: "{0:dd/MM/yyyy}" },
+                    { field: "type", values: types, title: "Tipo documento", filterable: { multi: true, search: true, search: true } },
+                    { field: "reference", title: "Referencia", filterable: { search: true, search: true } },
                     { field: "user", values: users, title: "Creado por" },
 
                     { command: ["edit", "destroy", { text: "Ver detalles", click: showDetails, iconClass: 'icon icon-chart-column' }], title: "Acciones" }],

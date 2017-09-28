@@ -2,12 +2,12 @@ var states = [{
   "value": 0,
   "text": "EN BODEGA"
 }, {
-  "value": 2,
-  "text": "RESERVADO"
-},
-{
   "value": 1,
   "text": "ENTREGADO"
+},
+{
+  "value": 2,
+  "text": "RESERVADO"
 }];
 
 kendo.culture("es-ES");
@@ -25,7 +25,7 @@ $(document).ready(function () {
         fields: {
           code: { type: "string" },
           date: { type: 'date', editable: false },
-          code: { type: "string" }
+          state: { type: 'state', editable: false }
         }
       }
     },
@@ -35,8 +35,8 @@ $(document).ready(function () {
       ]
     },
     aggregate: [
-    { field: "code", aggregate: "count" },
-    { field: "category", aggregate: "count" }],
+      { field: "code", aggregate: "count" },
+      { field: "category", aggregate: "count" }],
     pageSize: 100
   }
   );
@@ -45,8 +45,20 @@ $(document).ready(function () {
     dataSource: dataSource,
     height: 600,
     toolbar: ['pdf', 'excel'],
-    scrollable:true,
-    columnMenu:true,
+    pdf: {
+      allPages: true,
+      avoidLinks: true,
+      paperSize: "A4",
+      margin: { top: "3.8cm", left: "1cm", right: "1cm", bottom: "2.54cm" },
+      landscape: true,
+      repeatHeaders: true,
+      template: $("#page-template").html(),
+      scale: 0.8,
+      fileName: "reporte.pdf",
+      exportOnlyData:"true"
+  },
+    scrollable: true,
+    columnMenu: true,
     filterable: true,
     resizable: true,
     groupable: true,
@@ -58,15 +70,16 @@ $(document).ready(function () {
         groupHeaderTemplate: "Código: #= value # (Cantidad: #= count#)", filterable: { multi: true, search: true, search: true }
       },
       { field: "description", title: "Producto", filterable: { multi: true, search: true, search: true } },
-      { field: "category",aggregates: ["count"], title: "Categoría",
-      groupHeaderTemplate: "Categoría: #= value # (Cantidad: #= count#)", filterable: { multi: true, search: true, search: true } },
+      {
+        field: "category", aggregates: ["count"], title: "Categoría",
+        groupHeaderTemplate: "Categoría: #= value # (Cantidad: #= count#)", filterable: { multi: true, search: true, search: true }
+      },
       { field: "brand", title: "Marca", filterable: { multi: true, search: true } },
-      { field: "date", title: "F. Ingreso", filterable: { search: true, search: true },format: "{0:dd/MM/yyyy}" },
+      { field: "date", title: "F. Ingreso", filterable: { search: true, search: true }, format: "{0:dd/MM/yyyy}" },
       { field: "reference", title: "Referencia", filterable: { search: true, search: true } },
-      { field: "state",values:states, title: "Estado", filterable: { search: true, search: true } },
+      { field: "state", title: "Estado", filterable: { multi: true, search: true, search: true } },
       { field: "location", title: "Ubicación", filterable: { multi: true, search: true } },
-      { field: "observation", title: "Observación", filterable: false },
-      { command: [{ text: "Reservar", click: showDetails }], title: "Acciones"}]
+      { field: "observation", title: "Observación", filterable: false }]
   });
 
   function showDetails(e) {
@@ -77,20 +90,20 @@ $(document).ready(function () {
       case 1:
         alert('No se puede reservar un producto entregado');
         break;
-        case 2:
+      case 2:
         alert('El producto ya se encuentra reservado');
         break;
       default:
-        var confirmation = 
-        confirm("¿Está seguro que desea reservar el producto con número de serie: "+dataItem.barcode+"?");
+        var confirmation =
+          confirm("¿Está seguro que desea reservar el producto con número de serie: " + dataItem.barcode + "?");
         if (confirmation) {
-          alert('El producto con número de serie: '+dataItem.barcode+" ha sido reservado");
+          alert('El producto con número de serie: ' + dataItem.barcode + " ha sido reservado");
         } else {
-          
+
         }
         break;
     }
-   
-    
+
+
   }
 });

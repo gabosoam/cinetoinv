@@ -1,3 +1,7 @@
+$( "#closeVoucher" ).hide();
+$( "#formSave" ).hide();
+
+
 var validator = $("#formsave").kendoValidator().data("kendoValidator");
 var validatorModel = $("#formSaveModel").kendoValidator().data("kendoValidator");
 $("#save").on("click", function () {
@@ -16,8 +20,8 @@ $("#closeVoucher").on("click", function () {
     if (userBill == userSession) {
         const confirmation = confirm('Al cerrar la salida ya no se podrá agregar ni eliminar productos a esta orden \n ¿Desea continuar?');
         if (confirmation) {
-            $.post("/voucher/close", { code: bill }, function (data) {
-                if (data.affectedRows > 0) {
+            $.post("/voucher/close",{code:bill}, function (data) {
+                if (data.affectedRows>0) {
                     location.href = "/voucher/" + bill;
                 } else {
                 }
@@ -31,33 +35,29 @@ $("#closeVoucher").on("click", function () {
 
 $('#code2').keypress(function (e) {
     if (e.which == 13) {
+        var data = {
+            serie: $(this).val(),
+            voucher: $('#voucher').val()
+        }
+        var r = confirm("Está seguro de registrar la salida del producto con número de serie " + $('#code2').val() + "?");
+        if (r) {
+            $.post("/detail/create", data, function (info) {
 
-        if ($('#code2').val() != '') {
-            var data = {
-                serie: $(this).val(),
-                voucher: $('#voucher').val(),
-                observation: $('#observation').val()
-            }
-            var r = confirm("Está seguro de registrar la salida del producto con número de serie " + $('#code2').val() + "?");
-            if (r) {
-                $.post("/detail/create", data, function (info) {
+                if (info == 'Se registro la salida satisfactoriamente') {
+                    $('#grid2').data('kendoGrid').dataSource.read();
+                    $('#grid2').data('kendoGrid').refresh();
+                    $(this).val(null);
+                } else {
+                    alert(info);
+                }
 
-                    if (info == 'Se registro la salida satisfactoriamente') {
-                        $('#grid2').data('kendoGrid').dataSource.read();
-                        $('#grid2').data('kendoGrid').refresh();
-                        $('#code2').val(null);
-                     
-
-                    } else {
-                        alert(info);
-                    }
-
-                });
+            });
 
 
-            }
+        } else {
 
         }
+
     }
 });
 
@@ -309,7 +309,7 @@ $(document).ready(function () {
                     name: { editable: false },
                     barcode: { validation: { required: true, decimals: 0, min: 1 }, type: 'string', editor: editNumberWithoutSpinners },
                     description: { validation: { required: true, }, type: 'string' },
-                    code: { type: 'string', defaultValue: bill },
+                    code: { type: 'string', defaultValue: bill},
                     voucher: { editable: false }
                 }
             }
@@ -320,6 +320,7 @@ $(document).ready(function () {
             ]
         },
         aggregate: [{ field: "barcode", aggregate: "count" }]
+        
 
     },
     );
@@ -327,18 +328,19 @@ $(document).ready(function () {
     $("#grid2").kendoGrid({
         dataSource: dataSource,
         height: 400,
-
-
+        toolbar: ['pdf','excel'],
         pageable: { refresh: true, pageSizes: true, },
         pdf: {
             allPages: true,
             avoidLinks: true,
             paperSize: "A4",
-            margin: { top: "6.8cm", left: "1cm", right: "1cm", bottom: "2.54cm" },
-            landscape: false,
+            margin: { top: "3.8cm", left: "1cm", right: "1cm", bottom: "2.54cm" },
+            landscape: true,
             repeatHeaders: true,
             template: $("#page-template").html(),
-            scale: 0.8
+            scale: 0.8,
+            fileName: "RE "+reference+".pdf",
+            
         },
         pdfExport: function (e) {
             var grid = $("#grid2").data("kendoGrid");
@@ -351,11 +353,10 @@ $(document).ready(function () {
         },
         columns: [
             { field: "barcode", title: "No. de serie", filterable: { search: true }, width: '20%' },
-            { field: "code", title: "Código", filterable: { search: true }, aggregates: ["min", "max", "count"], groupHeaderTemplate: "Cantidad: #= count#" },
+            { field: "code", title: "Código", filterable: { search: true },  aggregates: ["min", "max", "count"], groupHeaderTemplate: "Cantidad: #= count#" },
             { field: "description", title: "Producto", filterable: { search: true } },
             { field: "voucher", title: "Almacén", width: '100px', hidden: true, },
-            { field: "observation", title: "Observación" },
-            { command: ["destroy"], title: "Acciones" }],
+            { field: "observation", title: "Observación" },],
         editable: "inline"
     })
 

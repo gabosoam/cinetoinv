@@ -96,14 +96,18 @@
                                         </tr>
 
                                     </table>
+                                    <button id="closeVoucher" class="btn btn-danger">Cerrar salida</button>
 
 
 
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3" id="formSave">
                                     <div class="form-group">
+                                        <label for="code">Obervación:</label>
+                                        <textarea autofocus style="resize: none" class="form-control" name="observation" id="observation" rows="2" placeholder="Ingrese una observación"></textarea><br>
                                         <label for="code">Número de serie:</label>
-                                        <input autofocus type="text" class="form-control" required id="code2" name="code" style="width: 100%" placeholder="Ingresar número de serie">
+                                        <input type="text" class="form-control" required id="code2" name="code" style="width: 100%" placeholder="Ingresar número de serie">
+
                                         <input id="voucher" type="hidden" value="<%=bill%>">
                                     </div>
                                 </div>
@@ -155,57 +159,61 @@
 <script src="../kendo/js/kendo.messages.es-MX.min.js"></script>
 
 <script type="x/kendo-template" id="page-template">
-
     <div id="hola" class="page-template">
-
-
-
         <div class="header">
             <img src="../image/logo.svg" alt="" width="200px">
-            <br>
+            <div class="row">
+                </br>
+                </br>
+                <div class="col-md-3">
+                    <p><strong>Cliente: </strong>
+                        <%= data.name%>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <p><strong>Fecha: </strong>
+                        <%= data.date%>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <p><strong>Referencía: </strong>
+                        <%= data.reference%>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <p><strong>Realizado por: </strong>
+                        <%= data.user%>
+                    </p>
+                </div>
 
-            <table class="table" style="float: left">
-                <tr>
-                    <td><strong>Reporte de salida No. <%= bill%>  </strong>
-                        <td>
-                </tr>
-                <tr>
-                    <td>
-                        <p><strong>Cliente: </strong></p>
-                    </td>
-                    <td>
-                        <p>
-                            <%= data.name%>
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p><strong>Fecha: </strong></p>
-                    </td>
-                    <td>
-                        <p>
-                            <%= data.date%>
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p><strong>Referencia: </strong></p>
-                    </td>
-                    <td>
-                        <p>
-                            <%= data.reference%>
-                        </p>
-                    </td>
-                </tr>
-            </table>
+                </br>
+                </br>
+            </div>
         </div>
         <div class="watermark">CINETO</div>
-
         <div class="footer">
-            La Pinta 236 y Rábida. Quito Ecuador, Edficio Alcatel Teléfono: (593-2) 5100 528 - Email: info@cineto.net
-            <div style="float: right">Página #: pageNum # de #: totalPages #</div>
+            <div class="row">
+                </br>
+                <div class="col-md-6">
+                    La Pinta 236 y Rábida. Quito Ecuador, Edficio Alcatel Teléfono: (593-2) 5100 528 - Email: info@cineto.net
+                </div>
+                <div class="col-md-3">
+                    ______________________</br>
+                    </br>
+                    <%= data.user%>
+
+
+                </div>
+
+                <div class="col-md-3">
+                    ______________________</br>
+                    </br>
+                    <%= data.name%>
+
+
+                </div>
+
+            </div>
         </div>
     </div>
 </script>
@@ -220,10 +228,20 @@
 </script>
 <% if (bill) { %>
     <script>
-        var bill = <%= bill %>;
+        var bill = '<%= bill %>';
+        var userBill = '<%=data.iduser%>';
+        var userSession = '<%=user.id%>';
+        var user = '<%=data.user%>';
+        var reference = '<%=data.reference%>';
     </script>
     <% } %>
-        <script src="../logic/voucherDetail.js"></script>
+
+        <% if (data.state == 0) { %>
+            <script src="../logic/voucherDetail.js"></script>
+            <% } else { %>
+                <script src="../logic/voucherDetail2.js"></script>
+                <% } %>
+
 
 
 </html>
@@ -249,7 +267,6 @@
         top: 30px;
         left: 30px;
         right: 30px;
-        border-bottom: 1px solid #888;
         color: black;
     }
 
@@ -262,7 +279,6 @@
         bottom: 30px;
         left: 30px;
         right: 30px;
-        border-top: 1px solid #888;
         text-align: center;
         color: #888;
     }
@@ -271,7 +287,7 @@
         font-weight: bold;
         font-size: 800%;
         text-align: center;
-        margin-top: 50%;
+        margin-top: 35%;
         color: #aaaaaa;
         opacity: 0.1;
         transform: rotate(-35deg) scale(1.7, 1.5);

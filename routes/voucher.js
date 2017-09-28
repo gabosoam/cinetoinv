@@ -25,14 +25,14 @@ router.get('/', isLoggedIn, function (req, res, next) {
 });
 
 router.post('/create', function (req, res, next) {
-  
+
     var datos = req.body;
     voucher.create(datos, function (error, datos) {
       if (error) {
-  
+
         res.sendStatus(500);
       } else {
-  
+
         if (datos.affectedRows > 0) {
           res.send(true);
         } else {
@@ -45,16 +45,16 @@ router.post('/create', function (req, res, next) {
 
   router.get('/read/:bill', isLoggedIn, function (req, res, next) {
     var bill = req.params.bill;
-  
+
     voucher.read2(bill, function (error, data) {
       res.send(data);
-  
+
     })
   });
 
-  router.post('/delete', function (req, res, next) {
-    var datos = req.body;
-    voucher.delete(datos, function (error, datos) {
+  router.post('/delete',isLoggedIn, function (req, res, next) {
+    var data = req.body;
+    voucher.delete(data, function (error, data) {
       if (error) {
         res.sendStatus(500);
       } else {
@@ -63,14 +63,25 @@ router.post('/create', function (req, res, next) {
     })
   })
 
+  router.post('/close', isLoggedIn, function (req, res, next) {
+    var data = req.body;
+    voucher.closeVoucher(data,function(error, data) {
+      if (error) {
+        res.send(error);
+      } else {
+        res.send(data);
+      }
+    });
+  });
+
   router.post('/update', function (req, res, next) {
     var datos = req.body;
     voucher.update(datos, function (error, data) {
       if (error) {
-  
+
         res.sendStatus(500);
       } else {
-  
+
         if (data.affectedRows > 0) {
           res.send(true);
         } else {

@@ -87,11 +87,13 @@ $(document).ready(function () {
             allPages: true,
             avoidLinks: true,
             paperSize: "A4",
-            margin: { top: "7.8cm", left: "1cm", right: "1cm", bottom: "2.54cm" },
-            landscape: false,
+            margin: { top: "3.8cm", left: "1cm", right: "1cm", bottom: "2.54cm" },
+            landscape: true,
             repeatHeaders: true,
             template: $("#page-template").html(),
-            scale: 0.8
+            scale: 0.8,
+            fileName: "RI "+reference+".pdf",
+            exportOnlyData:"true"
         },
         pdfExport: function (e) {
             var grid = $("#grid2").data("kendoGrid");
@@ -105,7 +107,7 @@ $(document).ready(function () {
         columns: [
             { field: "Producto", hidden: true, aggregates: ["min", "max", "count"], groupHeaderTemplate: "Cantidad: #= count#" },
             { field: "barcode", aggregates: ["count"], title: "No. de serie", filterable: { search: true }, width: '20%' },
-            { field: "code", title: "Código", filterable: { search: true }, width: '15%' },
+            { field: "code", title: "Código", filterable: { search: true } },
             { field: "description", title: "Producto", filterable: { search: true } },
             { field: "location", title: "Almacén", width: '100px' },
             { field: "price", title: "Precio", width: '100px' },

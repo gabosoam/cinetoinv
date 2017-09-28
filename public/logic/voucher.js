@@ -64,6 +64,10 @@ $(document).ready(function () {
 
     });
 
+    function onchange(e) {
+        alert('');
+    }
+
 
     function showDetails(e) {
         e.preventDefault();
