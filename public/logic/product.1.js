@@ -335,7 +335,8 @@ $(document).ready(function () {
                 { field: "Producto", aggregate: "count" },
             ]
         },
-        aggregate: [{ field: "barcode", aggregate: "count" }]
+        aggregate: [{ field: "barcode", aggregate: "count" }],
+        pageSize: 1000
     },
     );
 
@@ -343,6 +344,11 @@ $(document).ready(function () {
         dataSource: dataSource,
         height: 400,
         resizable: true,
+        scrollable: true,
+        columnMenu: true,
+        filterable: true,
+        resizable: true,
+        groupable: true,
 
         pageable: { refresh: true, pageSizes: true, },
         pdf: {

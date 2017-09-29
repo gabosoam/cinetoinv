@@ -32,7 +32,7 @@ $(document).ready(function () {
                 id: "id",
                 fields: {
                     client: { validation: { required: true, }, type: 'number' },
-                    date: { validation: { type: 'date' } },
+                    date: { validation: { type: 'date' },type:'date', },
                     reference: { type: 'string' },
                     user: { type: 'string', defaultValue: user, editable: false, visible: false }
                 }
@@ -53,7 +53,7 @@ $(document).ready(function () {
                 toolbar: ['create', 'excel'],
                 columns: [
                     { field: "client", values: clients, title: "Cliente" },
-                    { field: "date", title: "Fecha", format: "{0:dd/MM/yyyy}" },
+                    { field: "date", title: "Fecha",  format: "{0:dd/MM/yyyy}" },
                     { field: "reference", title: "Referencia", filterable: { search: true } },
                     { field: "user", values: users, title: "Creado por" },
                     { command: ["edit", "destroy", { text: "Ver detalles", click: showDetails, iconClass: 'icon icon-chart-column' }], title: "Acciones", width: '500px' }],

@@ -319,7 +319,8 @@ $(document).ready(function () {
                 { field: "code", aggregate: "count" }
             ]
         },
-        aggregate: [{ field: "barcode", aggregate: "count" }]
+        aggregate: [{ field: "barcode", aggregate: "count" }],
+        pageSize: 1000
         
 
     },

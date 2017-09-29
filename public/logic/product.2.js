@@ -72,13 +72,19 @@ $(document).ready(function () {
                 { field: "Producto", aggregate: "count" },
             ]
         },
-        aggregate: [{ field: "barcode", aggregate: "count" }]
+        aggregate: [{ field: "barcode", aggregate: "count" }],
+        pageSize: 1000
     },
     );
 
     $("#grid2").kendoGrid({
         dataSource: dataSource,
         height: 400,
+        scrollable: true,
+        columnMenu: true,
+        filterable: true,
+        resizable: true,
+        groupable: true,
 
 
         pageable: { refresh: true, pageSizes: true, },

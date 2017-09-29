@@ -37,7 +37,7 @@ $(document).ready(function () {
     aggregate: [
       { field: "code", aggregate: "count" },
       { field: "category", aggregate: "count" }],
-    pageSize: 100
+    pageSize: 1000
   }
   );
 
