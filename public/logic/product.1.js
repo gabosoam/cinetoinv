@@ -7,6 +7,14 @@ $("#save").on("click", function () {
     }
 });
 
+
+function generateBarcode() {
+    $.get("/generateBarcode", function (data) {
+        $('#barcode').val(data[0].barcode);
+      console.log(data);
+    });
+}
+
 $("#saveModel").on("click", function () {
     if (validatorModel.validate()) {
         saveModel();
@@ -39,19 +47,19 @@ $("#closeBill").on("click", function () {
 
 $('#barcode').keypress(function (e) {
     if (e.which == 13) {
-        if ($(this).val()!='') {
+        if ($(this).val() != '') {
             save();
-            
+
         } else {
-            
+
         }
-        
+
     }
 });
 
 $('#code2').keypress(function (e) {
     if (e.which == 13) {
-     
+
         if ($('#code2').val() != '') {
             $.ajax({
                 type: 'GET',
@@ -71,7 +79,7 @@ function sendData(data) {
         if (r == true) {
             $('#myModal').modal({
                 backdrop: 'static',
-                keyboard: false  // to prevent closing with Esc button (if you want this too)
+                keyboard: false  
             })
             $('#codeModal').val($('#code2').val());
         } else {
@@ -111,7 +119,7 @@ function save() {
             if (info != 'Ya existe el producto') {
                 $('#grid2').data('kendoGrid').dataSource.read();
                 $('#grid2').data('kendoGrid').refresh();
-            
+
                 $('#barcode').focus();
             } else {
                 alert('Ya existe el número de serie');

@@ -14,11 +14,12 @@ module.exports = {
   },
 
   read2: function (voucher, callback) {
-    connection.query('SELECT  * FROM v_detail WHERE voucher=?;', voucher, function (error, results, fields) {
+    connection.query('CALL prueba(?)', voucher, function (error, results, fields) {
       if (error) {
         callback('error en la consulta: ' + error, null);
       } else {
-        callback(null, results);
+        console.log(results)
+        callback(null, results[0]);
       }
     });
   },
@@ -46,7 +47,18 @@ module.exports = {
       }
     });
   },
+  updateAdmin: function (datos, callback) {
+    connection.query('UPDATE voucher SET state=?, `client`=?, `date`=?, `reference`=? WHERE (`id`=?) LIMIT 1', [datos.state,datos.client, new Date(datos.date).toLocaleDateString(), datos.reference.toUpperCase(), datos.id], function (error, results, fields) {//
+      if (error) {
 
+        callback('error en la consulta: ' + error, null);
+      } else {
+
+        callback(null, results);
+
+      }
+    });
+  },
   delete: function (datos, callback) {
     connection.query('DELETE FROM voucher WHERE id=?', [datos.id], function (error, results, fields) {
       if (error) {

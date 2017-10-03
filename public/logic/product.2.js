@@ -88,7 +88,6 @@ $(document).ready(function () {
 
 
         pageable: { refresh: true, pageSizes: true, },
-        toolbar: ['pdf', 'excel'],
         pdf: {
             allPages: true,
             avoidLinks: true,

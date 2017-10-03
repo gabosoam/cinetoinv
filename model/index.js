@@ -1,9 +1,16 @@
-var express = require('express');
-var router = express.Router();
+var connection = require('../config/connection.js');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
 
-module.exports = router;
+module.exports = {
+
+  createBarcode: function (callback) {
+    connection.query('CALL barcode();', function (error, results, fields) {
+      if (error) {
+
+        callback('error en la consulta: ' + error, null);
+      } else {
+        callback(null, results[0]);
+      }
+    });
+  },
+}

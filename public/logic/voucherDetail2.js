@@ -329,13 +329,12 @@ $(document).ready(function () {
     $("#grid2").kendoGrid({
         dataSource: dataSource,
         height: 400,
-        toolbar: ['pdf','excel'],
         pageable: { refresh: true, pageSizes: true, },
         pdf: {
             allPages: true,
             avoidLinks: true,
             paperSize: "A4",
-            margin: { top: "6.5cm", left: "1cm", right: "1cm", bottom: "2.54cm" },
+            margin: { top: "7.0cm", left: "1cm", right: "1cm", bottom: "2.54cm" },
             landscape: false,
             repeatHeaders: true,
             template: $("#page-template").html(),

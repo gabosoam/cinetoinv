@@ -16,12 +16,12 @@ module.exports = {
     },
 
     readBill: function (bill, callback) {
-        connection.query('SELECT  * FROM v_bill where bill=?;', bill, function (error, results, fields) {
+        connection.query('CALL p_bill(?)', bill, function (error, results, fields) {
             if (error) {
 
                 callback('error en la consulta: ' + error, null);
             } else {
-                callback(null, results);
+                callback(null, results[0]);
 
             }
         });

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../kendo/css/kendo.common-bootstrap.min.css" />
     <link rel="stylesheet" href="../kendo/css/kendo.bootstrap.min.css" />
     <link rel="stylesheet" href="../kendo/css/kendo.bootstrap.mobile.min.css" />
+    <link rel="stylesheet" href="../css/datatables.min.css" />
 
 </head>
 
@@ -31,15 +32,15 @@
 
                 <div class="collapse navbar-collapse" id="sidebar-nav" role="navigation">
                     <ul class="nav">
-                        <li  ><a href="/admin"><span class="icon icon-chart-column "></span>Productos</a></li>
-                        <li ><a href="/billAdmin"><span class="icon icon-chart-column "></span>Ingresos</a></li>
-                        <li ><a href="/voucherAdmin"><span class="icon icon-chart-column "></span>Egresos</a></li>
-                        <li class="active"><a href="/brand"><span class="icon icon-chart-column "></span>Marcas</a></li>
-                        <li ><a href="/category"><span class="icon icon-chart-column "></span>Categorías</a></li>
-                        <li ><a href="/unit"><span class="icon icon-chart-column "></span>Unidades de medida</a></li>
-                        <li ><a href="/location"><span class="icon icon-chart-column "></span>Almacenes</a></li>
-                        <li ><a href="/user"><span class="icon icon-chart-column "></span>Usuarios</a></li>
-                        
+                        <li class="active"><a href="/admin"><span class="icon icon-chart-column "></span>Productos</a></li>
+                        <li><a href="/billAdmin"><span class="icon icon-chart-column "></span>Ingresos</a></li>
+                        <li><a href="/voucherAdmin"><span class="icon icon-chart-column "></span>Egresos</a></li>
+                        <li><a href="/brand"><span class="icon icon-chart-column "></span>Marcas</a></li>
+                        <li><a href="/category"><span class="icon icon-chart-column "></span>Categorías</a></li>
+                        <li><a href="/unit"><span class="icon icon-chart-column "></span>Unidades de medida</a></li>
+                        <li><a href="/location"><span class="icon icon-chart-column "></span>Almacenes</a></li>
+                        <li><a href="/user"><span class="icon icon-chart-column "></span>Usuarios</a></li>
+
                     </ul>
 
 
@@ -47,13 +48,13 @@
             </div>
             <!--close left column-->
             <div id="main-section" class="col-xs-12 column">
-                <!--open main column-->
+
 
 
                 <nav class="navbar-default">
                     <div class="container-fluid">
                         <div class="navbar-header">
-                            <a class="navbar-brand" href="/">Gestionar de marcas</a>
+                            <a class="navbar-brand" href="/">Gestionar productos</a>
                         </div>
 
                         <ul class="nav navbar-nav navbar-right">
@@ -62,27 +63,38 @@
                         </ul>
                     </div>
                 </nav>
-                <div class="row" id="example">
-                    <div id="grid"></div>
-                </div>
-
-
-                <div id="about" class="main-section-content row">
 
 
 
-                    <div class="section-white">
-                        <!--  <h3 class="section-title">Featured ASP.NET MVC UI Components</h3> -->
-                        <div class="row">
+                <form class="form-horizontal well">
+                    <legend>
+                        <h3>
+                            <div id="title">HTML5 File API</div>
+                        </h3>
+                    </legend>
+                    <fieldset>
+                        <label for="csvFileInput"> <strong>CSV File:</strong>
+                            </label>
+                        <input type="file" id="csvFileInput" onchange="handleFiles(this.files)" accept=".csv">
+                        <button type="button" class="btn btn-primary" onclick="chargeData()">Enviar data</button>
+
+                    </fieldset>
+                </form>
+                <div id="output" style="height: 150; background-color: white"></div>
 
 
-                        </div>
-                    </div>
-                </div>
-                <div id="modal"></div>
-                <script>
-                    var user = '<%= user.id%>';
-                </script>
+            </div>
+
+
+
+
+
+
+
+            <div id="modal"></div>
+            <script>
+                var user = '<%= user.id%>';
+            </script>
 
 
 </body>
@@ -90,8 +102,15 @@
 <script src="../kendo/js/kendo.all.min.js"></script>
 <script src="../kendo/js/bootstrap.min.js"></script>
 <script src="../kendo/js/kendo.messages.es-MX.min.js"></script>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script src="../js/datatables.min.js"></script>
 
-<script src="../logic/brand.js"></script>
+<script src="../logic/lotes.js"></script>
+
+<script>
+
+</script>
+
 
 
 </html>

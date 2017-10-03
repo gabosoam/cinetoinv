@@ -28,7 +28,7 @@ module.exports = {
     },
 
     update: function (datos, callback) {
-        connection.query('UPDATE `provider` SET `dni`=?,`name`=?,`address`=?, `phone`=? WHERE (`id`=?) LIMIT 1', [datos.dni, datos.name.toUpperCase(), datos.address.toUpperCase(), datos.phone, datos.id], function (error, results, fields) {//
+        connection.query('UPDATE `provider` SET `dni`=?,`name`=?,`address`=?, `phone`=?, email=? WHERE (`id`=?) LIMIT 1', [datos.dni, datos.name.toUpperCase(), datos.address.toUpperCase(), datos.phone,datos.email, datos.id], function (error, results, fields) {//
             if (error) {
                 callback('error en la consulta: ' + error, null);
             } else {
@@ -53,7 +53,7 @@ module.exports = {
 
 
     create: function (datos, callback) {
-        connection.query('INSERT INTO provider(dni, name, address, phone) VALUES(?,?,?,?)', [datos.dni, datos.name.toUpperCase(), datos.address.toUpperCase(), datos.phone], function (error, results, fields) {//
+        connection.query('INSERT INTO provider(dni, name, address, phone,email) VALUES(?,?,?,?,?)', [datos.dni, datos.name.toUpperCase(), datos.address.toUpperCase(), datos.phone, datos.email], function (error, results, fields) {//
             if (error) {
                 callback('error en la consulta: ' + error, null);
             } else {

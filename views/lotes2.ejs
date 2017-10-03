@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Northwind Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link href="../kendo/styles/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="../kendo/styles/site.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../kendo/css/kendo.common-bootstrap.min.css" />
+    <link rel="stylesheet" href="../kendo/css/kendo.bootstrap.min.css" />
+    <link rel="stylesheet" href="../kendo/css/kendo.bootstrap.mobile.min.css" />
+</head>
+
+<body>
+    <!-- Google Tag Manager -->
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-6X92" height="0" width="0" style="display: none; visibility: hidden"></iframe>
+    </noscript>
+    <script>
+        (function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-6X92');
+    </script>
+    <!-- End Google Tag Manager -->
+    <div class="container-fluid">
+        <!--open container-->
+        <div class="row row-offcanvas row-offcanvas-left">
+            <!--open row-->
+            <div id="nav-section" class="col-xs-12 column">
+                <!--open nav column-->
+                <div class="navbar-default">
+                    <button id="toggle-button" type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                </div>
+                <h1 id="dash-logo" class="center-block">Northwind&#183;Dash</h1>
+                <div class="collapse navbar-collapse" id="sidebar-nav" role="navigation">
+                    <ul class="nav">
+                        <li id="RegionalSalesStatus"><a href="/aspnet-mvc/html5-dashboard-sample-app/"><span class="icon icon-chart-column"></span>Regional Sales Status</a></li>
+                        <li id="ProductsAndOrders"><a href="/aspnet-mvc/html5-dashboard-sample-app/Home/ProductsAndOrders"><span class="icon icon-star-empty"></span>Products &amp; Orders</a></li>
+                        <li id="TeamEfficiency"><a href="/aspnet-mvc/html5-dashboard-sample-app/Home/TeamEfficiency"><span class="icon icon-faves"></span>Team Efficiency</a></li>
+                        <li id="About"><a href="/aspnet-mvc/html5-dashboard-sample-app/Home/About"><span class="icon icon-info"></span>About</a></li>
+                    </ul>
+                    <div id="rights">
+                        <p>Copyright &copy; 2017, Progress Software Corporation and/or its subsidiaries or affiliates. All Rights
+                            Reserved.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!--close left column-->
+            <div id="main-section" class="col-xs-12 column">
+                <!--open main column-->
+
+                <div id="main-section-header" class="row">
+                    <h2>About</h2>
+                </div>
+
+                <div id="about" class="main-section-content row">
+                    <div>
+                        <h3 class="section-title">Telerik Northwind Dashboard</h3>
+                        <form class="form-horizontal well">
+                            <legend>
+                                <h3>
+                                    <div id="title">HTML5 File API</div>
+                                </h3>
+                            </legend>
+                            <fieldset>
+                                <label for="csvFileInput"> <strong>CSV File:</strong>
+                                        </label>
+                                <input type="file" id="csvFileInput" onchange="handleFiles(this.files)" accept=".csv">
+
+                            </fieldset>
+                        </form>
+                        <div id="output"></div>
+
+
+                    </div>
+
+                    <div class="section-white">
+                        <h3 class="section-title">Featured ASP.NET MVC UI Components</h3>
+                        <div class="row">
+                            <ul class="col-xs-4">
+                                <li><a href="http://demos.telerik.com/aspnet-mvc/datetimepicker/index">Date Picker</a></li>
+                                <li><a href="http://demos.telerik.com/aspnet-mvc/dropdownlist/index">DropDownList</a></li>
+                                <li><a href="http://demos.telerik.com/aspnet-mvc/grid/index">Grid</a></li>
+                                <li><a href="http://demos.telerik.com/aspnet-mvc/listview/index">ListView</a></li>
+                                <li><a href="http://demos.telerik.com/aspnet-mvc/scheduler/index">Scheduler</a></li>
+                                <li><a href="http://demos.telerik.com/aspnet-mvc/tabstrip/index">TabStrip</a></li>
+                                <li><a href="http://demos.telerik.com/aspnet-mvc/tooltip/index">Tooltip</a></li>
+                            </ul>
+                            <ul class="col-xs-4">
+                                <li><a href="http://demos.telerik.com/aspnet-mvc/bar-charts/index">Column Charts</a></li>
+                                <li><a href="http://demos.telerik.com/aspnet-mvc/donut-charts/index">Donut Charts</a></li>
+                                <li><a href="http://demos.telerik.com/aspnet-mvc/line-charts/index">Line Charts</a></li>
+                                <li><a href="http://demos.telerik.com/aspnet-mvc/map/index">Map</a></li>
+                                <li><a href="http://demos.telerik.com/aspnet-mvc/sparklines/index">SparkLines</a></li>
+                            </ul>
+                            <ul class="col-xs-4">
+                                <li><a href="http://demos.telerik.com/kendo-ui/templates/index">Templates</a></li>
+                                <li><a href="http://demos.telerik.com/aspnet-mvc/validator/index">Validator</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $("#About").addClass("active");
+                    });
+                </script>
+
+            </div>
+            <!--close main column-->
+        </div>
+        <!--close row-->
+    </div>
+    <!--close container-->
+
+    <script>
+                    $(document).ready(function () {
+                        $('[data-toggle=offcanvas]').click(function () {
+                            $('.row-offcanvas').toggleClass('active');
+                        });
+                    });
+    </script>
+
+    <script src="../kendo/js/jquery-3.1.1.min.js"></script>
+    <script src="../kendo/js/kendo.all.min.js"></script>
+    <script src="../kendo/js/bootstrap.min.js"></script>
+    <script src="../kendo/js/kendo.messages.es-MX.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script src="../logic/lotes.js"></script>
+</body>
+
+</html>

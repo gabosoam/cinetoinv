@@ -14,7 +14,7 @@ router.get('/:voucher', isLoggedIn, function (req, res, next) {
 });
 
 
-router.get('/', isLoggedIn, function (req, res, next) {
+router.get('/', function (req, res, next) {
   voucher.read(function (err, data) {
     if (err) {
       res.sendStatus(500);
@@ -74,9 +74,26 @@ router.post('/create', function (req, res, next) {
     });
   });
 
-  router.post('/update', function (req, res, next) {
+  router.post('/update',isLoggedIn, function (req, res, next) {
     var datos = req.body;
     voucher.update(datos, function (error, data) {
+      if (error) {
+
+        res.sendStatus(500);
+      } else {
+
+        if (data.affectedRows > 0) {
+          res.send(true);
+        } else {
+          res.sendStatus(500);
+        }
+      }
+    })
+  })
+
+  router.post('/updateAdmin',isLoggedInAdmin, function (req, res, next) {
+    var datos = req.body;
+    voucher.updateAdmin(datos, function (error, data) {
       if (error) {
 
         res.sendStatus(500);
@@ -98,5 +115,15 @@ function isLoggedIn(req, res, next) {
   sess.originalUrl = req.originalUrl;
   res.redirect('/login');
 }
+
+function isLoggedInAdmin(req, res, next) {
+	sess = req.session;
+
+	if (sess.adminDatos)
+	return next();
+	sess.originalUrl = req.originalUrl;
+	res.redirect('/login');
+}
+
 
 module.exports = router;

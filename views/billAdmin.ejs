@@ -27,19 +27,20 @@
                         <span class="icon-bar"></span>
                     </button>
                 </div>
-                <h1 id="dash-logo" class="center-block">Administración</h1>
+                <h1 id="dash-logo" class="center-block">Inventario</h1>
 
                 <div class="collapse navbar-collapse" id="sidebar-nav" role="navigation">
                     <ul class="nav">
-                        <li  ><a href="/admin"><span class="icon icon-chart-column "></span>Productos</a></li>
-                        <li ><a href="/billAdmin"><span class="icon icon-chart-column "></span>Ingresos</a></li>
-                        <li ><a href="/voucherAdmin"><span class="icon icon-chart-column "></span>Egresos</a></li>
-                        <li class="active"><a href="/brand"><span class="icon icon-chart-column "></span>Marcas</a></li>
-                        <li ><a href="/category"><span class="icon icon-chart-column "></span>Categorías</a></li>
-                        <li ><a href="/unit"><span class="icon icon-chart-column "></span>Unidades de medida</a></li>
-                        <li ><a href="/location"><span class="icon icon-chart-column "></span>Almacenes</a></li>
-                        <li ><a href="/user"><span class="icon icon-chart-column "></span>Usuarios</a></li>
-                        
+
+                        <li><a href="/admin"><span class="icon icon-chart-column "></span>Productos</a></li>
+                        <li class="active"><a href="/billAdmin"><span class="icon icon-chart-column "></span>Ingresos</a></li>
+                        <li><a href="/voucherAdmin"><span class="icon icon-chart-column "></span>Egresos</a></li>
+                        <li><a href="/brand"><span class="icon icon-chart-column "></span>Marcas</a></li>
+                        <li><a href="/category"><span class="icon icon-chart-column "></span>Categorías</a></li>
+                        <li><a href="/unit"><span class="icon icon-chart-column "></span>Unidades de medida</a></li>
+                        <li><a href="/location"><span class="icon icon-chart-column "></span>Almacenes</a></li>
+                        <li><a href="/user"><span class="icon icon-chart-column "></span>Usuarios</a></li>
+                       
                     </ul>
 
 
@@ -53,11 +54,11 @@
                 <nav class="navbar-default">
                     <div class="container-fluid">
                         <div class="navbar-header">
-                            <a class="navbar-brand" href="/">Gestionar de marcas</a>
+                            <a class="navbar-brand" href="/">Registrar ingresos</a>
                         </div>
 
                         <ul class="nav navbar-nav navbar-right">
-                            <li style="cursor: pointer; cursor: hand;"><a data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-user"></span> <%= user.name %></a></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-user"></span> <%= user.name %></a></li>
                             <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
                         </ul>
                     </div>
@@ -69,8 +70,6 @@
 
                 <div id="about" class="main-section-content row">
 
-
-
                     <div class="section-white">
                         <!--  <h3 class="section-title">Featured ASP.NET MVC UI Components</h3> -->
                         <div class="row">
@@ -79,19 +78,22 @@
                         </div>
                     </div>
                 </div>
-                <div id="modal"></div>
-                <script>
-                    var user = '<%= user.id%>';
-                </script>
 
 
 </body>
-<script src="../kendo/js/jquery-3.1.1.min.js"></script>
-<script src="../kendo/js/kendo.all.min.js"></script>
-<script src="../kendo/js/bootstrap.min.js"></script>
-<script src="../kendo/js/kendo.messages.es-MX.min.js"></script>
+<% if (user) { %>
+    <script>
+        var user = '<%= user.id %>'
+    </script>
+    <% } %>
 
-<script src="../logic/brand.js"></script>
+
+        <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script src="../kendo/js/jquery-3.1.1.min.js"></script>
+        <script src="../kendo/js/bootstrap.min.js"></script>
+        <script src="../kendo/js/kendo.all.min.js"></script>
+        <script src="../kendo/js/kendo.messages.es-MX.min.js"></script>
+        <script src="../logic/billAdmin.js"></script>
 
 
 </html>

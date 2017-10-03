@@ -159,7 +159,8 @@
                                                 <div class="form-group">
                                                     <label for="pwd">Número de serie:</label>
                                                     <input type="text" class="form-control" validationMessage="Ingresa el número de serie" name="barcode" required id="barcode"
-                                                        placeholder="Número de serie" style="width: 100%">
+                                                        placeholder="Número de serie" style="width: 100%"><button type="button" onclick="generateBarcode()" style="width: 100%" class="btn btn-default">Generar No. de serie</button>
+                                                        <span id="manchego"></span>
                                                 </div>
 
                                             </div>
@@ -191,7 +192,7 @@
 
                             </div>
                             <br>
-
+                            <button onclick="print()" class="btn btn-success">PDF</button>
                             <div id="grid2" tabindex="0"></div>
 
 
@@ -288,78 +289,157 @@
                     </div>
                 </div>
 
-                
-
-                
 
 
+
+
+                <div class="modal fade" id="myModal2" role="dialog">
+                    <div class="modal-dialog modal-lg">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Reporte</h4>
+                            </div>
+                            <div class="modal-body">
+                                <button onclick="print()" class="btn btn-primary">Imprimir</button>
+                                <div id="print" style="min-width: 210mm">
+
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <center>
+                                                    <img class="" src="../image/logo.svg" width="280px" />
+
+
+
+
+                                                </center>
+                                            </td>
+                                            <td style="text-align: right">
+                                                <h5>FOP-
+                                                    <%=data.id%>
+                                                </h5>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+
+                                    <hr>
+                                    <center><strong style="font-size: 18px">Reporte de ingreso</strong></center>
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td>
+                                                <h5>Proveedor:</h5>
+                                                <address>
+                                                    <strong><%=data.name%></strong><br>
+                                                    <%=data.address%><br>
+                                                        <%=data.email%>,<br>
+                                                            <%=data.phone%>
+                                                </address>
+                                            </td>
+                                            <td style="text-align: right">
+
+                                                <address>
+                                                    <strong>CINETO TELECOMUNICACIONES S.A.</strong><br> LA PINTA 236 y RÁBIDA.
+                                                    <br> info@cineto.net
+                                                    <br> (593-2) 5100 528
+                                                </address>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                    <hr>
+                                    <table id="Voucher" class="table invoice-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Item</th>
+                                                <th>Descripción</th>
+                                                <th>Código</th>
+                                                <th>Serie</th>
+                                                <th>Cant.</th>
+                                                <th>Observación</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr w3-repeat="vouchers">
+                                                <td>{{num}}</td>
+                                                <td>{{description}}</td>
+                                                <td>{{code}}</td>
+                                                <td>{{barcode}}</td>
+                                                <td>{{count}}</td>
+                                                <td><input style="border: 0; width: 100%" type="text" value="{{observation}}"></td>
+                                            </tr>
+
+
+                                        </tbody>
+                                    </table>
+                                    <hr>
+
+                                    <div class="well m-t"><strong>Comentario</strong>
+                                        <input class="form-control" type="text">
+                                    </div>
+
+
+
+                                    <table style="width: 100%; border: 1 ">
+                                        <tr>
+                        
+                                            <td>
+                                                <center>
+                                                    <p>
+                                                        REPRESENTANTE CINETO <br><br><br><br><br> _______________________________<br><br>
+                                                        <%=data.user%>
+                                                    </p>
+                                                </center>
+
+
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 </body>
 <!-- Modal -->
 
 
 <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 <script src="../kendo/js/jquery-3.1.1.min.js"></script>
+<script src="../kendo/js/jszip.min.js"></script>
 <script src="../kendo/js/kendo.all.min.js"></script>
 <script src="../kendo/js/bootstrap.min.js"></script>
-<script src="../kendo/js/jszip.min.js"></script>
+
 <script src="../kendo/js/kendo.messages.es-MX.min.js"></script>
+<script src="../js/w3.js"></script>
+<script src="../js/jquery.PrintArea.js"></script>
+<script>
+    $.get("/bill/read/<%=bill%>", function (data) {
 
-<script type="x/kendo-template" id="page-template">
 
-    <div id="hola" class="page-template">
+        w3.displayObject("Voucher", { vouchers: data });
 
+    });
 
+    function print() {
+        $('#print').printArea();
 
-        <div class="header">
-            <img src="../image/logo.svg" alt="" width="200px">
-       
-            <div class="row">
-                </br>
-            </br>
-                    <div class="col-md-3"><p><strong>Proveedor: </strong><%= data.name%></p></div>
-                    <div class="col-md-3"><p><strong>Fecha: </strong><%= data.date%></p></div>
-                    <div class="col-md-3"><p><strong>Referencía: </strong><%= data.reference%></p></div>
-                    <div class="col-md-3"><p><strong>Realizado por: </strong><%= data.user%></p></div>
-
-                </br></br>
-                </div>
-
-        </div>
-        <div class="watermark">CINETO</div>
-       
-        <div class="footer">
-                <div class="row">
-                </br>
-                <div class="col-md-9">
-                        La Pinta 236 y Rábida. Quito Ecuador, Edficio Alcatel Teléfono: (593-2) 5100 528 - Email: info@cineto.net    
-                    </div>
-                        <div class="col-md-3">
-                            ______________________</br></br>
-                            <%= data.user%>
-                            
-                            
-                            </div>
-                        
-                    </div>
-        </div>
-    </div>
+    }
 </script>
-<script type="text/x-kendo-template" id="template">
-    <div class="refreshBtnContainer">
-        <a href="\\#" class="k-pager-refresh k-link k-button" title="Refresh"><span class="k-icon k-i-reload"></span></a>
-    </div>
-    <div class="toolbar">
-        <label class="category-label" for="category">Show products by category:</label>
-        <input type="search" id="category" style="width: 150px" />
-    </div>
-</script>
+
+
+
 <% if (bill) { %>
     <script>
         var bill = '<%= bill %>';
         var userBill = '<%=data.iduser%>';
         var userSession = '<%=user.id%>';
         var user = '<%=data.user%>';
-        var reference= '<%=data.reference%>';
+        var reference = '<%=data.reference%>';
     </script>
     <% } %>
 
@@ -375,79 +455,4 @@
 
 
 
-
-
 </html>
-
-<style>
-    /* Page Template for the exported PDF */
-
-    .page-template {
-        font-family: "DejaVu Sans", "Arial", sans-serif;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-    }
-
-    .cosa {
-        background: url("../image/logo.png");
-    }
-
-    .page-template .header {
-        position: absolute;
-        top: 30px;
-        left: 30px;
-        right: 30px;
-        color: black;
-    }
-
-    .page-template .imgagen {
-        max-width: 100px;
-    }
-
-    .page-template .footer {
-        position: absolute;
-        bottom: 30px;
-        left: 30px;
-        right: 30px;
-        text-align: center;
-        color: #888;
-    }
-
-    .page-template .watermark {
-        font-weight: bold;
-        font-size: 800%;
-        text-align: center;
-        margin-top: 35%;
-        color: #aaaaaa;
-        opacity: 0.1;
-        transform: rotate(-35deg) scale(1.7, 1.5);
-    }
-    /* Content styling */
-
-    .customer-photo {
-        display: inline-block;
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        background-size: 32px 35px;
-        background-position: center center;
-        vertical-align: middle;
-        line-height: 32px;
-        box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0, 0, 0, .2);
-        margin-left: 5px;
-    }
-
-    kendo-pdf-document .customer-photo {
-        border: 1px solid #dedede;
-    }
-
-    .customer-name {
-        display: inline-block;
-        vertical-align: middle;
-        line-height: 32px;
-        padding-left: 3px;
-    }
-</style>

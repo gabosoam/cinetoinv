@@ -9,6 +9,7 @@ router.get('/', isLoggedIn, function (req, res, next) {
 });
 
 
+
 router.get('/:bill', isLoggedIn, function (req, res, next) {
   var billsend = req.params.bill;
 
@@ -58,9 +59,26 @@ router.post('/read2', function (req, res, next) {
   })
 });
 
-router.post('/update', function (req, res, next) {
+router.post('/update', isLoggedIn, function (req, res, next) {
   var datos = req.body;
   bill.update(datos, function (error, datos) {
+    if (error) {
+
+      res.sendStatus(500);
+    } else {
+
+      if (datos.affectedRows > 0) {
+        res.send(true);
+      } else {
+        res.sendStatus(500);
+      }
+    }
+  })
+})
+
+router.post('/updateAdmin', isLoggedInAdmin, function (req, res, next) {
+  var datos = req.body;
+  bill.updateAdmin(datos, function (error, datos) {
     if (error) {
 
       res.sendStatus(500);
@@ -117,6 +135,15 @@ function isLoggedIn(req, res, next) {
     return next();
   sess.originalUrl = req.originalUrl;
   res.redirect('/login');
+}
+
+function isLoggedInAdmin(req, res, next) {
+	sess = req.session;
+
+	if (sess.adminDatos)
+	return next();
+	sess.originalUrl = req.originalUrl;
+	res.redirect('/login');
 }
 
 

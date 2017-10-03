@@ -49,6 +49,16 @@ module.exports = {
         });
     },
 
+    updateAdmin: function (datos, callback) {
+        connection.query('UPDATE bill SET `provider`=?, `date`=?, `reference`=?, type=?, state=? WHERE (`id`=?) LIMIT 1', [datos.provider, new Date(datos.date).toLocaleDateString(), datos.reference.toUpperCase(), datos.type,datos.state, datos.id], function (error, results, fields) {//
+            if (error) {
+                callback('error en la consulta: ' + error, null);
+            } else {
+                callback(null, results);
+            }
+        });
+    },
+
     delete: function (datos, callback) {
         connection.query('DELETE FROM bill WHERE id=?', [datos.id], function (error, results, fields) {//
             if (error) {
