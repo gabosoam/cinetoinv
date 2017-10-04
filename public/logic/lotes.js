@@ -1,6 +1,8 @@
 var category = [];
 var brand = [];
 var codes = [];
+var locationInv = [];
+var barcode = [];
 
 function handleFiles(files) {
     // Check for the various File API support.
@@ -35,16 +37,24 @@ function processData(csv) {
     for (var i = 1; i < lines.length - 1; i++) {
         category.push(lines[i][3]);
         brand.push(lines[i][4]);
-        codes.push(lines[i][1]);
-
-
+        locationInv.push(lines[i][6]);
+        codes.push(lines[i][0] + '+=+' + lines[i][1] + '+=+' + lines[i][3] + '+=+' + lines[i][4]);
+        barcode.push(lines[i][1] + '+=+' + lines[i][2] + '+=+' + lines[i][5] + '+=+' + lines[i][6]);
     }
-    console.log(brand.unique());
-    console.log(category.unique());
-    console.log(codes.unique());
+
+    console.log(barcode)
+
+
 
 
     drawOutput(lines);
+}
+
+function toObject(arr) {
+    var rv = {};
+    for (var i = 0; i < arr.length; ++i)
+        rv[i] = arr[i];
+    return rv;
 }
 
 function errorHandler(evt) {
@@ -66,6 +76,8 @@ function drawOutput(lines) {
         item.appendChild(document.createTextNode(lines[0][i]));
 
     }
+
+
 
 
     var tbody = table.createTBody();
@@ -103,9 +115,38 @@ function change() {
 }
 
 function chargeData() {
-    $.post("/lotes/category/",{values: brand.unique()} , function (data) {
+
+
+    $.post("/lotes/category/", { aux: category.unique() }, function (data) {
+        console.log(data);
         alert(data);
+
     });
+
+    $.post("/lotes/brand/", { aux: brand.unique() }, function (data) {
+
+    });
+
+    $.post("/lotes/model/", { aux: codes.unique() }, function (data) {
+
+    });
+
+    $.post("/lotes/location/", { aux: locationInv.unique() }, function (data) {
+
+    });
+
+    $.post("/lotes/barcode/", { aux: barcode.unique() }, function (data) {
+
+    });
+
+
+
+
+
+
+
+
+
 }
 
 
